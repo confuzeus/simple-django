@@ -1,0 +1,109 @@
+x-base: &base
+  env_file: .env
+
+x-base-debug: &basedebug
+  <<: *base
+  profiles:
+    - debug
+
+x-base-prod: &base-prod
+  <<: *base
+  profiles:
+    - prod
+
+x-django-debug: &djdebug
+  <<: *basedebug
+  build:
+    context: .
+    target: djangodebug
+  volumes:
+    - .:/app
+  depends_on:
+    - mailhog
+    - redis
+    - postgres
+
+x-django: &djprod
+  <<: *base-prod
+  build:
+    context: .
+    target: djangoprod
+    args:
+      DOCKER_UID: 5000
+      DOCKER_GID: 5000
+  environment:
+    - DJANGO_DEBUG=0
+  image: ${DOCKER_PROD_IMAGE}
+  depends_on:
+    - redis
+    - postgres
+
+volumes:
+  local_postgres_data: {}
+
+services:
+
+  node:
+    <<: *basedebug
+    volumes:
+      - .:/app
+    build:
+      context: .
+      args:
+        DOCKER_BROWSERSYNC_PORT: ${DOCKER_BROWSERSYNC_PORT}
+      target: node
+    command: npm run dev
+    ports:
+      - "${BROWSERSYNC_PORT}:${DOCKER_BROWSERSYNC_PORT}"
+      - "${BROWSERSYNC_UI_PORT}:${DOCKER_BROWSERSYNC_UI_PORT}"
+
+  mailhog:
+    <<: *basedebug
+    image: mailhog/mailhog:v1.0.0
+    container_name: mailhog
+    ports:
+      - "${MAILHOG_PORT:-8025}:${DOCKER_MAILHOG_PORT:-8025}"
+  
+  piptools:
+    <<: *basedebug
+    volumes:
+      - ./requirements:/app/requirements
+    build:
+      context: .
+      args:
+        DOCKER_UID: ${DOCKER_UID}
+        DOCKER_GID: ${DOCKER_GID}
+      target: piptools
+
+  redis:
+    <<: *base
+    image: redis:6
+    profiles:
+      - debug
+      - prod
+    container_name: redis
+
+  postgres:
+    <<: *base
+    image: postgres:14
+    profiles:
+      - debug
+      - prod
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data
+
+  djangodebug:
+    <<: *djdebug
+    command: /start
+
+  djangoqdebug:
+    <<: *djdebug
+    command: python manage.py qcluster
+
+  djangoprod:
+    <<: *djprod
+    command: /start
+
+  djangoqprod:
+    <<: *djprod
+    command: python manage.py qcluster

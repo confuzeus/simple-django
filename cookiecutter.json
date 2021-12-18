@@ -1,0 +1,13 @@
+{
+  "project_name": "My Awesome Project",
+  "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
+  "description": "Behold My Awesome Project!",
+  "author_name": "Arsero Ltd",
+  "domain_name": "example.com",
+  "email": "{{ cookiecutter.author_name.lower()|replace(' ', '-') }}@{{ cookiecutter.domain_name }}",
+  "django_version": "3.2",
+  "django_max_version": "4.0",
+  "version": "0.1.0",
+  "timezone": "UTC",
+  "language_code": "en"
+}

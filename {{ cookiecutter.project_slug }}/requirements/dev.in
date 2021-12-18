@@ -1,0 +1,12 @@
+-c ./base.txt
+
+Werkzeug # https://github.com/pallets/werkzeug
+psycopg2-binary # https://github.com/psycopg/psycopg2
+pyOpenSSL
+
+coverage  # https://github.com/nedbat/coveragepy
+
+# Django
+# ------------------------------------------------------------------------------
+django-debug-toolbar  # https://github.com/jazzband/django-debug-toolbar
+django-coverage-plugin  # https://github.com/nedbat/django_coverage_plugin

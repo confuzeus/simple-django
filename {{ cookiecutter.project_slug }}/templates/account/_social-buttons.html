@@ -1,0 +1,10 @@
+{%- raw -%}{% load socialaccount %}
+{% get_providers as socialaccount_providers %}
+{% if socialaccount_providers %}
+    {% providers_media_js %}
+    <div class="d-flex flex-column mb-5">
+        <a href="{% provider_login_url "google" %}"
+           class="btn btn-lg btn-outline-primary d-block btn-block">
+            <span class="d-flex align-items-center justify-content-center">{% include "helpers/_bootstrap-svg.html" with class_name="auth-social-icon me-1" icon_name="google" %}Continue with Google</span></a>
+    </div>
+{% endif %}{%- endraw -%}

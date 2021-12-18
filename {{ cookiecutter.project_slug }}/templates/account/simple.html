@@ -1,0 +1,23 @@
+{%- raw -%}{% extends "fullbleed.html" %}
+
+{% block inner %}
+
+    <div class="container py-15 py-lg-20">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                <h1 class="mb-10 text-center">{% block headline %}{% endblock %}</h1>
+                <div class="card">
+                    <div class="card-body">
+                        {% block flash_messages %}
+                            {% include "partials/_flash-messages.html" %}
+                        {% endblock %}
+                        {% block content %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+
+{% endblock %}{%- endraw -%}

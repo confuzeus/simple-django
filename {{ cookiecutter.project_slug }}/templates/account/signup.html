@@ -1,0 +1,40 @@
+{%- raw -%}
+{% extends "account/simple.html" %}
+{% load crispy_forms_filters %}
+
+{% load i18n %}
+
+{% block seo_title %}{% trans "Signup" %}{% endblock %}
+
+{% block headline %}
+{% trans "Signup" %}
+{% endblock %}
+
+{% block content %}
+
+    {% include "account/_social-buttons.html" %}
+
+    <form class="signup" id="signupForm" method="post" action="{% url 'account_signup' %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+        {% endif %}
+        <div class="form-group">
+            <button class="btn btn-primary btn-lg w-100 mb-3 h-captcha"
+                    data-sitekey="{{ captcha_site_key }}"
+                    data-callback="onHcaptchaSubmit" type="submit">{% trans "Sign up with email" %} &raquo;</button>
+            <p class="text-center small">
+                Already have an account? <a href="{% url "account_login" %}">Login here</a>.
+            </p>
+        </div>
+
+    </form>
+
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    {% include 'partials/_hcaptcha-js.html' %}
+{% endblock %}
+{%- endraw -%}
