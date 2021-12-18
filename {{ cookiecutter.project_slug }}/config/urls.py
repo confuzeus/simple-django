@@ -11,7 +11,6 @@ urlpatterns = [
     re_path(r"^robots\.txt", include("robots.urls")),
     path(settings.ADMIN_URL, admin.site.urls),
     path("accounts/auth/", include("allauth.urls")),
-    path("accounts/", include("{{ cookiecutter.project_slug }}.accounts.urls")),
     path("i18n/", include("django.conf.urls.i18n")),
     path("up/", core_views.healthcheck, name="healthcheck"),
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
