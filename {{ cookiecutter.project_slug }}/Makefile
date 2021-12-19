@@ -9,7 +9,7 @@ init:
 	docker-compose run --rm djangodebug python manage.py migrate
 
 pipcompile:
-	docker-compose --profile debug run --rm piptools compile
+	docker-compose --profile debug run --rm piptools /compile
 
 coverage:
 	rm -rf htmlcov
