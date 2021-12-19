@@ -1,7 +1,7 @@
 from allauth.account import forms as allauth_account_forms
 from django.contrib.auth import get_user_model
 
-from base_django.core.mixins.form_mixins import HcaptchaFormMixin
+from {{ cookiecutter.project_slug }}.core.mixins.form_mixins import HcaptchaFormMixin
 
 User = get_user_model()
 
