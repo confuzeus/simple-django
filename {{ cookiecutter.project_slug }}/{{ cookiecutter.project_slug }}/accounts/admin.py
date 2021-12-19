@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 
-from base_django.accounts.models import User, UserProfile
+from {{ cookiecutter.project_slug }}.accounts.models import User, UserProfile
 
 
 class UserProfileInline(admin.TabularInline):
