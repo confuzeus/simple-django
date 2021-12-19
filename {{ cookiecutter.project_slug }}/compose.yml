@@ -60,7 +60,6 @@ services:
   mailhog:
     <<: *basedebug
     image: mailhog/mailhog:v1.0.0
-    container_name: mailhog
     ports:
       - "${MAILHOG_PORT:-8025}:${DOCKER_MAILHOG_PORT:-8025}"
   
@@ -81,7 +80,6 @@ services:
     profiles:
       - debug
       - prod
-    container_name: redis
 
   postgres:
     <<: *base
