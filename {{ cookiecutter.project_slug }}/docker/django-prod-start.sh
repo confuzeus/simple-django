@@ -5,4 +5,8 @@ set -o pipefail
 set -o nounset
 
 python manage.py collectstatic --noinput
-gunicorn config.asgi --bind 0.0.0.0:$DOCKER_DJANGO_PORT --chdir=/app -k uvicorn.workers.UvicornWorker
+gunicorn config.asgi \
+    --bind 0.0.0.0:$DOCKER_DJANGO_PORT \
+    --chdir=/app -k uvicorn.workers.UvicornWorker \
+    --worker-tmp-dir /dev/shm \
+    --workers=2
