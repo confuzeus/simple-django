@@ -17,8 +17,6 @@ PROJECT_NAME = "{{ cookiecutter.project_name }}"
 
 DOMAIN_NAME = "{{ cookiecutter.domain_name }}"
 
-PORT_NUMBER = 8000
-
 # Internationalization
 # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/topics/i18n/
 
