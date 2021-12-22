@@ -95,6 +95,7 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount.providers.google",
     "crispy_forms",
     "crispy_bootstrap5",
+    "zen_queries",
 ]
 
 LOCAL_APPS = [
