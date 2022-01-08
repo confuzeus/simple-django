@@ -1,3 +1,5 @@
+.PHONY: init pipcompile coverage reset dev
+
 init:
 	export COMPOSE_PROFILES=debug
 	docker-compose build piptools
