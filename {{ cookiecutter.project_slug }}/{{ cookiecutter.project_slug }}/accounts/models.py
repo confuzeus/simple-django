@@ -19,4 +19,5 @@ class UserProfile(models.Model):
         return f"{self.user.email}'s profile."
 
     class Meta:
+        ordering = ["-user__date_joined"]
         db_table = "user_profiles"
