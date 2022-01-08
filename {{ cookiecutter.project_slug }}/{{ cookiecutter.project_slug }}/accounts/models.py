@@ -4,7 +4,10 @@ from django.db import models
 
 
 class User(AbstractUser):
-    pass
+    
+    class Meta:
+        ordering = ["-date_joined"]
+        db_table = "users"
 
 
 class UserProfile(models.Model):
@@ -14,3 +17,6 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.user.email}'s profile."
+
+    class Meta:
+        db_table = "user_profiles"
