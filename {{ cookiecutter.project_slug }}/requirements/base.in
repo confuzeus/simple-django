@@ -22,3 +22,4 @@ django-allauth>=0.45.0,<1.0 # https://pypi.org/project/allauth-django/
 django-crispy-forms>=1.13.0,<2.0 # https://pypi.org/project/django-crispy-forms/
 crispy-bootstrap5>=0.6,<1.0 # https://pypi.org/project/crispy-bootstrap5/
 django-zen-queries>=2.1.0,<3.0 # https://pypi.org/project/django-zen-queries/
+django-allcaptcha>=0.3,<1.0 # https://pypi.org/project/django-allcaptcha/

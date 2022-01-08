@@ -3,6 +3,8 @@
 
 {% load i18n %}
 {% load crispy_forms_filters %}
+{% load allcaptcha_tags %}
+
 
 {% block seo_title %}{% trans "Log in" %}{% endblock %}
 
@@ -20,8 +22,8 @@
         {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
         {% endif %}
-        <button class="btn btn-lg btn-primary d-block mb-2 w-100 h-captcha"
-                type="button" data-sitekey="{{ captcha_site_key }}" data-callback="onHcaptchaSubmit">{% trans "Continue with Email" %}</button>
+        <button class="btn btn-lg btn-primary d-block mb-2 w-100 {% get_challenge_class %}"
+                type="button" data-sitekey="{% get_site_key %}" data-callback="{% get_callback_name %}">{% trans "Continue with Email" %}</button>
         <div class="d-flex justify-content-center">
             <a class="text-center" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
         </div>
@@ -31,6 +33,6 @@
 
 {% block js %}
     {{ block.super }}
-    {% include 'partials/_hcaptcha-js.html' %}
+    {{ form.media.js }}
 {% endblock %}
 {%- endraw -%}

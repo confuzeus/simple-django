@@ -1,6 +1,7 @@
 {%- raw -%}
 {% extends "account/simple.html" %}
 {% load crispy_forms_filters %}
+{% load allcaptcha_tags %}
 
 {% load i18n %}
 
@@ -21,9 +22,9 @@
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
         {% endif %}
         <div class="form-group">
-            <button class="btn btn-primary btn-lg w-100 mb-3 h-captcha"
-                    data-sitekey="{{ captcha_site_key }}"
-                    data-callback="onHcaptchaSubmit" type="submit">{% trans "Sign up with email" %} &raquo;</button>
+            <button class="btn btn-primary btn-lg w-100 mb-3 {% get_challenge_class %}"
+                    data-sitekey="{% get_site_key %}"
+                    data-callback="{% get_callback_name %}" type="submit">{% trans "Sign up with email" %} &raquo;</button>
             <p class="text-center small">
                 Already have an account? <a href="{% url "account_login" %}">Login here</a>.
             </p>
@@ -35,6 +36,6 @@
 
 {% block js %}
     {{ block.super }}
-    {% include 'partials/_hcaptcha-js.html' %}
+    {{ form.media.js }}
 {% endblock %}
 {%- endraw -%}
