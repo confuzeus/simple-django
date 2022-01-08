@@ -4,6 +4,8 @@ This template contains everything you need to bootstrap a new Django project.
 
 ## Usage guide
 
+Either run `make init` or:
+
 1. Make a copy of *.env_sample* named as *.env*. Edit contents as required.
 2. Build the *piptools* image and run `docker-compose --profile debug run piptools /compile` to compile requirements.
 3. Build everything with `docker-compose --profile debug build`.
