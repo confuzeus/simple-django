@@ -8,6 +8,6 @@ class CoreConfig(AppConfig):
 
     def ready(self):
         try:
-            from . import signals  # noqa F401
+            from .signals import accounts  # noqa F401
         except ImportError:
             pass
