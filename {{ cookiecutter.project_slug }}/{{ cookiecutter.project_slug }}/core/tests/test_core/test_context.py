@@ -24,14 +24,3 @@ class ContextProcessorTests(TestCase):
 
         # Must be same as in settings
         self.assertEqual(django_debug, settings.DEBUG)
-
-        # Site key
-        # --------
-
-        captcha_site_key = ctx.get("captcha_site_key")
-
-        # Must be none None
-        self.assertIsNotNone(captcha_site_key)
-
-        # Must be same as in settings
-        self.assertEqual(captcha_site_key, settings.CAPTCHA_SITE_KEY)

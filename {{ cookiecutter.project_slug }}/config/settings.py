@@ -19,6 +19,8 @@ PROJECT_NAME = "{{ cookiecutter.project_name }}"
 
 DOMAIN_NAME = "{{ cookiecutter.domain_name }}"
 
+PORT_NUMBER = env.str("DJANGO_SITE_PORT_NUMBER")
+
 # Internationalization
 # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/topics/i18n/
 
@@ -102,6 +104,7 @@ THIRD_PARTY_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "zen_queries",
+    "allcaptcha",
 ]
 
 LOCAL_APPS = [

@@ -1,12 +1,12 @@
 import unittest.mock
 from unittest.mock import MagicMock
-from django.test import testcase
+from django.test import TestCase
 
 from {{ cookiecutter.project_slug }}.core.utils.urls import redirect_next_or_default
 
 
 
-class TestUtils(testcase):
+class TestUtils(TestCase):
 
     def test_urls(self):
         response = redirect_next_or_default(path="/home/", default="/abcd/")
