@@ -1,18 +1,8 @@
 x-base: &base
   env_file: .env
 
-x-base-debug: &basedebug
+x-django: &djangobase
   <<: *base
-  profiles:
-    - debug
-
-x-base-prod: &base-prod
-  <<: *base
-  profiles:
-    - prod
-
-x-django-debug: &djdebug
-  <<: *basedebug
   build:
     context: .
     target: djangodebug
@@ -23,28 +13,13 @@ x-django-debug: &djdebug
     - redis
     - postgres
 
-x-django: &djprod
-  <<: *base-prod
-  build:
-    context: .
-    target: djangoprod
-    args:
-      DOCKER_UID: 5000
-      DOCKER_GID: 5000
-  environment:
-    - DJANGO_DEBUG=0
-  image: ${DOCKER_PROD_IMAGE}
-  depends_on:
-    - redis
-    - postgres
-
 volumes:
   local_postgres_data: {}
 
 services:
 
   node:
-    <<: *basedebug
+    <<: *base
     volumes:
       - .:/app
     build:
@@ -58,13 +33,13 @@ services:
       - "${BROWSERSYNC_UI_PORT}:${DOCKER_BROWSERSYNC_UI_PORT}"
 
   mailhog:
-    <<: *basedebug
+    <<: *base
     image: mailhog/mailhog:v1.0.0
     ports:
       - "${MAILHOG_PORT:-8025}:${DOCKER_MAILHOG_PORT:-8025}"
-  
+
   piptools:
-    <<: *basedebug
+    <<: *base
     volumes:
       - ./requirements:/app/requirements
     build:
@@ -77,31 +52,17 @@ services:
   redis:
     <<: *base
     image: redis:6
-    profiles:
-      - debug
-      - prod
 
   postgres:
     <<: *base
     image: postgres:14
-    profiles:
-      - debug
-      - prod
     volumes:
       - local_postgres_data:/var/lib/postgresql/data
 
-  djangodebug:
-    <<: *djdebug
+  django:
+    <<: *djangobase
     command: /start
 
-  djangoqdebug:
-    <<: *djdebug
-    command: python manage.py qcluster
-
-  djangoprod:
-    <<: *djprod
-    command: /start
-
-  djangoqprod:
-    <<: *djprod
+  djangoq:
+    <<: *djangobase
     command: python manage.py qcluster

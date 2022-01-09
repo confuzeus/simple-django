@@ -1,12 +1,14 @@
 import os
 import environ
 from django.contrib import messages
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env = environ.Env()
+env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DJANGO_DEBUG")
@@ -22,6 +24,10 @@ DOMAIN_NAME = "{{ cookiecutter.domain_name }}"
 
 # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/ref/settings/#language-code
 LANGUAGE_CODE = '{{ cookiecutter.language_code }}'
+
+LANGUAGES = (
+    ("en", _("English")),
+)
 
 TIME_ZONE = '{{ cookiecutter.timezone }}'
 
@@ -238,7 +244,7 @@ TEMPLATES = [
 ]
 
 THIRD_PARTY_CONTEXT_PROCESSORS = [
-    
+
 ]
 
 OWN_CONTEXT_PROCESSORS = [
@@ -316,8 +322,8 @@ EMAIL_SUBJECT_PREFIX = env(
 
 if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-    EMAIL_HOST = env.str("DJANGO_SMTP_HOST", default="mailhog")
-    EMAIL_PORT = env.int("DJANGO_SMTP_PORT", default=1025)
+    EMAIL_HOST = env.str("DJANGO_SMTP_HOST", default=env.str("DJANGO_SMTP_HOST"))
+    EMAIL_PORT = env.int("DJANGO_SMTP_PORT", default=env.int("DJANGO_SMTP_PORT"))
 else:
     EMAIL_BACKEND = "anymail.backends.amazon_ses.EmailBackend"
     ANYMAIL = {

@@ -116,17 +116,12 @@ function initBrowserSync() {
 
   https = (process.env.BROWSERSYNC_HTTPS || "false") !== "false";
 
-  let proxy;
-  if (https) {
-    proxy = `https://djangodebug:${process.env.DOCKER_DJANGO_PORT}`
-  } else {
-    proxy = `http://djangodebug:${process.env.DOCKER_DJANGO_PORT}`
-  }
+  const proxy = `${https ? 'https' : 'http'}://localhost:8000`
   browserSync.init({
     ui: {
-      port: parseInt(process.env.DOCKER_BROWSERSYNC_UI_PORT)
+      port: 3001
     },
-    port: parseInt(process.env.DOCKER_BROWSERSYNC_PORT),
+    port: 3000
     proxy: proxy,
     open: false,
     https: https,
