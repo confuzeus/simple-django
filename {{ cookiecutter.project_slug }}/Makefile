@@ -1,6 +1,7 @@
 .PHONY: init pipcompile pipsync coverage reset fixtures buildprod
 
 init: pipcompile pipsync
+	npm install
 	npm run build
 	python manage.py collectstatic --no-input
 	python manage.py test
