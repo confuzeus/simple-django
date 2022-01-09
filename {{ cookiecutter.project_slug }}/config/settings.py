@@ -106,7 +106,6 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     '{{ cookiecutter.project_slug }}.core',
-    '{{ cookiecutter.project_slug }}.accounts',
 ]
 # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -441,13 +440,13 @@ ACCOUNT_EMAIL_REQUIRED = True
 
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
-ACCOUNT_ADAPTER = "{{ cookiecutter.project_slug }}.accounts.adapters.AccountAdapter"
+ACCOUNT_ADAPTER = "{{ cookiecutter.project_slug }}.core.accounts_adapters.AccountAdapter"
 
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 
-SOCIALACCOUNT_ADAPTER = "{{ cookiecutter.project_slug }}.accounts.adapters.SocialAccountAdapter"
+SOCIALACCOUNT_ADAPTER = "{{ cookiecutter.project_slug }}.core.accounts_adapters.SocialAccountAdapter"
 
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 

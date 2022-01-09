@@ -6,7 +6,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django_q.tasks import schedule
 
-from {{ cookiecutter.project_slug }}.accounts.models import UserProfile
+from {{ cookiecutter.project_slug }}.core.models import UserProfile
 
 User = get_user_model()
 
