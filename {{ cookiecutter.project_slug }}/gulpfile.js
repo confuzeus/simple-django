@@ -121,10 +121,10 @@ function initBrowserSync() {
     ui: {
       port: 3001
     },
-    port: 3000
-    proxy: proxy,
+    port: 3000,
+    proxy,
     open: false,
-    https: https,
+    https,
     files: [
       `${paths.cssDest}/**/*.css`,
       `${paths.jsDest}/**/*.js`,
