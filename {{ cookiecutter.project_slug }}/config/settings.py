@@ -122,7 +122,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/ref/settings/#auth-user-model
-AUTH_USER_MODEL = "accounts.User"
+AUTH_USER_MODEL = "core.User"
 # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = "home"
 # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/ref/settings/#login-url
