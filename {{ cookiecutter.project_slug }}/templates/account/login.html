@@ -23,7 +23,7 @@
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
         {% endif %}
         <button class="btn btn-lg btn-primary d-block mb-2 w-100 {% get_challenge_class %}"
-                type="button" data-sitekey="{% get_site_key %}" data-callback="{% get_callback_name %}">{% trans "Continue with Email" %}</button>
+                type="button" data-sitekey="{% get_sitekey %}" data-callback="{% get_callback_name %}">{% trans "Continue with Email" %}</button>
         <div class="d-flex justify-content-center">
             <a class="text-center" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
         </div>
