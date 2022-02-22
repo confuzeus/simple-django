@@ -5,4 +5,3 @@ ResetPasswordForm = accounts_forms.ResetPasswordForm
 ResetPasswordKeyForm = accounts_forms.ResetPasswordKeyForm
 ChangePasswordForm = accounts_forms.ChangePasswordForm
 SignupForm = accounts_forms.SignupForm
-

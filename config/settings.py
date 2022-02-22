@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-CONFIG_FILE = BASE_DIR / 'appconfig.ini'
+CONFIG_FILE = BASE_DIR / "appconfig.ini"
 
 if not CONFIG_FILE.is_file():
     raise ImproperlyConfigured(f"appconfig.ini not found in {BASE_DIR}")
@@ -17,27 +17,25 @@ app_config = configparser.ConfigParser()
 app_config.read(CONFIG_FILE)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = app_config['core'].getboolean("DJANGO_DEBUG", False)
+DEBUG = app_config["core"].getboolean("DJANGO_DEBUG", False)
 
-TEST = config['core'].getboolean("DJANGO_TEST", False)
+TEST = config["core"].getboolean("DJANGO_TEST", False)
 
 PROJECT_NAME = "Simple Django"
 
 DOMAIN_NAME = "example.com"
 
-PORT_NUMBER = app_config['core'].getboolean("DJANGO_SITE_PORT_NUMBER")
+PORT_NUMBER = app_config["core"].getboolean("DJANGO_SITE_PORT_NUMBER")
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 # https://docs.djangoproject.com/en/3.2/ref/settings/#language-code
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-LANGUAGES = (
-    ("en", _("English")),
-)
+LANGUAGES = (("en", _("English")),)
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 # https://docs.djangoproject.com/en/3.2/ref/settings/#use-i18n
 USE_I18N = True
@@ -52,25 +50,29 @@ USE_TZ = True
 SITE_ID = 1
 
 # https://docs.djangoproject.com/en/3.2/ref/settings/#locale-paths
-LOCALE_PATHS = [BASE_DIR / 'locale',]
+LOCALE_PATHS = [
+    BASE_DIR / "locale",
+]
 
 # DATABASES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 DATABASES = {
     "default": {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': app_config['db'].get("POSTGRES_DB"),
-        'USER': app_config['db'].get("POSTGRES_USER"),
-        'PASSWORD': app_config['db'].get("POSTGRES_PASSWORD"),
-        'HOST': app_config['db'].get("POSTGRES_HOST"),
-        'PORT': app_config['db'].get("POSTGRES_PORT"),
-        'ATOMIC_REQUESTS': True
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": app_config["db"].get("POSTGRES_DB"),
+        "USER": app_config["db"].get("POSTGRES_USER"),
+        "PASSWORD": app_config["db"].get("POSTGRES_PASSWORD"),
+        "HOST": app_config["db"].get("POSTGRES_HOST"),
+        "PORT": app_config["db"].get("POSTGRES_PORT"),
+        "ATOMIC_REQUESTS": True,
     }
 }
 
 if not DEBUG:
-    DATABASES["default"]["CONN_MAX_AGE"] = app_config['db'].getint("DJANGO_DB_CONN_MAX_AGE", 60)
+    DATABASES["default"]["CONN_MAX_AGE"] = app_config["db"].getint(
+        "DJANGO_DB_CONN_MAX_AGE", 60
+    )
 
 
 # Default primary key field type
@@ -83,7 +85,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 ROOT_URLCONF = "config.urls"
 
 # https://docs.djangoproject.com/en/3.2/ref/settings/#wsgi-application
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = "config.wsgi.application"
 
 # APPS
 # ------------------------------------------------------------------------------
@@ -109,7 +111,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    'simple_django.core',
+    "simple_django.core",
 ]
 # https://docs.djangoproject.com/en/3.2/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -136,7 +138,9 @@ LOGIN_URL = "account_login"
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.2/ref/settings/#password-hashers
 if DEBUG or TEST:
-    PASSWORD_HASHERS = ['django.contrib.auth.hashers.MD5PasswordHasher',]
+    PASSWORD_HASHERS = [
+        "django.contrib.auth.hashers.MD5PasswordHasher",
+    ]
 else:
     PASSWORD_HASHERS = [
         # https://docs.djangoproject.com/en/3.2/topics/auth/passwords/#using-argon2-with-django
@@ -151,16 +155,16 @@ else:
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -187,15 +191,19 @@ if DEBUG or TEST:
         "SHOW_TEMPLATE_CONTEXT": True,
     }
 
-    INTERNAL_IPS = ["127.0.0.1",]
+    INTERNAL_IPS = [
+        "127.0.0.1",
+    ]
 
 # STATIC
 # ------------------------------------------------------------------------------
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#static-root
-STATIC_ROOT = BASE_DIR / 'static_collected'
+STATIC_ROOT = BASE_DIR / "static_collected"
 
-STATICFILES_DIRS = [BASE_DIR / "static",]
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # https://docs.djangoproject.com/en/3.2/ref/settings/#static-url
 STATIC_URL = "/static/"
@@ -210,7 +218,7 @@ STATICFILES_FINDERS = [
 # MEDIA
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.2/ref/settings/#media-root
-MEDIA_ROOT = Path(app_config['core'].get("DJANGO_MEDIA_ROOT", BASE_DIR / 'media'))
+MEDIA_ROOT = Path(app_config["core"].get("DJANGO_MEDIA_ROOT", BASE_DIR / "media"))
 
 # https://docs.djangoproject.com/en/3.2/ref/settings/#media-url
 
@@ -222,34 +230,36 @@ else:
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates',],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [
+            BASE_DIR / "templates",
+        ],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
                 "django.template.context_processors.i18n",
                 "django.template.context_processors.media",
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
             ],
-            'debug': DEBUG or TEST
+            "debug": DEBUG or TEST,
         },
     },
 ]
 
-THIRD_PARTY_CONTEXT_PROCESSORS = [
-
-]
+THIRD_PARTY_CONTEXT_PROCESSORS = []
 
 OWN_CONTEXT_PROCESSORS = [
-    'simple_django.core.context_processors.site_data',
+    "simple_django.core.context_processors.site_data",
 ]
 
-TEMPLATES[0]['OPTIONS']['context_processors'] += THIRD_PARTY_CONTEXT_PROCESSORS + OWN_CONTEXT_PROCESSORS
+TEMPLATES[0]["OPTIONS"]["context_processors"] += (
+    THIRD_PARTY_CONTEXT_PROCESSORS + OWN_CONTEXT_PROCESSORS
+)
 
 # https://docs.djangoproject.com/en/3.2/ref/settings/#form-renderer
 FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
@@ -262,9 +272,9 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # SECURITY
 # ------------------------------------------------------------------------------
-SECRET_KEY = app_config['security'].get("DJANGO_SECRET_KEY")
+SECRET_KEY = app_config["security"].get("DJANGO_SECRET_KEY")
 
-ALLOWED_HOSTS = app_config['security'].get("DJANGO_ALLOWED_HOSTS").split(',')
+ALLOWED_HOSTS = app_config["security"].get("DJANGO_ALLOWED_HOSTS").split(",")
 
 if not DEBUG:
     # https://docs.djangoproject.com/en/3.2/ref/settings/#session-cookie-httponly
@@ -311,27 +321,29 @@ if not DEBUG:
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.2/ref/settings/#email-backend
-DEFAULT_FROM_EMAIL = app_config['email'].get(
+DEFAULT_FROM_EMAIL = app_config["email"].get(
     "DJANGO_DEFAULT_FROM_EMAIL", "Simple Django <admin@example.com>"
 )
 
-SERVER_EMAIL = app_config['email'].get("DJANGO_SERVER_EMAIL", DEFAULT_FROM_EMAIL)
+SERVER_EMAIL = app_config["email"].get("DJANGO_SERVER_EMAIL", DEFAULT_FROM_EMAIL)
 
-EMAIL_SUBJECT_PREFIX = app_config['email'].get(
+EMAIL_SUBJECT_PREFIX = app_config["email"].get(
     "DJANGO_EMAIL_SUBJECT_PREFIX", "[Simple Django]"
 )
 
 if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-    EMAIL_HOST = app_config['email'].get("DJANGO_SMTP_HOST", "localhost")
-    EMAIL_PORT = app_config['email'].getint("DJANGO_SMTP_PORT", 1025)
+    EMAIL_HOST = app_config["email"].get("DJANGO_SMTP_HOST", "localhost")
+    EMAIL_PORT = app_config["email"].getint("DJANGO_SMTP_PORT", 1025)
 else:
     EMAIL_BACKEND = "anymail.backends.amazon_ses.EmailBackend"
     ANYMAIL = {
         "AMAZON_SES_CLIENT_PARAMS": {
-            "aws_access_key_id": app_config['email'].get("DJANGO_AWS_ACCESS_KEY_ID"),
-            "aws_secret_access_key": app_config['email'].get("DJANGO_AWS_SECRET_ACCESS_KEY"),
-            "region_name": app_config['email'].get("DJANGO_AWS_REGION_NAME"),
+            "aws_access_key_id": app_config["email"].get("DJANGO_AWS_ACCESS_KEY_ID"),
+            "aws_secret_access_key": app_config["email"].get(
+                "DJANGO_AWS_SECRET_ACCESS_KEY"
+            ),
+            "region_name": app_config["email"].get("DJANGO_AWS_REGION_NAME"),
             "config": {
                 "connect_timeout": 30,
                 "read_timeout": 30,
@@ -345,7 +357,7 @@ EMAIL_TIMEOUT = 5
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL.
-ADMIN_URL = app_config['core'].get("DJANGO_ADMIN_URL")
+ADMIN_URL = app_config["core"].get("DJANGO_ADMIN_URL")
 
 # https://docs.djangoproject.com/en/3.2/ref/settings/#admins
 ADMINS = [("""Josh Michael Karamuth""", "admin@example.com")]
@@ -380,7 +392,9 @@ else:
     LOGGING = {
         "version": 1,
         "disable_existing_loggers": False,
-        "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+        "filters": {
+            "require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}
+        },
         "formatters": {
             "verbose": {
                 "format": "%(levelname)s %(asctime)s %(module)s "
@@ -421,7 +435,7 @@ else:
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": app_config['core'].get("DJANGO_REDIS_CACHE_URL"),
+        "LOCATION": app_config["core"].get("DJANGO_REDIS_CACHE_URL"),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             # Mimicing memcache behavior.
@@ -433,9 +447,9 @@ CACHES = {
 
 # Captcha
 
-HCAPTCHA_SECRET_KEY = app_config['captcha'].get("HCAPTCHA_SECRET_KEY")
+HCAPTCHA_SECRET_KEY = app_config["captcha"].get("HCAPTCHA_SECRET_KEY")
 
-HCAPTCHA_SITE_KEY = app_config['captcha'].get("HCAPTCHA_SITE_KEY")
+HCAPTCHA_SITE_KEY = app_config["captcha"].get("HCAPTCHA_SITE_KEY")
 
 # django.contrib.messages
 
@@ -450,16 +464,16 @@ MESSAGE_TAGS = {
 # Django q
 
 Q_CLUSTER = {
-    'name': 'simple_django',
-    'workers': 4,
-    'recycle': 500,
-    'timeout': 60,
-    'compress': True,
-    'save_limit': 250,
-    'queue_limit': 500,
-    'cpu_affinity': 1,
-    'label': 'Django Q',
-    'django_redis': 'default'
+    "name": "simple_django",
+    "workers": 4,
+    "recycle": 500,
+    "timeout": 60,
+    "compress": True,
+    "save_limit": 250,
+    "queue_limit": 500,
+    "cpu_affinity": 1,
+    "label": "Django Q",
+    "django_redis": "default",
 }
 
 # sorl thumbnail
@@ -474,6 +488,6 @@ THUMBNAIL_CONVERT = "gm convert"
 
 THUMBNAIL_IDENTIFY = "gm identify"
 
-THUMBNAIL_REDIS_HOST = app_config['core'].get("SORL_REDIS_HOST")
+THUMBNAIL_REDIS_HOST = app_config["core"].get("SORL_REDIS_HOST")
 
 THUMBNAIL_PRESERVE_FORMAT = True
