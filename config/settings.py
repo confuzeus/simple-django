@@ -25,7 +25,7 @@ PROJECT_NAME = "Simple Django"
 
 DOMAIN_NAME = "example.com"
 
-PORT_NUMBER = app_config["core"].getboolean("DJANGO_SITE_PORT_NUMBER")
+PORT_NUMBER = app_config["core"].getint("DJANGO_SITE_PORT_NUMBER")
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
