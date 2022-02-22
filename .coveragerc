@@ -1,0 +1,26 @@
+[run]
+source = .
+omit =
+    */static_collected/*
+    */requirements/*
+    */node_modules/*
+    */docs/*
+    */manage.py
+    */htmlcov/*
+    */apps.py
+    */tests/*
+    */tests.py
+    */wsgi.py
+    */asgi.py
+    */settings.py
+    */settings_*.py
+    */venv/*
+    *migrations*
+    paddle_pubkey.txt
+branch = True
+plugins =
+    django_coverage_plugin
+
+[report]
+show_missing = True
+skip_covered = True
