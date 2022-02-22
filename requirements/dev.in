@@ -6,6 +6,7 @@ pyOpenSSL
 docker-compose
 
 coverage  # https://github.com/nedbat/coveragepy
+django-coverage-plugin
 pytest
 pytest-django
 black
