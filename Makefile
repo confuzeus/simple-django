@@ -1,4 +1,4 @@
-.PHONY: init pipcompile pipsync coverage reset fixtures buildprod
+.PHONY: init pipcompile pipsync coverage reset fixtures fmt
 
 SHELL := /bin/bash
 
@@ -29,3 +29,7 @@ reset:
 
 fixtures:
 	python manage.py init_site
+
+fmt:
+	black .
+	isort .
