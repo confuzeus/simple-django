@@ -8,6 +8,11 @@ class Command(BaseCommand):
         self.stdout.write("Updating default Django site.")
         site = Site.objects.first()
         site.name = settings.PROJECT_NAME
-        site.domain = f"{settings.DOMAIN_NAME}:{settings.PORT_NUMBER}"
+        site_domain = settings.DOMAIN_NAME
+
+        if settings.PORT_NUMBER > 443:
+            site_domain += f"{settings.PORT_NUMBER}"
+
+        site.domain = site_domain
         site.save()
         self.stdout.write(self.style.SUCCESS("Success."))
