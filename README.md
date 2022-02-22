@@ -33,8 +33,19 @@ cp appconfig.example.ini appconfig.ini
 
 Edit the file and change all the variables to your liking.
 
+You should also rename the project now unless you really
+like the name *Simple Django*.
+
+To rename, simply execute the script named `rename.py`.
+
 Bootstrap the project with make:
 
 ```shell
 make
 ```
+
+## License and Copyright
+
+License is MIT
+
+Copyright 2022 Josh Michael Karamuth
