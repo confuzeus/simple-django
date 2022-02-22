@@ -3,7 +3,6 @@ from pathlib import Path
 
 from django.contrib import messages
 from django.core.exceptions import ImproperlyConfigured
-from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -307,17 +306,14 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 518400
 
     # https://docs.djangoproject.com/en/3.2/ref/settings/#secure-hsts-include-subdomains
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
-        "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True
-    )
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
     # https://docs.djangoproject.com/en/3.2/ref/settings/#secure-hsts-preload
-    SECURE_HSTS_PRELOAD = env.bool("DJANGO_SECURE_HSTS_PRELOAD", default=True)
+    SECURE_HSTS_PRELOAD = True
 
     # https://docs.djangoproject.com/en/3.2/ref/middleware/#x-content-type-options-nosniff
-    SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
-        "DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", default=True
-    )
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+
 
 # EMAIL
 # ------------------------------------------------------------------------------
