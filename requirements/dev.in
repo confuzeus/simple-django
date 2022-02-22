@@ -3,6 +3,7 @@
 Werkzeug # https://github.com/pallets/werkzeug
 psycopg2-binary # https://github.com/psycopg/psycopg2
 pyOpenSSL
+docker-compose
 
 coverage  # https://github.com/nedbat/coveragepy
 black
