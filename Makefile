@@ -33,3 +33,8 @@ fixtures:
 fmt:
 	black .
 	isort .
+
+lint:
+	flake8
+
+lfmt: fmt lint
