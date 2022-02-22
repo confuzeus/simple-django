@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 
+{% block flash_messages %}{% endblock %}
 {% block layout %}
+
     {% include "partials/_navbar.html" %}
+
+    <div class="container">
+        {% include "partials/flash-messages.html" %}
+    </div>
+
     {% block inner %}{% endblock %}
+
 {% endblock %}

@@ -9,26 +9,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url "account_logout" %}">Logout</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        {% url "account_login" as login_url %}
-                        <a href="{{ login_url }}" class="nav-link {{ request|active_url:login_url }}">Login</a>
-                    </li>
-                    {% if allow_registration %}
-                        <li class="nav-item">
-                            {% url "account_signup" as signup_url %}
-                            <a class="nav-link btn btn-success text-light {{ request|active_url:signup_url }}"
-                               href="{{ signup_url }}">Sign up</a>
-                        </li>
-
-                    {% endif %}
-
-                {% endif %}
-
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
             </ul>
         </div>
     </div>
