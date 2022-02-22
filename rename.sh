@@ -41,4 +41,4 @@ find . \
     -exec sed -i "s/admin@$domain_name/$email/g" {} \;\
     -exec sed -i "s/simple_django/$project_slug/g" {} \;
 
-mv simple_django $project_slug
+mv simple_django/ $project_slug/
