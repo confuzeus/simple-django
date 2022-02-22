@@ -1,9 +1,0 @@
-{
-  "files.associations": {
-    "*.py": "jinja-py",
-    "*.js": "jinja-js",
-    "*.json": "jinja-json",
-    "*.html": "jinja-html",
-    "*.yml": "jinja-yaml",
-  }
-}
