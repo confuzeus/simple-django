@@ -1,2 +1,7 @@
 [tool.isort]
 profile = "black"
+
+[tool.coverage.run]
+plugins = [
+    'django_coverage_plugin',
+]
