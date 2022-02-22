@@ -1,5 +1,5 @@
 from django import template
-from django.core.paginator import Page, Paginator
+from django.core.paginator import Paginator
 from django.utils.translation import gettext_lazy as _
 
 register = template.Library()

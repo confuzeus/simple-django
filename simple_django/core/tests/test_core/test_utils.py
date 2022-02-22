@@ -1,6 +1,3 @@
-import unittest.mock
-from unittest.mock import MagicMock
-
 from django.test import TestCase
 
 from simple_django.core.utils.urls import redirect_next_or_default
