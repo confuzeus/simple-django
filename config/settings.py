@@ -19,7 +19,7 @@ app_config.read(CONFIG_FILE)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = app_config["core"].getboolean("DJANGO_DEBUG", False)
 
-TEST = config["core"].getboolean("DJANGO_TEST", False)
+TEST = app_config["core"].getboolean("DJANGO_TEST", False)
 
 PROJECT_NAME = "Simple Django"
 
