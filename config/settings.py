@@ -1,9 +1,10 @@
 import configparser
 from pathlib import Path
-from django.core.exceptions import ImproperlyConfigured
+
 from django.contrib import messages
-from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 

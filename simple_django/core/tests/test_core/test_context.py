@@ -1,5 +1,5 @@
-from django.test import TestCase, RequestFactory
 from django.conf import settings
+from django.test import RequestFactory, TestCase
 
 from simple_django.core import context_processors
 

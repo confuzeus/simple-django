@@ -3,7 +3,7 @@ from typing import Optional
 
 from django import template
 from django.http import HttpRequest
-from django.urls import reverse, NoReverseMatch
+from django.urls import NoReverseMatch, reverse
 
 register = template.Library()
 

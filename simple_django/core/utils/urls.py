@@ -1,8 +1,8 @@
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import parse_qs, urlparse
 
-from django.http import HttpRequest, HttpResponseRedirect
 from django.conf import settings
-from django.shortcuts import resolve_url, redirect
+from django.http import HttpRequest, HttpResponseRedirect
+from django.shortcuts import redirect, resolve_url
 
 
 def build_redirect_path(

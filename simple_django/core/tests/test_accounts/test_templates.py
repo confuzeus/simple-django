@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.sites.models import Site
 from django.template.response import TemplateResponse
-from django.test import TestCase, RequestFactory
+from django.test import RequestFactory, TestCase
 from faker import Faker
 
 User = get_user_model()

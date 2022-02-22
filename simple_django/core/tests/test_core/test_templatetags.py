@@ -4,14 +4,10 @@ from unittest.mock import Mock
 
 from django.core.paginator import Paginator
 from django.http import QueryDict
-from django.test import TestCase, RequestFactory
+from django.test import RequestFactory, TestCase
 from django.urls import NoReverseMatch
 
-from simple_django.core.templatetags import (
-    url_tags,
-    pagination_tags,
-    useful_filters,
-)
+from simple_django.core.templatetags import pagination_tags, url_tags, useful_filters
 
 
 class UrlTagsTestCase(TestCase):

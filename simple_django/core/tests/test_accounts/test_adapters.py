@@ -1,7 +1,7 @@
 from unittest.mock import Mock
 
 from django.conf import settings
-from django.test import TestCase, RequestFactory
+from django.test import RequestFactory, TestCase
 
 from simple_django.core import accounts_adapters as adapters
 

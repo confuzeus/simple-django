@@ -1,8 +1,8 @@
+from django import forms
 from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
-from django import forms
 from django.template.response import TemplateResponse
-from django.test import TestCase, RequestFactory
+from django.test import RequestFactory, TestCase
 
 
 class AForm(forms.Form):
