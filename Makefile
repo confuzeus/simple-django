@@ -1,4 +1,6 @@
-.PHONY: init pipcompile pipsync coverage reset fixtures fmt
+.PHONY: init \
+	pipcompile \ pipsync coverage reset fixtures fmt lfmt services \
+	stop-services serve-django serve-worker shell migrate
 
 SHELL := /bin/bash
 
@@ -19,7 +21,7 @@ pipsync:
 
 coverage:
 	rm -rf htmlcov
-	DJANGO_TEST=1 coverage run manage.py test
+	DJANGO_TEST=1 coverage run -m pytest
 	coverage html
 	firefox htmlcov/index.html
 
@@ -38,3 +40,22 @@ lint:
 	flake8
 
 lfmt: fmt lint
+
+services:
+	docker-compose up -d
+
+stop-services:
+	docker-compose down
+
+serve-django:
+	python manage.py runserver_plus
+
+serve-worker:
+	python manage.py qcluster
+
+shell:
+	python manage.py shell_plus
+
+migrate:
+	python manage.py migrate
+
