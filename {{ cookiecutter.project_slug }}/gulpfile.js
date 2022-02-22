@@ -18,10 +18,8 @@ function pathsConfig() {
   return {
     bootstrapSass: `${vendorsRoot}/bootstrap/scss`,
     vendorsJs: [
-      `${vendorsRoot}/jquery/dist/jquery.js`,
       `${vendorsRoot}/@popperjs/core/dist/umd/popper.js`,
       `${vendorsRoot}/bootstrap/dist/js/bootstrap.js`,
-      `${vendorsRoot}/headroom.js/dist/jQuery.headroom.js`,
       `${vendorsRoot}/smooth-scroll/dist/smooth-scroll.polyfills.js`,
     ],
     icons: [
