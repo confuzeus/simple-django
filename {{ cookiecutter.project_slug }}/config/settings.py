@@ -270,6 +270,9 @@ if not DEBUG:
     # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/ref/settings/#session-cookie-httponly
     SESSION_COOKIE_HTTPONLY = True
 
+    # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/ref/settings/#session-engine
+    SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+
     # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/ref/settings/#csrf-cookie-httponly
     CSRF_COOKIE_HTTPONLY = False
 
