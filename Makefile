@@ -8,7 +8,7 @@ init: pipcompile pipsync
 	npm install
 	npm run build
 	python manage.py collectstatic --no-input
-	python manage.py test
+	pytest
 	python manage.py migrate
 
 pipcompile:
