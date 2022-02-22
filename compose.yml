@@ -1,0 +1,26 @@
+volumes:
+  pg_data:
+
+services:
+
+  redis:
+    image: redis
+    ports:
+      - "127.0.0.1:6379:6379"
+
+  db:
+    image: postgres:14
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: debug
+      POSTGRES_PASSWORD: debug
+      POSTGRES_DB: simple_django
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "127.0.0.1:1025:1025"
+      - "127.0.0.1:8025:8025"
