@@ -1,25 +1,27 @@
-import os
-import environ
+import configparser
+from pathlib import Path
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = environ.Env()
-env.read_env(os.path.join(BASE_DIR, ".env"))
+CONFIG_FILE = BASE_DIR / 'appconfig.ini'
+
+app_config = configparser.ConfigParser()
+
+app_config.read(CONFIG_FILE)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DJANGO_DEBUG")
+DEBUG = app_config['core'].getboolean("DJANGO_DEBUG", False)
 
-TEST = env.bool("DJANGO_TEST", False)
+TEST = config['core'].getboolean("DJANGO_TEST", False)
 
 PROJECT_NAME = "{{ cookiecutter.project_name }}"
 
 DOMAIN_NAME = "{{ cookiecutter.domain_name }}"
 
-PORT_NUMBER = env.str("DJANGO_SITE_PORT_NUMBER")
+PORT_NUMBER = app_config['core'].getboolean("DJANGO_SITE_PORT_NUMBER")
 
 # Internationalization
 # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/topics/i18n/
@@ -46,7 +48,7 @@ USE_TZ = True
 SITE_ID = 1
 
 # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/ref/settings/#locale-paths
-LOCALE_PATHS = [os.path.join(BASE_DIR, "locale"),]
+LOCALE_PATHS = [BASE_DIR / 'locale',]
 
 # DATABASES
 # ------------------------------------------------------------------------------
@@ -54,17 +56,17 @@ LOCALE_PATHS = [os.path.join(BASE_DIR, "locale"),]
 DATABASES = {
     "default": {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env.str("POSTGRES_DB"),
-        'USER': env.str("POSTGRES_USER"),
-        'PASSWORD': env.str("POSTGRES_PASSWORD"),
-        'HOST': env.str("POSTGRES_HOST"),
-        'PORT': env.str("POSTGRES_PORT"),
+        'NAME': app_config['db'].get("POSTGRES_DB"),
+        'USER': app_config['db'].get("POSTGRES_USER"),
+        'PASSWORD': app_config['db'].get("POSTGRES_PASSWORD"),
+        'HOST': app_config['db'].get("POSTGRES_HOST"),
+        'PORT': app_config['db'].get("POSTGRES_PORT"),
         'ATOMIC_REQUESTS': True
     }
 }
 
 if not DEBUG:
-    DATABASES["default"]["CONN_MAX_AGE"] = env.int("DJANGO_DB_CONN_MAX_AGE", default=60)
+    DATABASES["default"]["CONN_MAX_AGE"] = app_config['db'].getint("DJANGO_DB_CONN_MAX_AGE", 60)
 
 
 # Default primary key field type
@@ -95,12 +97,7 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     "django_extensions",
-    "robots",
     "django_q",
-    "allauth",
-    "allauth.account",
-    'allauth.socialaccount',
-    "allauth.socialaccount.providers.google",
     "crispy_forms",
     "crispy_bootstrap5",
     "zen_queries",
@@ -122,7 +119,6 @@ if DEBUG or TEST:
 # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/ref/settings/#authentication-backends
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "core.User"
@@ -182,13 +178,9 @@ MIDDLEWARE = [
 if DEBUG or TEST:
     MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
 
-    def show_toolbar(request):
-        return True
-
     DEBUG_TOOLBAR_CONFIG = {
         "DISABLE_PANELS": ["debug_toolbar.panels.redirects.RedirectsPanel"],
         "SHOW_TEMPLATE_CONTEXT": True,
-        "SHOW_TOOLBAR_CALLBACK": show_toolbar,
     }
 
     INTERNAL_IPS = ["127.0.0.1",]
@@ -197,9 +189,9 @@ if DEBUG or TEST:
 # ------------------------------------------------------------------------------
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/ref/settings/#static-root
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_collected')
+STATIC_ROOT = BASE_DIR / 'static_collected'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATICFILES_DIRS = [BASE_DIR / "static",]
 
 # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/ref/settings/#static-url
 STATIC_URL = "/static/"
@@ -214,7 +206,7 @@ STATICFILES_FINDERS = [
 # MEDIA
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/ref/settings/#media-root
-MEDIA_ROOT = env.str("DJANGO_MEDIA_ROOT", os.path.join(BASE_DIR, 'media'))
+MEDIA_ROOT = Path(app_config['core'].get("DJANGO_MEDIA_ROOT", BASE_DIR / 'media'))
 
 # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/ref/settings/#media-url
 
@@ -227,7 +219,7 @@ else:
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
+        'DIRS': [BASE_DIR / 'templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -266,9 +258,9 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # SECURITY
 # ------------------------------------------------------------------------------
-SECRET_KEY = env("DJANGO_SECRET_KEY")
+SECRET_KEY = app_config['security'].get("DJANGO_SECRET_KEY")
 
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
+ALLOWED_HOSTS = app_config['security'].get("DJANGO_ALLOWED_HOSTS").split(',')
 
 if not DEBUG:
     # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/ref/settings/#session-cookie-httponly
@@ -312,27 +304,27 @@ if not DEBUG:
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/ref/settings/#email-backend
-DEFAULT_FROM_EMAIL = env(
-    "DJANGO_DEFAULT_FROM_EMAIL", default="{{ cookiecutter.project_name }} <{{ cookiecutter.email }}>"
+DEFAULT_FROM_EMAIL = app_config['email'].get(
+    "DJANGO_DEFAULT_FROM_EMAIL", "{{ cookiecutter.project_name }} <{{ cookiecutter.email }}>"
 )
 
-SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
+SERVER_EMAIL = app_config['email'].get("DJANGO_SERVER_EMAIL", DEFAULT_FROM_EMAIL)
 
-EMAIL_SUBJECT_PREFIX = env(
-    "DJANGO_EMAIL_SUBJECT_PREFIX", default="[{{ cookiecutter.project_name }}]"
+EMAIL_SUBJECT_PREFIX = app_config['email'].get(
+    "DJANGO_EMAIL_SUBJECT_PREFIX", "[{{ cookiecutter.project_name }}]"
 )
 
 if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-    EMAIL_HOST = env.str("DJANGO_SMTP_HOST", default=env.str("DJANGO_SMTP_HOST"))
-    EMAIL_PORT = env.int("DJANGO_SMTP_PORT", default=env.int("DJANGO_SMTP_PORT"))
+    EMAIL_HOST = app_config['email'].get("DJANGO_SMTP_HOST", "localhost")
+    EMAIL_PORT = app_config['email'].getint("DJANGO_SMTP_PORT", 1025)
 else:
     EMAIL_BACKEND = "anymail.backends.amazon_ses.EmailBackend"
     ANYMAIL = {
         "AMAZON_SES_CLIENT_PARAMS": {
-            "aws_access_key_id": env.str("DJANGO_AWS_ACCESS_KEY_ID"),
-            "aws_secret_access_key": env.str("DJANGO_AWS_SECRET_ACCESS_KEY"),
-            "region_name": env.str("DJANGO_AWS_REGION_NAME"),
+            "aws_access_key_id": app_config['email'].get("DJANGO_AWS_ACCESS_KEY_ID"),
+            "aws_secret_access_key": app_config['email'].get("DJANGO_AWS_SECRET_ACCESS_KEY"),
+            "region_name": app_config['email'].get("DJANGO_AWS_REGION_NAME"),
             "config": {
                 "connect_timeout": 30,
                 "read_timeout": 30,
@@ -346,7 +338,7 @@ EMAIL_TIMEOUT = 5
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL.
-ADMIN_URL = env("DJANGO_ADMIN_URL")
+ADMIN_URL = app_config['core'].get("DJANGO_ADMIN_URL")
 
 # https://docs.djangoproject.com/en/{{ cookiecutter.django_version }}/ref/settings/#admins
 ADMINS = [("""{{ cookiecutter.author_name }}""", "{{ cookiecutter.email }}")]
@@ -422,7 +414,7 @@ else:
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": env("DJANGO_REDIS_CACHE_URL"),
+        "LOCATION": app_config['core'].get("DJANGO_REDIS_CACHE_URL"),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             # Mimicing memcache behavior.
@@ -432,78 +424,11 @@ CACHES = {
     }
 }
 
-# django-allauth
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
-# ------------------------------------------------------------------------------
-ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
-
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-
-ACCOUNT_EMAIL_REQUIRED = True
-
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-
-ACCOUNT_ADAPTER = "{{ cookiecutter.project_slug }}.core.accounts_adapters.AccountAdapter"
-
-ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
-
-ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
-
-SOCIALACCOUNT_ADAPTER = "{{ cookiecutter.project_slug }}.core.accounts_adapters.SocialAccountAdapter"
-
-ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
-
-ACCOUNT_PRESERVE_USERNAME_CASING = False
-
-ACCOUNT_FORMS = {
-    "login": "{{ cookiecutter.project_slug }}.accounts.forms.LoginForm",
-    "signup": "{{ cookiecutter.project_slug }}.accounts.forms.SignupForm",
-    # 'add_email': 'allauth.account.forms.AddEmailForm',
-    "change_password": "{{ cookiecutter.project_slug }}.accounts.forms.ChangePasswordForm",
-    # 'set_password': 'allauth.account.forms.SetPasswordForm',
-    "reset_password": "{{ cookiecutter.project_slug }}.accounts.forms.ResetPasswordForm",
-    "reset_password_from_key": "{{ cookiecutter.project_slug }}.accounts.forms.ResetPasswordKeyForm",
-    # 'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
-}
-
-SOCIALACCOUNT_PROVIDERS = {
-    "facebook": {
-        "METHOD": "js_sdk",
-        "SDK_URL": "//connect.facebook.net/{locale}/sdk.js",
-        "SCOPE": ["email", "public_profile"],
-        "AUTH_PARAMS": {"auth_type": "reauthenticate"},
-        "INIT_PARAMS": {"cookie": True},
-        "FIELDS": [
-            "id",
-            "first_name",
-            "last_name",
-            "middle_name",
-            "name",
-            "name_format",
-            "picture",
-            "short_name",
-        ],
-        "EXCHANGE_TOKEN": True,
-        "LOCALE_FUNC": lambda request: "en_US",
-        "VERIFIED_EMAIL": False,
-        "VERSION": "v7.0",
-    },
-    "google": {
-        "SCOPE": [
-            "profile",
-            "email",
-        ],
-        "AUTH_PARAMS": {
-            "access_type": "online",
-        },
-    },
-}
-
 # Captcha
 
-HCAPTCHA_SECRET_KEY = env.str("HCAPTCHA_SECRET_KEY")
+HCAPTCHA_SECRET_KEY = app_config['captcha'].get("HCAPTCHA_SECRET_KEY")
 
-HCAPTCHA_SITE_KEY = env.str("HCAPTCHA_SITE_KEY")
+HCAPTCHA_SITE_KEY = app_config['captcha'].get("HCAPTCHA_SITE_KEY")
 
 # django.contrib.messages
 
@@ -542,6 +467,6 @@ THUMBNAIL_CONVERT = "gm convert"
 
 THUMBNAIL_IDENTIFY = "gm identify"
 
-THUMBNAIL_REDIS_HOST = env.str("SORL_REDIS_HOST")
+THUMBNAIL_REDIS_HOST = app_config['core'].get("SORL_REDIS_HOST")
 
 THUMBNAIL_PRESERVE_FORMAT = True
