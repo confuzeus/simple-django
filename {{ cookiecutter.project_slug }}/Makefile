@@ -1,5 +1,7 @@
 .PHONY: init pipcompile pipsync coverage reset fixtures buildprod
 
+SHELL := /bin/bash
+
 init: pipcompile pipsync
 	npm install
 	npm run build
@@ -27,6 +29,3 @@ reset:
 
 fixtures:
 	python manage.py init_site
-
-buildprod:
-	docker build --target djangoprod -t ghcr.io/user/my-image:latest .
