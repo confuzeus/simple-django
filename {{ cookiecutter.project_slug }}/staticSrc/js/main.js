@@ -1,4 +1,4 @@
-var app = (function(o, $) {
+var app = (function(o) {
 
     const self = this;
 
