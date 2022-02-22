@@ -4,11 +4,6 @@ var app = (function(o, $) {
 
     o.main = {
 
-        onHcaptchaSubmit: function onHcaptchaSubmit(token) {
-            document.getElementById("id_captcha_response").value = token;
-            document.querySelector("form").submit();
-        },
-
         getCookie: function getCookie(name) {
             let cookieValue = null;
             if (document.cookie && document.cookie !== '') {
