@@ -38,6 +38,7 @@ find . \
     -exec sed -i "s/Josh Michael Karamuth/$name/g" {} \;\
     -exec sed -i "s/Simple Django/$project_name/g" {} \;\
     -exec sed -i "s/example.com/$domain_name/g" {} \;\
-    -exec sed -i "s/admin@$domain_name/$email/g" {} \;
+    -exec sed -i "s/admin@$domain_name/$email/g" {} \;\
+    -exec sed -i "s/simple_django/$project_slug/g" {} \;
 
 mv simple_django $project_slug
