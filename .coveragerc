@@ -12,11 +12,12 @@ omit =
     */tests.py
     */wsgi.py
     */asgi.py
+    */urls.py
     */settings.py
     */settings_*.py
+    */conftest.py
     */venv/*
     *migrations*
-    paddle_pubkey.txt
 branch = True
 plugins =
     django_coverage_plugin
