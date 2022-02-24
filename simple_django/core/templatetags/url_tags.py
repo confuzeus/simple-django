@@ -2,14 +2,14 @@ import re
 from typing import Optional
 
 from django import template
-from django.http import HttpRequest
+from django.http import HttpRequest, QueryDict
 from django.urls import NoReverseMatch, reverse
 
 register = template.Library()
 
 
 @register.filter()
-def active_url(request: HttpRequest(), url: str) -> str:
+def active_url(request: HttpRequest, url: str) -> str:
     """Output the active css class if the current url matches the passed url."""
     if url == "/":
         if request.path == "/":
@@ -26,9 +26,9 @@ def active_url(request: HttpRequest(), url: str) -> str:
 
 
 @register.simple_tag()
-def get_qs(request: HttpRequest(), exclude: Optional[str] = None) -> str:
+def get_qs(request: HttpRequest, exclude: Optional[str] = None) -> str:
     """Return existing querystring, optionally excluding a specific one."""
-    query_dict = request.GET.copy()
+    query_dict: QueryDict = request.GET.copy()
 
     if exclude:
 
@@ -36,7 +36,7 @@ def get_qs(request: HttpRequest(), exclude: Optional[str] = None) -> str:
             del query_dict[exclude]
 
     if len(query_dict.keys()) > 0:
-        qs = query_dict.urlencode() + "&"
+        qs: str = query_dict.urlencode() + "&"
     else:
         qs = ""
     return qs
