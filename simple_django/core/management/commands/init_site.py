@@ -11,7 +11,7 @@ class Command(BaseCommand):
         site_domain = settings.DOMAIN_NAME
 
         if settings.PORT_NUMBER > 443:
-            site_domain += f"{settings.PORT_NUMBER}"
+            site_domain += f":{settings.PORT_NUMBER}"
 
         site.domain = site_domain
         site.save()
