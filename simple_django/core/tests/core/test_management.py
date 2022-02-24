@@ -1,9 +1,11 @@
+import pytest
 from typing import Optional
 from django.core.management import call_command
 from django.contrib.sites.models import Site
 
 
-def test_init_site(db, settings, fake):
+@pytest.mark.django_db
+def test_init_site(settings, fake):
     site = Site.objects.first()
 
     settings.PROJECT_NAME = fake.word()
