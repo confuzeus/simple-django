@@ -6,6 +6,7 @@ from faker import Faker
 
 User = get_user_model()
 
+
 @pytest.fixture
 def fake() -> Faker:
     return Faker()
@@ -30,4 +31,6 @@ def admin_request(admin_user, rf) -> HttpRequest:
 
 @pytest.fixture
 def user(db, fake, django_user_model) -> User:
-    return django_user_model.objects.create(username=fake.user_name(), email=fake.ascii_email())
+    return django_user_model.objects.create(
+        username=fake.user_name(), email=fake.ascii_email()
+    )

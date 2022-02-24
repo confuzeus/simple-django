@@ -20,6 +20,7 @@ def test_active_url(rf):
     active = active_url(request, test_url)
     assert active == ""
 
+
 def test_get_qs(rf):
     request = rf.get("/")
     qs = get_qs(request)
@@ -36,6 +37,7 @@ def test_get_qs(rf):
     qs = get_qs(request, "five")
     assert qs == query + "&"
 
+
 def test_is_number():
 
     assert is_number(1) is True
@@ -43,6 +45,7 @@ def test_is_number():
     assert is_number(True) is False
     assert is_number(1.0) is True
     assert is_number({}) is False
+
 
 def test_is_string():
 

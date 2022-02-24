@@ -225,7 +225,7 @@ MEDIA_ROOT = Path(app_config["core"].get("DJANGO_MEDIA_ROOT", BASE_DIR / "media"
 if DEBUG or TEST:
     MEDIA_URL = "/media/"
 else:
-    MEDIA_URL = app_config['core'].get("DJANGO_MEDIA_URL")
+    MEDIA_URL = app_config["core"].get("DJANGO_MEDIA_URL")
 
 
 TEMPLATES = [

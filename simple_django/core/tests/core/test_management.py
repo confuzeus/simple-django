@@ -1,7 +1,6 @@
 import pytest
-from typing import Optional
-from django.core.management import call_command
 from django.contrib.sites.models import Site
+from django.core.management import call_command
 
 
 @pytest.mark.django_db

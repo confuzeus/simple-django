@@ -7,5 +7,4 @@ def test_site_data(rf, settings):
     ctx = site_data(request)
     assert "django_debug" in ctx.keys()
 
-    assert ctx['django_debug'] is settings.DEBUG
-
+    assert ctx["django_debug"] is settings.DEBUG
