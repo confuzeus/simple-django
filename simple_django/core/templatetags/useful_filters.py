@@ -6,12 +6,13 @@ register = template.Library()
 @register.filter()
 def is_number(value):
 
-    if isinstance(value, int):
-        return True
-    elif isinstance(value, float):
-        return True
-    else:
-        return False
+    if not isinstance(value, bool):
+        if isinstance(value, int):
+            return True
+        elif isinstance(value, float):
+            return True
+
+    return False
 
 
 @register.filter()
