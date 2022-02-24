@@ -1,4 +1,5 @@
 from simple_django.core.templatetags.url_tags import active_url, get_qs
+from simple_django.core.templatetags.useful_filters import is_number, is_string
 
 
 def test_active_url(rf):
@@ -27,3 +28,19 @@ def test_get_qs(rf):
 
     qs = get_qs(request, "one")
     assert qs == "three=four&"
+
+def test_is_number():
+
+    assert is_number(1) is True
+    assert is_number("1") is False
+    assert is_number(True) is False
+    assert is_number(1.0) is True
+    assert is_number({}) is False
+
+def test_is_string():
+
+    assert is_string("") is True
+    assert is_string(1) is False
+    assert is_string(False) is False
+    assert is_string({}) is False
+    assert is_string(1.0) is False
