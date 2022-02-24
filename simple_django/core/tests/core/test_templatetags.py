@@ -4,17 +4,21 @@ from simple_django.core.templatetags.useful_filters import is_number, is_string
 
 def test_active_url(rf):
     request = rf.get("/")
-    current_url = "/"
-    active = active_url(request, current_url)
+    test_url = "/"
+    active = active_url(request, test_url)
     assert active == "active"
 
-    current_url = "/other"
-    active = active_url(request, current_url)
+    test_url = "/other"
+    active = active_url(request, test_url)
     assert active == ""
 
     request = rf.get("/other")
-    active = active_url(request, current_url)
+    active = active_url(request, test_url)
     assert active == "active"
+
+    test_url = "/"
+    active = active_url(request, test_url)
+    assert active == ""
 
 def test_get_qs(rf):
     request = rf.get("/")
@@ -28,6 +32,9 @@ def test_get_qs(rf):
 
     qs = get_qs(request, "one")
     assert qs == "three=four&"
+
+    qs = get_qs(request, "five")
+    assert qs == query + "&"
 
 def test_is_number():
 
