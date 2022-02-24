@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# File watcher for use with Pycharm
+
+black "$1"
+isort "$1"
+flake8 "$1"
