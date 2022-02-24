@@ -13,8 +13,7 @@
                        href="?{{ qs_without_page }}page={{ page_obj.previous_page_number }}">{% trans 'Previous' %}</a>
                 </li>
             {% endif %}
-            {% get_elided_page_range page_obj.number page_obj.paginator as elided_page_range %}
-            {% for page_number in elided_page_range %}
+            {% for page_number in page_obj.elided_page_range %}
                 {% if page_number|is_number %}
                     {% if page_obj.number == page_number %}
                         <li class="page-item active">
