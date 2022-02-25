@@ -1,15 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 
-from simple_django.core.models import User, UserProfile
-
-
-class UserProfileInline(admin.TabularInline):
-    model = UserProfile
+from simple_django.core.models import User
 
 
 class UserAdmin(AuthUserAdmin):
-    inlines = [UserProfileInline]
+    pass
 
 
 admin.site.register(User, UserAdmin)
