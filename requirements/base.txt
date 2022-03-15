@@ -245,6 +245,10 @@ pycparser==2.21 \
     --hash=sha256:8ee45429555515e1f6b185e78100aea234072576aa43ab53aefcae078162fca9 \
     --hash=sha256:e644fdec12f7872f86c58ff790da456218b10f863970249516d60a5eaca77206
     # via cffi
+pymemcache==3.5.1 \
+    --hash=sha256:91ca2afe0eff777d5f4c848affee5e469384a680a29bd6968186db940c7f56b7 \
+    --hash=sha256:c072a17366188294fd012a37fcb4d238e6dd27b96679982b11681c8baab6de59
+    # via -r requirements/base.in
 python-dateutil==2.8.2 \
     --hash=sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86 \
     --hash=sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9
@@ -267,6 +271,7 @@ six==1.16.0 \
     --hash=sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254
     # via
     #   argon2-cffi
+    #   pymemcache
     #   python-dateutil
 sorl-thumbnail==12.8.0 \
     --hash=sha256:7788b460d90896f1f8f2f1e5ad21bcf9dec744c35ce71654d1e0c6ef41f90b9c \

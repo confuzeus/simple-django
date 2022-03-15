@@ -8,6 +8,11 @@ services:
     ports:
       - "127.0.0.1:6379:6379"
 
+  memcached:
+    image: memcached
+    ports:
+      - "127.0.0.1:11211:11211"
+
   db:
     image: postgres:14
     ports:
