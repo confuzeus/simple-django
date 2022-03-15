@@ -103,7 +103,6 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     "django_extensions",
-    "django_q",
     "crispy_forms",
     "crispy_bootstrap5",
     "zen_queries",
@@ -450,21 +449,6 @@ MESSAGE_TAGS = {
     messages.SUCCESS: "success",
     messages.WARNING: "warning",
     messages.ERROR: "danger",  # 'error' by default
-}
-
-# Django q
-
-Q_CLUSTER = {
-    "name": "simple_django",
-    "workers": 4,
-    "recycle": 500,
-    "timeout": 60,
-    "compress": True,
-    "save_limit": 250,
-    "queue_limit": 500,
-    "cpu_affinity": 1,
-    "label": "Django Q",
-    "django_redis": "default",
 }
 
 # sorl thumbnail
