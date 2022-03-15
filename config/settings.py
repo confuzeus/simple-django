@@ -128,9 +128,9 @@ AUTHENTICATION_BACKENDS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "core.User"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#login-url
-LOGIN_URL = "account_login"
+LOGIN_URL = "/"
 
 
 # PASSWORDS
