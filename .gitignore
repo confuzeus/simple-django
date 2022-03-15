@@ -237,5 +237,4 @@ node_modules
 
 media
 /.coverage
-paddle_pubkey.txt
 appconfig.ini
