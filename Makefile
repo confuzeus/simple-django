@@ -1,5 +1,4 @@
-.PHONY: init \
-	pipcompile \ pipsync coverage reset fixtures fmt lfmt services \
+.PHONY: init \ pipcompile pipsync coverage reset fixtures fmt lfmt services \
 	stop-services serve-django serve-worker shell migrate
 
 SHELL := /bin/bash
