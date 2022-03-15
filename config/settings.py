@@ -471,14 +471,10 @@ Q_CLUSTER = {
 
 THUMBNAIL_QUALITY = 70
 
-THUMBNAIL_KVSTORE = "sorl.thumbnail.kvstores.redis_kvstore.KVStore"
-
 THUMBNAIL_ENGINE = "sorl.thumbnail.engines.convert_engine.Engine"
 
 THUMBNAIL_CONVERT = "gm convert"
 
 THUMBNAIL_IDENTIFY = "gm identify"
-
-THUMBNAIL_REDIS_HOST = app_config["core"].get("SORL_REDIS_HOST")
 
 THUMBNAIL_PRESERVE_FORMAT = True
