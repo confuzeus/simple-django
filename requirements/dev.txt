@@ -192,7 +192,6 @@ cryptography==36.0.1 \
     --hash=sha256:ebc15b1c22e55c4d5566e3ca4db8689470a0ca2babef8e3a9ee057a8b82ce4b1 \
     --hash=sha256:ec63da4e7e4a5f924b90af42eddf20b698a70e58d86a72d943857c4c6045b3ee
     # via
-    #   -c requirements/./base.txt
     #   paramiko
     #   pyopenssl
 distro==1.7.0 \
