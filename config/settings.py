@@ -1,31 +1,31 @@
 import configparser
 from pathlib import Path
-
+import environ
 from django.contrib import messages
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-CONFIG_FILE = BASE_DIR / "appconfig.ini"
+env = environ.Env()
 
-if not CONFIG_FILE.is_file():
-    raise ImproperlyConfigured(f"appconfig.ini not found in {BASE_DIR}")
+if env.bool('READ_DOT_ENV', True):
+    env_file = BASE_DIR / "appconfig.env"
+    if not env_file.is_file():
+        raise ImproperlyConfigured(f"appconfig.env not found in {BASE_DIR}")
 
-app_config = configparser.ConfigParser()
-
-app_config.read(CONFIG_FILE)
+    environ.Env.read_env(str(env_file))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = app_config["core"].getboolean("DJANGO_DEBUG", False)
+DEBUG = env.bool("DJANGO_DEBUG", False)
 
-TEST = app_config["core"].getboolean("DJANGO_TEST", False)
+TEST = env.bool("DJANGO_TEST", False)
 
 PROJECT_NAME = "Simple Django"
 
 DOMAIN_NAME = "example.com"
 
-PORT_NUMBER = app_config["core"].getint("DJANGO_SITE_PORT_NUMBER")
+PORT_NUMBER = env.int("DJANGO_SITE_PORT_NUMBER")
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -60,20 +60,17 @@ LOCALE_PATHS = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": app_config["db"].get("POSTGRES_DB"),
-        "USER": app_config["db"].get("POSTGRES_USER"),
-        "PASSWORD": app_config["db"].get("POSTGRES_PASSWORD"),
-        "HOST": app_config["db"].get("POSTGRES_HOST"),
-        "PORT": app_config["db"].get("POSTGRES_PORT"),
+        "NAME": env.str("POSTGRES_DB"),
+        "USER": env.str("POSTGRES_USER"),
+        "PASSWORD": env.str("POSTGRES_PASSWORD"),
+        "HOST": env.str("POSTGRES_HOST"),
+        "PORT": env.str("POSTGRES_PORT"),
         "ATOMIC_REQUESTS": True,
     }
 }
 
 if not DEBUG:
-    DATABASES["default"]["CONN_MAX_AGE"] = app_config["db"].getint(
-        "DJANGO_DB_CONN_MAX_AGE", 60
-    )
-
+    DATABASES["default"]["CONN_MAX_AGE"] = env.int("DJANGO_DB_CONN_MAX_AGE", 60)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -217,14 +214,14 @@ STATICFILES_FINDERS = [
 # MEDIA
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.2/ref/settings/#media-root
-MEDIA_ROOT = Path(app_config["core"].get("DJANGO_MEDIA_ROOT", BASE_DIR / "media"))
+MEDIA_ROOT = Path(env.str("DJANGO_MEDIA_ROOT", str(BASE_DIR / "media")))
 
 # https://docs.djangoproject.com/en/3.2/ref/settings/#media-url
 
 if DEBUG or TEST:
     MEDIA_URL = "/media/"
 else:
-    MEDIA_URL = app_config["core"].get("DJANGO_MEDIA_URL")
+    MEDIA_URL = env.str("DJANGO_MEDIA_URL")
 
 
 TEMPLATES = [
@@ -271,9 +268,9 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # SECURITY
 # ------------------------------------------------------------------------------
-SECRET_KEY = app_config["security"].get("DJANGO_SECRET_KEY")
+SECRET_KEY = env.str("DJANGO_SECRET_KEY")
 
-ALLOWED_HOSTS = app_config["security"].get("DJANGO_ALLOWED_HOSTS").split(",")
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 
 if not DEBUG:
     # https://docs.djangoproject.com/en/3.2/ref/settings/#session-cookie-httponly
@@ -317,29 +314,23 @@ if not DEBUG:
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.2/ref/settings/#email-backend
-DEFAULT_FROM_EMAIL = app_config["email"].get(
-    "DJANGO_DEFAULT_FROM_EMAIL", "Simple Django <admin@example.com>"
-)
+DEFAULT_FROM_EMAIL = env.str("DJANGO_DEFAULT_FROM_EMAIL", "Simple Django <admin@example.com>")
 
-SERVER_EMAIL = app_config["email"].get("DJANGO_SERVER_EMAIL", DEFAULT_FROM_EMAIL)
+SERVER_EMAIL = env.str("DJANGO_SERVER_EMAIL", DEFAULT_FROM_EMAIL)
 
-EMAIL_SUBJECT_PREFIX = app_config["email"].get(
-    "DJANGO_EMAIL_SUBJECT_PREFIX", "[Simple Django]"
-)
+EMAIL_SUBJECT_PREFIX = env.str("DJANGO_EMAIL_SUBJECT_PREFIX", "[Simple Django]")
 
 if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-    EMAIL_HOST = app_config["email"].get("DJANGO_SMTP_HOST", "localhost")
-    EMAIL_PORT = app_config["email"].getint("DJANGO_SMTP_PORT", 1025)
+    EMAIL_HOST = env.str("DJANGO_SMTP_HOST", "localhost")
+    EMAIL_PORT = env.int("DJANGO_SMTP_PORT", 1025)
 else:
     EMAIL_BACKEND = "anymail.backends.amazon_ses.EmailBackend"
     ANYMAIL = {
         "AMAZON_SES_CLIENT_PARAMS": {
-            "aws_access_key_id": app_config["email"].get("DJANGO_AWS_ACCESS_KEY_ID"),
-            "aws_secret_access_key": app_config["email"].get(
-                "DJANGO_AWS_SECRET_ACCESS_KEY"
-            ),
-            "region_name": app_config["email"].get("DJANGO_AWS_REGION_NAME"),
+            "aws_access_key_id": env.str("DJANGO_AWS_ACCESS_KEY_ID"),
+            "aws_secret_access_key": env.str("DJANGO_AWS_SECRET_ACCESS_KEY"),
+            "region_name": env.str("DJANGO_AWS_REGION_NAME"),
             "config": {
                 "connect_timeout": 30,
                 "read_timeout": 30,
@@ -353,7 +344,7 @@ EMAIL_TIMEOUT = 5
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL.
-ADMIN_URL = app_config["core"].get("DJANGO_ADMIN_URL")
+ADMIN_URL = env.str("DJANGO_ADMIN_URL")
 
 # https://docs.djangoproject.com/en/3.2/ref/settings/#admins
 ADMINS = [("""Josh Michael Karamuth""", "admin@example.com")]
@@ -431,15 +422,15 @@ else:
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
-        "LOCATION": app_config['core'].get("DJANGO_MEMCACHE_LOCATION"),
+        "LOCATION": env.str("DJANGO_MEMCACHE_LOCATION"),
     }
 }
 
 # Captcha
 
-HCAPTCHA_SECRET_KEY = app_config["captcha"].get("HCAPTCHA_SECRET_KEY")
+HCAPTCHA_SECRET_KEY = env.str("HCAPTCHA_SECRET_KEY")
 
-HCAPTCHA_SITE_KEY = app_config["captcha"].get("HCAPTCHA_SITE_KEY")
+HCAPTCHA_SITE_KEY = env.str("HCAPTCHA_SITE_KEY")
 
 # django.contrib.messages
 

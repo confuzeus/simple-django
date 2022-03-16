@@ -28,7 +28,7 @@ pip install pip-tools
 Copy the example app config file:
 
 ```shell
-cp appconfig.example.ini appconfig.ini
+cp appconfig.example.env appconfig.env
 ```
 
 Edit the file and change all the variables to your liking.

@@ -237,4 +237,4 @@ node_modules
 
 media
 /.coverage
-appconfig.ini
+appconfig.env
