@@ -1,5 +1,5 @@
-import configparser
 from pathlib import Path
+
 import environ
 from django.contrib import messages
 from django.core.exceptions import ImproperlyConfigured
@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
 
-if env.bool('READ_DOT_ENV', True):
+if env.bool("READ_DOT_ENV", True):
     env_file = BASE_DIR / "appconfig.env"
     if not env_file.is_file():
         raise ImproperlyConfigured(f"appconfig.env not found in {BASE_DIR}")
@@ -108,6 +108,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "simple_django.core",
+    "simple_django.accounts",
 ]
 # https://docs.djangoproject.com/en/3.2/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -314,7 +315,9 @@ if not DEBUG:
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.2/ref/settings/#email-backend
-DEFAULT_FROM_EMAIL = env.str("DJANGO_DEFAULT_FROM_EMAIL", "Simple Django <admin@example.com>")
+DEFAULT_FROM_EMAIL = env.str(
+    "DJANGO_DEFAULT_FROM_EMAIL", "Simple Django <admin@example.com>"
+)
 
 SERVER_EMAIL = env.str("DJANGO_SERVER_EMAIL", DEFAULT_FROM_EMAIL)
 
