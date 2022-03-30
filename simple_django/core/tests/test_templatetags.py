@@ -39,7 +39,6 @@ def test_get_qs(rf):
 
 
 def test_is_number():
-
     assert is_number(1) is True
     assert is_number("1") is False
     assert is_number(True) is False
@@ -48,7 +47,6 @@ def test_is_number():
 
 
 def test_is_string():
-
     assert is_string("") is True
     assert is_string(1) is False
     assert is_string(False) is False
