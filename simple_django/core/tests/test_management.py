@@ -1,25 +1,35 @@
-import pytest
 from django.contrib.sites.models import Site
 from django.core.management import call_command
+from django.test import TestCase
+from faker import Faker
 
 
-@pytest.mark.django_db
-def test_init_site(settings, fake):
-    site = Site.objects.first()
+class ManagementCommandsTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        fake = Faker()
+        cls.fake = fake
 
-    settings.PROJECT_NAME = fake.word()
-    settings.DOMAIN_NAME = fake.domain_name()
-    assert site.name != settings.PROJECT_NAME
-    assert site.domain != settings.DOMAIN_NAME
+    def test_init_site(self):
+        project_name = self.fake.word()
+        domain_name = self.fake.domain_name()
 
-    settings.PORT_NUMBER = 443
-    call_command("init_site")
+        with self.settings(
+            PROJECT_NAME=project_name, DOMAIN_NAME=domain_name, PORT_NUMBER=443
+        ):
+            site = Site.objects.first()
+            self.assertNotEqual(site.name, project_name)
+            self.assertNotEqual(site.domain, domain_name)
 
-    site.refresh_from_db()
-    assert site.name == settings.PROJECT_NAME
-    assert site.domain == settings.DOMAIN_NAME
+            call_command("init_site")
 
-    settings.PORT_NUMBER = 3000
-    call_command("init_site")
-    site.refresh_from_db()
-    assert site.domain == f"{settings.DOMAIN_NAME}:3000"
+            site.refresh_from_db()
+            self.assertEqual(site.name, project_name)
+            self.assertEqual(site.domain, domain_name)
+
+        with self.settings(
+            PROJECT_NAME=project_name, DOMAIN_NAME=domain_name, PORT_NUMBER=3000
+        ):
+            call_command("init_site")
+            site = Site.objects.first()
+            self.assertEqual(site.domain, f"{domain_name}:3000")

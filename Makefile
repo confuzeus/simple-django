@@ -7,7 +7,7 @@ init: pipcompile pipsync
 	npm install
 	npm run build
 	python manage.py collectstatic --no-input
-	pytest
+	python manage.py test
 	python manage.py migrate
 
 pipcompile:
@@ -20,7 +20,7 @@ pipsync:
 
 coverage:
 	rm -rf htmlcov
-	DJANGO_TEST=1 coverage run -m pytest
+	DJANGO_TEST=1 coverage run manage.py test
 	coverage html
 	firefox htmlcov/index.html
 

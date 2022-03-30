@@ -1,10 +1,24 @@
+from django.test import RequestFactory, SimpleTestCase
+
 from simple_django.core.context_processors import site_data
 
 
-def test_site_data(rf, settings):
-    request = rf.get("/")
+class ContextProcessorsTests(SimpleTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super(ContextProcessorsTests, cls).setUpClass()
+        cls.rf = RequestFactory()
 
-    ctx = site_data(request)
-    assert "django_debug" in ctx.keys()
+    def test_site_data(self):
+        request = self.rf.get("/")
 
-    assert ctx["django_debug"] is settings.DEBUG
+        ctx = site_data(request)
+        self.assertIn("django_debug", ctx.keys())
+
+        with self.settings(DEBUG=True):
+            ctx = site_data(request)
+            self.assertTrue(ctx["django_debug"])
+
+        with self.settings(DEBUG=False):
+            ctx = site_data(request)
+            self.assertFalse(ctx["django_debug"])
