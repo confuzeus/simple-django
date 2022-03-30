@@ -124,7 +124,7 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-user-model
-AUTH_USER_MODEL = "core.User"
+AUTH_USER_MODEL = "accounts.User"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = "/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#login-url
