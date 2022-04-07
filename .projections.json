@@ -1,0 +1,8 @@
+{
+  "config/settings.py": { "type": "settings" },
+  "config/urls.py": { "type": "rooturls" },
+  "simple_django/*/models.py": { "type": "models" },
+  "simple_django/*/views.py": { "type": "views" },
+  "simple_django/*/admin.py": { "type": "admin" },
+  "simple_django/*/urls.py": { "type": "urls" }
+}
