@@ -1,4 +1,4 @@
-.PHONY: init \ pipcompile pipsync coverage reset fixtures fmt lfmt services \
+.PHONY: init pipcompile pipsync coverage reset fixtures fmt lfmt services \
 	stop-services serve-django serve-worker shell migrate
 
 SHELL := /bin/bash
@@ -32,13 +32,18 @@ fixtures:
 	python manage.py init_site
 
 fmt:
-	black .
-	isort .
+	@black --exclude __pycache__  config
+	@black --exclude __pycache__ --exclude migrations simple_wagtail
+	@isort --skip migrations --skip __pycache__ simple_wagtail
+	@isort --skip __pycache__ config
+	@djhtml -i templates/**/*.html
+	@npx prettier --write staticSrc/js
 
 lint:
-	flake8
+	@flake8 config
+	@flake8 simple_wagtail
 
-lfmt: fmt lint
+fmtl: fmt lint
 
 services:
 	docker-compose up -d
@@ -47,7 +52,7 @@ stop-services:
 	docker-compose down
 
 serve-django:
-	python manage.py runserver_plus
+	python manage.py runserver_plus --keep-meta-shutdown
 
 serve-worker:
 	python manage.py qcluster

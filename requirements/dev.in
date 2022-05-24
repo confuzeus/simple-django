@@ -10,6 +10,7 @@ django-coverage-plugin
 black
 isort
 flake8
+djhtml
 
 # Django
 # ------------------------------------------------------------------------------
