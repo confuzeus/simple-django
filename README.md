@@ -36,7 +36,7 @@ Edit the file and change all the variables to your liking.
 You should also rename the project now unless you really
 like the name *Simple Django*.
 
-To rename, simply execute the script named `rename.py`.
+To rename, simply execute the script named `rename.sh`.
 
 Bootstrap the project with make:
 
