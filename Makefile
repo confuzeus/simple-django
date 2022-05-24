@@ -33,15 +33,15 @@ fixtures:
 
 fmt:
 	@black --exclude __pycache__  config
-	@black --exclude __pycache__ --exclude migrations simple_wagtail
-	@isort --skip migrations --skip __pycache__ simple_wagtail
+	@black --exclude __pycache__ --exclude migrations simple_django
+	@isort --skip migrations --skip __pycache__ simple_django
 	@isort --skip __pycache__ config
 	@djhtml -i templates/**/*.html
 	@npx prettier --write staticSrc/js
 
 lint:
 	@flake8 config
-	@flake8 simple_wagtail
+	@flake8 simple_django
 
 fmtl: fmt lint
 
