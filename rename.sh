@@ -12,7 +12,7 @@ echo "What's the name of the project?"
 
 read project_name
 
-echo "Project slug:"
+echo "Project slug (No dashes):"
 
 read project_slug
 
