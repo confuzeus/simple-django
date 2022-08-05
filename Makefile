@@ -1,5 +1,5 @@
 .PHONY: init pipcompile pipsync coverage reset fixtures fmt lfmt services \
-	stop-services serve-django serve-worker shell migrate
+	stop-services serve-django shell migrate
 
 SHELL := /bin/bash
 
@@ -53,9 +53,6 @@ stop-services:
 
 serve-django:
 	python manage.py runserver_plus --keep-meta-shutdown
-
-serve-worker:
-	python manage.py qcluster
 
 shell:
 	python manage.py shell_plus
