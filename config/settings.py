@@ -441,3 +441,9 @@ THUMBNAIL_CONVERT = "gm convert"
 THUMBNAIL_IDENTIFY = "gm identify"
 
 THUMBNAIL_PRESERVE_FORMAT = True
+
+# Django Extensions
+
+SHELL_PLUS_IMPORTS = [
+    "from simple_django.accounts.tests import factories as accounts_factories",
+]
