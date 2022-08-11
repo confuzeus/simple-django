@@ -5,6 +5,7 @@ psycopg2-binary # https://github.com/psycopg/psycopg2
 pyOpenSSL
 docker-compose
 
+factory-boy
 coverage  # https://github.com/nedbat/coveragepy
 django-coverage-plugin
 black
