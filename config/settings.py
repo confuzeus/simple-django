@@ -447,3 +447,5 @@ THUMBNAIL_PRESERVE_FORMAT = True
 SHELL_PLUS_IMPORTS = [
     "from simple_django.accounts.tests import factories as accounts_factories",
 ]
+
+SHELL_PLUS_PRINT_SQL = True
