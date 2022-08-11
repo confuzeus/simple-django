@@ -25,5 +25,8 @@
     "dev": "gulp",
     "build": "gulp generateAssets",
     "clean": "gulp cleanDest"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1"
   }
 }
