@@ -12,7 +12,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     email = factory.Faker("email")
 
     @factory.post_generation
-    def set_password(obj: User, create: bool, extracted: str, **kwargs):
+    def password(obj: User, create: bool, extracted: str, **kwargs):
         password_plaintext = (
             extracted
             if extracted
