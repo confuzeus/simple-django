@@ -1,22 +1,17 @@
-.PHONY: init pipcompile pipsync coverage reset fixtures fmt lfmt services \
+.PHONY: init install-dev-deps coverage reset fixtures fmt lfmt services \
 	stop-services serve-django shell migrate
 
 SHELL := /bin/bash
 
-init: pipsync
+init: install-dev-deps
 	npm install
 	npm run build
 	python manage.py collectstatic --no-input
 	python manage.py test
 	python manage.py migrate
 
-pipcompile:
-	pip-compile --upgrade --generate-hashes --output-file requirements/base.txt requirements/base.in
-	pip-compile --upgrade --generate-hashes --output-file requirements/dev.txt requirements/dev.in
-	pip-compile --upgrade --generate-hashes --output-file requirements/prod.txt requirements/prod.in
-
-pipsync:
-	pip-sync requirements/base.txt requirements/dev.txt
+install-dev-deps:
+	poetry install --with dev
 
 coverage:
 	rm -rf htmlcov
