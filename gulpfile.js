@@ -22,7 +22,6 @@ function pathsConfig() {
   const vendorsRoot = "./node_modules";
   const staticDest = "./static";
   return {
-    bootstrapSass: `${vendorsRoot}/bootstrap/scss`,
     vendorsJs: [
       `${vendorsRoot}/@popperjs/core/dist/umd/popper.js`,
       `${vendorsRoot}/bootstrap/dist/js/bootstrap.js`,
