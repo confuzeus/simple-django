@@ -6,37 +6,37 @@ SHELL := /bin/bash
 init: install-dev-deps
 	npm install
 	npm run build
-	python manage.py collectstatic --no-input
-	python manage.py test
-	python manage.py migrate
+	poetry run python manage.py collectstatic --no-input
+	poetry run python manage.py test
+	poetry run python manage.py migrate
 
 install-dev-deps:
 	poetry install --with dev
 
 coverage:
 	rm -rf htmlcov
-	DJANGO_TEST=1 coverage run manage.py test
-	coverage html
+	DJANGO_TEST=1 poetry run coverage run manage.py test
+	poetry run coverage html
 	firefox htmlcov/index.html
 
 reset:
-	python manage.py reset_db
-	python manage.py migrate
+	poetry run python manage.py reset_db
+	poetry run python manage.py migrate
 
 fixtures:
-	python manage.py init_site
+	poetry run python manage.py init_site
 
 fmt:
-	@black --exclude __pycache__  config
-	@black --exclude __pycache__ --exclude migrations simple_django
-	@isort --skip migrations --skip __pycache__ simple_django
-	@isort --skip __pycache__ config
-	@djhtml -i templates/**/*.html
+	@poetry run black --exclude __pycache__  config
+	@poetry run black --exclude __pycache__ --exclude migrations simple_django
+	@poetry run isort --skip migrations --skip __pycache__ simple_django
+	@poetry run isort --skip __pycache__ config
+	@poetry run djhtml -i templates/**/*.html
 	@npx prettier --write staticSrc/js
 
 lint:
-	@flake8 config
-	@flake8 simple_django
+	@poetry run flake8 config
+	@poetry run flake8 simple_django
 
 fmtl: fmt lint
 
@@ -47,11 +47,11 @@ stop-services:
 	docker-compose down
 
 serve-django:
-	python manage.py runserver_plus --keep-meta-shutdown
+	poetry run python manage.py runserver_plus --keep-meta-shutdown
 
 shell:
-	python manage.py shell_plus
+	poetry run python manage.py shell_plus
 
 migrate:
-	python manage.py migrate
+	poetry run python manage.py migrate
 
