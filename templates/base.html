@@ -3,49 +3,46 @@
 
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:'en' }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block seo_title %}{% endblock %} | Simple Django</title>
-    <meta name="description" content="{% block seo_description %}{% endblock %}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Josh Michael Karamuth">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{% block seo_title %}{% endblock %} | Simple Django</title>
+        <meta name="description" content="{% block seo_description %}{% endblock %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Josh Michael Karamuth">
 
-    {% block css %}
-        <link href="{% static 'css/main.min.css' %}" rel="stylesheet">
-    {% endblock %}
-
-    {% include 'partials/_head-styles.html' %}
-
-</head>
-
-<body>
-
-{% block flash_messages %}
-    <div class="container">
-        {% include 'partials/_flash-messages.html' %}
-    </div>
-{% endblock %}
-
-{% block layout %}{% endblock %}
-
-{% block modal %}{% endblock %}
-
-{% block js %}
-    <script src="{% static 'js/popper.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/main.min.js' %}"></script>
-{% endblock %}
-
-<script>
-
-    document.addEventListener("DOMContentLoaded", function () {
-        {% block onbodyload %}
-            app.main.init();
+        {% block css %}
+            <link href="{% static 'css/main.min.css' %}" rel="stylesheet">
         {% endblock %}
-    })
 
-</script>
+        {% include 'partials/_head-styles.html' %}
 
-</body>
+    </head>
+
+    <body>
+
+        {% block flash_messages %}
+            <div class="container">
+                {% include 'partials/_flash-messages.html' %}
+            </div>
+        {% endblock %}
+
+        {% block layout %}{% endblock %}
+
+        {% block modal %}{% endblock %}
+
+        {% block js %}
+            <script src="{% static 'js/main.min.js' %}"></script>
+        {% endblock %}
+
+        <script>
+
+            document.addEventListener("DOMContentLoaded", function () {
+                {% block onbodyload %}
+                {% endblock %}
+            })
+
+        </script>
+
+    </body>
 </html>
