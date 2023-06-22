@@ -54,4 +54,3 @@ shell:
 
 migrate:
 	poetry run python manage.py migrate
-
