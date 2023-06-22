@@ -1,7 +1,7 @@
 @import "../../node_modules/bootstrap/scss/functions";
 
 // Import my variables
-@import 'vars';
+@import "vars";
 
 // Bootstrap stuff
 @import "../../node_modules/bootstrap/scss/variables";
@@ -47,10 +47,10 @@
 @import "../../node_modules/bootstrap/scss/utilities/api";
 
 // My utilities
-@import 'utils';
+@import "utils";
 
 // My components
-@import 'components';
+@import "components";
 
 // My custom code
-@import 'custom';
+@import "custom";
