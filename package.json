@@ -7,20 +7,42 @@
     "bootstrap": "^5.0.0",
     "bootstrap-icons": "^1.5.0",
     "browser-sync": "^2.0.0",
+    "clean-css-cli": "^5.6.2",
     "cssnano": "^4.1.10",
+    "dotenv": "^16.0.1",
+    "esbuild": "^0.18.6",
+    "eslint": "^8.43.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
     "headroom.js": "^0.12.0",
     "nodemon": "^2.0.22",
     "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.24",
+    "postcss-cli": "^10.1.0",
     "prettier": "^2.6.2",
     "sass": "^1.35.1",
     "smooth-scroll": "^16.1.3"
   },
   "scripts": {
-    "dev": "gulp",
-    "build": "gulp generateAssets",
-    "clean": "gulp cleanDest"
+    "prestart": "npm-run-all init vendors",
+    "start": "npm-run-all --parallel browser watch",
+    "init": "bash -c 'mkdir -p static/{css,js,images}'",
+    "browser": "browser-sync start --config bs-config.js",
+    "css": "npm-run-all css-compile css-prefix css-minify",
+    "css-compile": "sass --style expanded --embed-sources --no-error-css staticSrc/scss/main.scss static/css/main.css",
+    "css-prefix": "postcss --config postcss.config.js --replace \"static/css/*.css\" \"!static/css/*.min.css\"",
+    "css-minify": "cleancss -O1 --format breakWith=lf --with-rebase --source-map --source-map-inline-sources --output static/css/ --batch --batch-suffix \".min\" \"static/css/*.css\" \"!static/css/*.min.css\"",
+    "js-compile": "esbuild staticSrc/js/main.js --bundle --minify --sourcemap --target=chrome112,firefox112,safari16 --outfile=static/js/main.min.js",
+    "js-lint": "eslint --fix --cache --cache-location .cache/.eslintcache --report-unused-disable-directives staticSrc/js",
+    "vendors": "bash vendor-assets.sh",
+    "images-compress": "imagemin 'staticSrc/images/**/*' --out-dir=static/images",
+    "watch": "npm-run-all --parallel watch-*",
+    "watch-css": "nodemon --watch staticSrc/scss/ --ext scss --exec \"npm-run-all css-compile css-prefix\"",
+    "watch-js": "nodemon --watch staticSrc/js/ --ext js --exec \"npm run js-compile\"",
+    "watch-images": "nodemon --watch staticSrc/images/ --exec \"npm run images-compress\""
   },
   "dependencies": {
-    "dotenv": "^16.0.1"
+    "imagemin-cli": "^7.0.0"
   }
 }
