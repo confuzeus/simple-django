@@ -5,5 +5,8 @@
 {% block headline %}Page not found{% endblock %}
 
 {% block content %}
-    <p>This is not the page you were looking for.</p>
+    <p class="alert alert-danger text-center mb-5">The page you're looking for doesn't exist.</p>
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-primary btn-lg" href="/">Back to home</a>
+    </div>
 {% endblock content %}

@@ -5,7 +5,8 @@
 {% block headline %}Server Error{% endblock %}
 
 {% block content %}
-    <h3>Looks like something went wrong!</h3>
-
-    <p>We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.</p>
+    <p class="text-center alert alert-danger mb-5">We encountered an error. Our team has already been notified and it should be resolved soon.</p>
+    <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-primary btn-lg">Back to home</button>
+    </div>
 {% endblock content %}
