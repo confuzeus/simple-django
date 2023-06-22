@@ -37,6 +37,7 @@ fmt:
 lint:
 	@poetry run flake8 config
 	@poetry run flake8 simple_django
+	@npm run js-lint
 
 fmtl: fmt lint
 
