@@ -31,7 +31,6 @@ def get_qs(request: HttpRequest, exclude: Optional[str] = None) -> str:
     query_dict: QueryDict = request.GET.copy()
 
     if exclude:
-
         if exclude in query_dict:
             del query_dict[exclude]
 

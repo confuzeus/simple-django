@@ -29,7 +29,6 @@ def redirect_next_or_default(path: str, default: str) -> HttpResponseRedirect:
     parsed = urlparse(path)
 
     if len(parsed.query) > 0:
-
         qs = parse_qs(parsed.query)
 
         next_path = qs.get("next")

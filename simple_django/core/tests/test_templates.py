@@ -46,7 +46,6 @@ class TemplatesTests(SimpleTestCase):
         self.assertIn(ctx["icon_name"], tmpl.rendered_content)
 
     def test_flash_messages_html(self):
-
         ctx = {"messages": [Message(message=self.fake.sentence(), level=25)]}
         tmpl = SimpleTemplateResponse("partials/_flash-messages.html", ctx)
         tmpl.render()

@@ -5,7 +5,6 @@ register = template.Library()
 
 @register.filter()
 def is_number(value):
-
     if not isinstance(value, bool):
         if isinstance(value, int):
             return True
