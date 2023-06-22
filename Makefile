@@ -31,7 +31,7 @@ fmt:
 	@poetry run black --exclude __pycache__ --exclude migrations simple_django
 	@poetry run isort --skip migrations --skip __pycache__ simple_django
 	@poetry run isort --skip __pycache__ config
-	@poetry run djhtml -i templates/**/*.html
+	@poetry run djhtml templates/**/*.html
 	@npx prettier --write staticSrc/js
 
 lint:
