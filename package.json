@@ -4,7 +4,7 @@
   "devDependencies": {
     "@popperjs/core": "^2.10.2",
     "autoprefixer": "^9.0.0",
-    "bootstrap": "^5.0.0",
+    "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.5.0",
     "browser-sync": "^2.0.0",
     "clean-css-cli": "^5.6.2",
@@ -27,6 +27,8 @@
   "scripts": {
     "prestart": "npm-run-all init vendors",
     "start": "npm-run-all --parallel browser watch",
+    "prebuild": "npm run init",
+    "build": "npm-run-all --parallel css js-compile vendors images-compress",
     "init": "bash -c 'mkdir -p static/{css,js,images}'",
     "browser": "browser-sync start --config bs-config.js",
     "css": "npm-run-all css-compile css-prefix css-minify",
