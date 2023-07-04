@@ -103,6 +103,9 @@ THIRD_PARTY_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "allcaptcha",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
 ]
 
 LOCAL_APPS = [
@@ -121,6 +124,7 @@ if DEBUG or TEST:
 # https://docs.djangoproject.com/en/3.2/ref/settings/#authentication-backends
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "accounts.User"
@@ -129,6 +133,32 @@ LOGIN_REDIRECT_URL = "/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#login-url
 LOGIN_URL = "/"
 
+# Allauth
+
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+
+ACCOUNT_EMAIL_REQUIRED = True
+
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+
+ACCOUNT_MAX_EMAIL_ADDRESSES = 3
+
+ACCOUNT_FORMS = {
+    "add_email": "allauth.account.forms.AddEmailForm",
+    "change_password": "allauth.account.forms.ChangePasswordForm",
+    "disconnect": "allauth.socialaccount.forms.DisconnectForm",
+    "login": "allauth.account.forms.LoginForm",
+    "reset_password": "allauth.account.forms.ResetPasswordForm",
+    "reset_password_from_key": "allauth.account.forms.ResetPasswordKeyForm",
+    "set_password": "allauth.account.forms.SetPasswordForm",
+    "signup": "allauth.account.forms.SignupForm",
+}
+
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
@@ -151,7 +181,8 @@ else:
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",  # noqa: E501
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        # noqa: E501
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
@@ -210,7 +241,6 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-
 # MEDIA
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.2/ref/settings/#media-root
@@ -222,7 +252,6 @@ if DEBUG or TEST:
     MEDIA_URL = "/media/"
 else:
     MEDIA_URL = env.str("DJANGO_MEDIA_URL")
-
 
 TEMPLATES = [
     {
@@ -309,7 +338,6 @@ if not DEBUG:
 
     # https://docs.djangoproject.com/en/3.2/ref/middleware/#x-content-type-options-nosniff
     SECURE_CONTENT_TYPE_NOSNIFF = True
-
 
 # EMAIL
 # ------------------------------------------------------------------------------
