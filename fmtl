@@ -2,6 +2,6 @@
 
 # File watcher for use with Pycharm
 
-black "$1"
-isort "$1"
-flake8 "$1"
+poetry run black "$1"
+poetry run isort "$1"
+poetry run flake8 "$1"
