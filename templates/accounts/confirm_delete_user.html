@@ -1,0 +1,31 @@
+{% extends "account/layout.html" %}
+{% load crispy_forms_filters %}
+
+{% block seo_title %}
+  Delete your account
+{% endblock %}
+
+{% block title %}
+  Delete your account
+{% endblock %}
+
+{% block content %}
+  <div class="col-lg-4"></div>
+  <div class="col-lg-4">
+    <form action="." method="post">
+      {% csrf_token %}
+      <p class="alert alert-info text-center">Enter your password below to delete your
+        account.</p>
+      {{ form|crispy }}
+      <div class="d-flex justify-content-center align-items-center">
+        <button class="btn btn-danger me-2">Delete</button>
+        <a href="/" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-lg-4">
+
+  </div>
+
+{% endblock %}
