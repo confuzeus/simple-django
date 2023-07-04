@@ -301,6 +301,8 @@ SECRET_KEY = env.str("DJANGO_SECRET_KEY")
 
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 
+CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS")
+
 if not DEBUG:
     # https://docs.djangoproject.com/en/3.2/ref/settings/#session-cookie-httponly
     SESSION_COOKIE_HTTPONLY = True
