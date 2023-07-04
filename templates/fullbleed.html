@@ -3,12 +3,8 @@
 {% block flash_messages %}{% endblock %}
 {% block layout %}
 
-    {% include "partials/_navbar.html" %}
+  {% include "partials/_navbar.html" %}
 
-    <div class="container">
-        {% include "partials/_flash-messages.html" %}
-    </div>
-
-    {% block inner %}{% endblock %}
+  {% block inner %}{% endblock %}
 
 {% endblock %}
