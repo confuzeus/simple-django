@@ -15,8 +15,17 @@
           <a class="nav-link" href="/">Home</a>
         </li>
         {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a href="{% url "account_logout" %}" class="nav-link">Logout</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+              {{ user.username }}
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url "accounts:update-user" %}">Settings</a>
+              </li>
+              <li><a class="dropdown-item" href="{% url "account_logout" %}">Logout</a>
+              </li>
+            </ul>
           </li>
         {% else %}
           <li class="nav-item">
