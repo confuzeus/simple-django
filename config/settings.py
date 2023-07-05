@@ -3,6 +3,7 @@ from pathlib import Path
 import environ
 from django.contrib import messages
 from django.core.exceptions import ImproperlyConfigured
+from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -131,7 +132,7 @@ AUTH_USER_MODEL = "accounts.User"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = "/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#login-url
-LOGIN_URL = "/"
+LOGIN_URL = reverse_lazy("account_login")
 
 # Allauth
 
