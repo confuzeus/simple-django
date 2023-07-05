@@ -1,13 +1,13 @@
 const path = require("path");
 require("dotenv").config({
-  path: path.resolve(process.cwd(), "appconfig.env"),
+    path: path.resolve(process.cwd(), "appconfig.env"),
 });
 
 module.exports = {
     "ui": {
         "port": 3001
     },
-    "files": "static/**/*",
+    "files": ["static/**/*", "config/**/*.py", "simple_django/**/*.py", "templates/**/*.html"],
     "watchEvents": [
         "change"
     ],
