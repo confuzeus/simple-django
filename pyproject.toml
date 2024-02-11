@@ -20,7 +20,7 @@ python = "^3.10"
 argon2-cffi = "^21.3.0"
 whitenoise = {extras = ["brotli"], version = "^6.3.0"}
 pymemcache = "^4.0.0"
-django = "^4.1.6"
+django = "^4.2.10"
 django-extensions = "^3.2.1"
 django-crispy-forms = "^1.14.0"
 crispy-bootstrap5 = "^0.7"
