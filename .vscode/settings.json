@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "templates/**/*.html": "django-html",
+        "templates/**/*.txt": "django-txt"
+    }
+}
