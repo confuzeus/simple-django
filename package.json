@@ -29,7 +29,7 @@
     "prebuild": "npm run init",
     "build": "npm-run-all --parallel css js-compile vendors images-compress",
     "init": "bash -c 'mkdir -p static/{css,js,images}'",
-    "browser": "browser-sync start --config bs-config.js",
+    "browser": "browser-sync start --config bs-config.cjs",
     "css": "npm-run-all css-compile css-prefix css-minify",
     "css-compile": "sass --style expanded --embed-sources --no-error-css staticSrc/scss/main.scss static/css/main.css",
     "css-prefix": "postcss --config postcss.config.js --replace \"static/css/*.css\" \"!static/css/*.min.css\"",
