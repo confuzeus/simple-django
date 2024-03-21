@@ -254,13 +254,20 @@ if DEBUG or TEST:
 else:
     MEDIA_URL = env.str("DJANGO_MEDIA_URL")
 
+template_loaders = [
+    "django.template.loaders.filesystem.Loader",
+    "django.template.loaders.app_directories.Loader",
+]
+
+if DEBUG is False:
+    template_loaders = ("django.template.loaders.cached.Loader", template_loaders)
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             BASE_DIR / "templates",
         ],
-        "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "django.contrib.auth.context_processors.auth",
@@ -273,6 +280,7 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
             ],
             "debug": DEBUG or TEST,
+            "loaders": template_loaders
         },
     },
 ]
