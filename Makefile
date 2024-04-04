@@ -4,6 +4,7 @@
 SHELL := /bin/bash
 
 init: install-dev-deps
+	mkdir -p static/{js,css,images}
 	npm install
 	npm run build
 	poetry run python manage.py collectstatic --no-input
