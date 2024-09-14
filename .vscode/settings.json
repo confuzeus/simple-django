@@ -1,6 +1,12 @@
 {
-    "files.associations": {
-        "templates/**/*.html": "django-html",
-        "templates/**/*.txt": "django-txt"
-    }
+  "files.associations": {
+    "templates/**/*.html": "django-html",
+    "templates/**/*.txt": "django-txt"
+  },
+  "[django-html]": {
+    "editor.formatOnSave": false
+  },
+  "[django-txt]": {
+    "editor.formatOnSave": false
+  }
 }
