@@ -8,5 +8,13 @@
   },
   "[django-txt]": {
     "editor.formatOnSave": false
+  },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit",
+    "source.unusedImports": "explicit"
   }
 }
