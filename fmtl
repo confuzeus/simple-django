@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# File watcher for use with Pycharm
-
-poetry run black "$1"
-poetry run isort "$1"
-poetry run flake8 "$1"
