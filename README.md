@@ -6,8 +6,7 @@ This template contains everything you need to bootstrap a new Django project.
 
 Install the following tools first.
 
-1. [Poetry](https://python-poetry.org/)
-2. [Docker](https://www.docker.com/)
+1. [uv](https://astral.sh)
 
 ## Quick start
 
@@ -33,20 +32,6 @@ Edit the file and change all the variables to your liking.
 
 Execute the script named `rename.sh` and it will ask you a bunch of
 questions that will be used to baptise your new project.
-
-## Start services
-
-The docker-compose file services like database, caching, and mail testing
-systems.
-
-If you don't want to use Docker, you'll need to have these services running
-on your own computer instead.
-
-Start the containers like so:
-
-```shell
-docker-compose up -d
-```
 
 ## Initialize project
 
