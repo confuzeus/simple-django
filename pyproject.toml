@@ -1,54 +1,31 @@
-[tool.isort]
-profile = "black"
-
-[tool.coverage.run]
-plugins = [
-    'django_coverage_plugin',
-]
-
-[tool.poetry]
+[project]
 name = "simple-django"
 version = "0.1.0"
-description = "Simple Django project boilerplate"
-authors = ["Josh Michael Karamuth <michael@confuzeus.com>"]
-license = "MIT"
+description = "Add your description here"
 readme = "README.md"
-packages = [{include = "simple_django"}]
+requires-python = ">=3.12"
+dependencies = [
+    "argon2-cffi>=23.1.0",
+    "django>=5.1.1",
+    "django-environ>=0.11.2",
+    "django-extensions>=3.2.3",
+    "django-allauth[socialaccount]>=64.2.1",
+    "whitenoise[brotli]>=6.7.0",
+    "django-crispy-forms>=2.3",
+    "crispy-bootstrap5>=2024.2",
+]
 
-[tool.poetry.dependencies]
-python = "^3.12"
-argon2-cffi = "^21.3.0"
-whitenoise = {extras = ["brotli"], version = "^6.3.0"}
-pymemcache = "^4.0.0"
-django = "^4.2.10"
-django-extensions = "^3.2.1"
-django-crispy-forms = "^1.14.0"
-crispy-bootstrap5 = "^0.7"
-django-allcaptcha = "^0.3.0"
-django-environ = "^0.9.0"
-django-allauth = "^0.54.0"
-pyyaml = "6.0.1"
+[project.optional-dependencies]
+prod = [
+    "django-anymail[amazon-ses]>=12.0",
+    "uvicorn>=0.30.6",
+]
 
-
-[tool.poetry.group.dev.dependencies]
-werkzeug = "^2.2.2"
-psycopg2-binary = "^2.9.5"
-factory-boy = "^3.2.1"
-coverage = "^7.1.0"
-django-coverage-plugin = "^3.0.0"
-black = "^23.1.0"
-isort = "^5.12.0"
-flake8 = "^6.0.0"
-djhtml = "^2.0.0"
-django-debug-toolbar = "^3.8.1"
-pre-commit = "^3.3.3"
-
-
-[tool.poetry.group.prod.dependencies]
-gunicorn = "^20.1.0"
-psycopg2 = "^2.9.5"
-django-anymail = {extras = ["amazon-ses"], version = "^9.0"}
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.uv]
+dev-dependencies = [
+    "coverage>=7.6.1",
+    "django-coverage-plugin>=3.1.0",
+    "django-debug-toolbar>=4.4.6",
+    "factory-boy>=3.3.1",
+    "werkzeug>=3.0.4",
+]

@@ -3,56 +3,48 @@
 
 SHELL := /bin/bash
 
-init: install-dev-deps
-	mkdir -p static/{js,css,images}
-	npm install
-	npm run build
-	poetry run python manage.py collectstatic --no-input
-	poetry run python manage.py test
-	poetry run python manage.py migrate
-
-install-dev-deps:
-	poetry install --with dev
+init:
+	@uv sync
+	@mkdir -p static/{js,css,images}
+	@pnpm install
+	@pnpm build
+	@python manage.py collectstatic --no-input
+	@python manage.py test
+	@python manage.py createcachetable
+	@python manage.py migrate
 
 coverage:
-	rm -rf htmlcov
-	DJANGO_TEST=1 poetry run coverage run manage.py test
-	poetry run coverage html
-	firefox htmlcov/index.html
+	@rm -rf htmlcov
+	@DJANGO_TEST=1 coverage run manage.py test
+	@coverage html
+	@firefox htmlcov/index.html
 
 reset:
-	poetry run python manage.py reset_db
-	poetry run python manage.py migrate
+	@python manage.py reset_db
+	@python manage.py migrate
 
 fixtures:
-	poetry run python manage.py init_site
+	@python manage.py init_site
 
 fmt:
-	@poetry run black --exclude __pycache__  config
-	@poetry run black --exclude __pycache__ --exclude migrations simple_django
-	@poetry run isort --skip migrations --skip __pycache__ simple_django
-	@poetry run isort --skip __pycache__ config
-	@poetry run djhtml templates/**/*.html
-	@npx prettier --write staticSrc/js
+	@uv tool run ruff --format simple_django
+	@uv tool run djhtml templates/**/*.html
+	@pnpm exec prettier --write staticSrc/js
 
 lint:
-	@poetry run flake8 config
-	@poetry run flake8 simple_django
-	@npm run js-lint
+	@uv tool run ruff check --fix simple_django
+	@pnpm js-lint
 
 fmtl: fmt lint
 
-services:
-	docker-compose up -d
-
-stop-services:
-	docker-compose down
-
 serve-django:
-	poetry run python manage.py runserver_plus --keep-meta-shutdown
+	@python manage.py runserver_plus --keep-meta-shutdown
 
 shell:
-	poetry run python manage.py shell_plus
+	@python manage.py shell_plus
 
 migrate:
-	poetry run python manage.py migrate
+	@python manage.py migrate
+
+mailhog:
+	@podman run -p "127.0.0.1:1025:1025" -p "127.0.0.1:8025:8025" docker://mailhog/mailhog

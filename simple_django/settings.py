@@ -60,18 +60,10 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": env.str("POSTGRES_DB"),
-        "USER": env.str("POSTGRES_USER"),
-        "PASSWORD": env.str("POSTGRES_PASSWORD"),
-        "HOST": env.str("POSTGRES_HOST"),
-        "PORT": env.str("POSTGRES_PORT"),
-        "ATOMIC_REQUESTS": True,
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": env.str("DB_PATH"),
     }
 }
-
-if not DEBUG:
-    DATABASES["default"]["CONN_MAX_AGE"] = env.int("DJANGO_DB_CONN_MAX_AGE", 60)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -80,10 +72,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # URLS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.2/ref/settings/#root-urlconf
-ROOT_URLCONF = "config.urls"
+ROOT_URLCONF = "simple_django.urls"
 
 # https://docs.djangoproject.com/en/3.2/ref/settings/#wsgi-application
-WSGI_APPLICATION = "config.wsgi.application"
+WSGI_APPLICATION = "simple_django.wsgi.application"
 
 # APPS
 # ------------------------------------------------------------------------------
@@ -101,12 +93,11 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     "django_extensions",
-    "crispy_forms",
-    "crispy_bootstrap5",
-    "allcaptcha",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
 
 LOCAL_APPS = [
@@ -136,13 +127,15 @@ LOGIN_URL = reverse_lazy("account_login")
 
 # Allauth
 
-ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_AUTHENTICATION_METHOD = "email"
 
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 ACCOUNT_EMAIL_REQUIRED = True
 
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+
+ACCOUNT_USERNAME_REQUIRED = False
 
 ACCOUNT_MAX_EMAIL_ADDRESSES = 3
 
@@ -209,6 +202,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 if DEBUG or TEST:
@@ -280,7 +274,7 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
             ],
             "debug": DEBUG or TEST,
-            "loaders": template_loaders
+            "loaders": template_loaders,
         },
     },
 ]
@@ -297,12 +291,6 @@ TEMPLATES[0]["OPTIONS"]["context_processors"] += (
 
 # https://docs.djangoproject.com/en/3.2/ref/settings/#form-renderer
 FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
-
-# Crispy forms
-
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-
-CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # SECURITY
 # ------------------------------------------------------------------------------
@@ -388,7 +376,7 @@ EMAIL_TIMEOUT = 5
 ADMIN_URL = env.str("DJANGO_ADMIN_URL")
 
 # https://docs.djangoproject.com/en/3.2/ref/settings/#admins
-ADMINS = [("""Josh Michael Karamuth""", "admin@example.com")]
+ADMINS = [("""Josh Karamuth""", "admin@example.com")]
 # https://docs.djangoproject.com/en/3.2/ref/settings/#managers
 MANAGERS = ADMINS
 
@@ -447,16 +435,9 @@ if not DEBUG:
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
-        "LOCATION": env.str("DJANGO_MEMCACHE_LOCATION"),
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
     }
 }
-
-# Captcha
-
-HCAPTCHA_SECRET_KEY = env.str("HCAPTCHA_SECRET_KEY")
-
-HCAPTCHA_SITE_KEY = env.str("HCAPTCHA_SITE_KEY")
 
 # django.contrib.messages
 
@@ -468,18 +449,6 @@ MESSAGE_TAGS = {
     messages.ERROR: "danger",  # 'error' by default
 }
 
-# sorl thumbnail
-
-THUMBNAIL_QUALITY = 70
-
-THUMBNAIL_ENGINE = "sorl.thumbnail.engines.convert_engine.Engine"
-
-THUMBNAIL_CONVERT = "gm convert"
-
-THUMBNAIL_IDENTIFY = "gm identify"
-
-THUMBNAIL_PRESERVE_FORMAT = True
-
 # Django Extensions
 
 SHELL_PLUS_IMPORTS = [
@@ -487,3 +456,9 @@ SHELL_PLUS_IMPORTS = [
 ]
 
 SHELL_PLUS_PRINT_SQL = True
+
+# Crispy forms
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
