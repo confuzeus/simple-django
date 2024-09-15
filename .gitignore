@@ -238,3 +238,4 @@ node_modules
 media
 /.coverage
 appconfig.env
+db.sqlite3
