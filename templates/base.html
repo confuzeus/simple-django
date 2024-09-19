@@ -12,7 +12,11 @@
         <meta name="author" content="Josh Michael Karamuth">
 
         {% block css %}
-            <link href="{% static 'css/main.min.css' %}" rel="stylesheet">
+            {% if debug %}
+                <link href="{% static 'css/main.css' %}" rel="stylesheet">
+            {% else %}
+                <link href="{% static 'css/main.min.css' %}" rel="stylesheet">
+            {% endif %}
         {% endblock %}
 
     </head>
