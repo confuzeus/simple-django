@@ -44,6 +44,7 @@
     "watch-images": "nodemon --watch staticSrc/images/ --exec \"npm run images-compress\""
   },
   "dependencies": {
+    "htmx.org": "2.0.3",
     "imagemin-cli": "^7.0.0"
   }
 }

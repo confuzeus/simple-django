@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      htmx.org:
+        specifier: 2.0.3
+        version: 2.0.3
       imagemin-cli:
         specifier: ^7.0.0
         version: 7.0.0
@@ -1447,6 +1450,9 @@ packages:
 
   hsla-regex@1.0.0:
     resolution: {integrity: sha512-7Wn5GMLuHBjZCb2bTmnDOycho0p/7UVaAeqXZGbHrBCl6Yd/xDhQJAXe6Ga9AXJH2I5zY1dEdYw2u1UptnSBJA==}
+
+  htmx.org@2.0.3:
+    resolution: {integrity: sha512-AeoJUAjkCVVajbfKX+3sVQBTCt8Ct4lif1T+z/tptTXo8+8yyq3QIMQQe/IT+R8ssfrO1I0DeX4CAronzCL6oA==}
 
   http-cache-semantics@3.8.1:
     resolution: {integrity: sha512-5ai2iksyV8ZXmnZhHH4rWPoxxistEexSi5936zIQ1bnNTW5VnA85B6P/VpXiRM017IgRvb2kKo1a//y+0wSp3w==}
@@ -4945,6 +4951,8 @@ snapshots:
   hsl-regex@1.0.0: {}
 
   hsla-regex@1.0.0: {}
+
+  htmx.org@2.0.3: {}
 
   http-cache-semantics@3.8.1:
     optional: true

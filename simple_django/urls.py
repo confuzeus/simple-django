@@ -14,6 +14,7 @@ urlpatterns = [
     path("up/", core_views.healthcheck, name="healthcheck"),
     path("accounts/", include("allauth.urls")),
     path("accounts/", include("simple_django.accounts.urls")),
+    path("", include("simple_django.core.urls")),
     path(
         "",
         login_required(TemplateView.as_view(template_name="pages/home.html")),
