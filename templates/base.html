@@ -1,16 +1,17 @@
 {% load i18n %}
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:'en' }}">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>{% block seo_title %}{% endblock %} | Simple Django</title>
-        <meta name="description" content="{% block seo_description %}{% endblock %}">
+        <title>
+            {% block seo_title %}{% endblock %}
+        | Simple Django</title>
+        <meta name="description"
+              content="{% block seo_description %}{% endblock %}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Josh Michael Karamuth">
-
         {% block css %}
             {% if debug %}
                 <link href="{% static 'css/main.css' %}" rel="stylesheet">
@@ -18,36 +19,27 @@
                 <link href="{% static 'css/main.min.css' %}" rel="stylesheet">
             {% endif %}
         {% endblock %}
-
     </head>
-
     <body>
-
         {% block layout %}{% endblock %}
-
         {% block modal %}{% endblock %}
-
-        <div hx-get="{% url "core:toast-messages" %}" hx-trigger="htmx:afterRequest" hx-swap="afterbegin" class="toast-container top-0 end-0 p-3">
-            {% include "common/toast_messages.html" %}
-        </div>
-
+        <div hx-get="{% url "core:toast-messages" %}"
+             hx-trigger="htmx:afterRequest"
+             hx-swap="afterbegin"
+             class="toast-container top-0 end-0 p-3">{% include "common/toast_messages.html" %}</div>
         {% block vendor_js %}
             <script src="{% static 'js/htmx.min.js' %}"></script>
             <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
         {% endblock vendor_js %}
-
         {% block js %}
             <script src="{% static 'js/main.min.js' %}"></script>
         {% endblock %}
-
         <script>
-
             document.addEventListener("DOMContentLoaded", function () {
                 {% block onbodyload %}
                 {% endblock %}
             })
 
         </script>
-
     </body>
 </html>

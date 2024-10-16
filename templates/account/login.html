@@ -1,29 +1,22 @@
 {% extends "account/layout.html" %}
 {% load crispy_forms_filters %}
-
-{% block seo_title %}
-  Login
-{% endblock %}
-
-{% block title %}
-  Login
-{% endblock %}
-
+{% block seo_title %}Login{% endblock %}
+{% block title %}Login{% endblock %}
 {% block content %}
-  <div class="col-lg-4"></div>
-  <div class="col-lg-4">
-    <form action="." method="post">
-      {% csrf_token %}
-      {{ form|crispy }}
-      <button type="submit" class="btn btn-primary w-100 mb-4">Login</button>
-      <div class="d-flex justify-content-center mb-4">
-        <a href="{% url "account_reset_password" %}">Forgot
-          password?</a>
-      </div>
-
-      <p class="text-center">Don't have an account? <a
-          href="{% url "account_signup" %}">Create one now.</a></p>
-    </form>
-  </div>
-  <div class="col-lg-4"></div>
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4">
+        <form action="." method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary w-100 mb-4">Login</button>
+            <div class="d-flex justify-content-center mb-4">
+                <a href="{% url "account_reset_password" %}">Forgot
+                password?</a>
+            </div>
+            <p class="text-center">
+                Don't have an account? <a href="{% url "account_signup" %}">Create one now.</a>
+            </p>
+        </form>
+    </div>
+    <div class="col-lg-4"></div>
 {% endblock %}

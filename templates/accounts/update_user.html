@@ -1,44 +1,35 @@
 {% extends "fullbleed.html" %}
 {% load crispy_forms_filters %}
-
-{% block seo_title %}
-  Update your profile
-{% endblock %}
-
+{% block seo_title %}Update your profile{% endblock %}
 {% block inner %}
-
-  <div style="margin-top: 20vh" class="container">
-    <div class="row mb-5">
-      <div class="col-lg-12">
-        <h1 class="text-center">Update your profile</h1>
-      </div>
-    </div>
-
-    {% if messages %}
-      <div class="row mb-5">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4">
-          {% include "partials/_flash-messages.html" %}
+    <div style="margin-top: 20vh" class="container">
+        <div class="row mb-5">
+            <div class="col-lg-12">
+                <h1 class="text-center">Update your profile</h1>
+            </div>
         </div>
-        <div class="col-lg-4"></div>
-      </div>
-    {% endif %}
-
-    <div class="row">
-      <div class="col-lg-4"></div>
-      <div class="col-lg-4">
-        <form class="mb-4" action="." method="post">
-          {% csrf_token %}
-          {{ form|crispy }}
-          <button type="submit" class="btn btn-primary w-100">Save</button>
-        </form>
-        <a href="{% url "account_change_password" %}" class="btn btn-info w-100 mb-3">Change
-          password</a>
-        <a href="{% url "accounts:delete-user" %}" class="btn btn-danger w-100">Delete
-          account</a>
-      </div>
-      <div class="col-lg-4"></div>
-
+        {% if messages %}
+            <div class="row mb-5">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4">{% include "partials/_flash-messages.html" %}</div>
+                <div class="col-lg-4"></div>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                <form class="mb-4" action="." method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-primary w-100">Save</button>
+                </form>
+                <a href="{% url "account_change_password" %}"
+                   class="btn btn-info w-100 mb-3">Change
+                password</a>
+                <a href="{% url "accounts:delete-user" %}" class="btn btn-danger w-100">Delete
+                account</a>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
     </div>
-  </div>
 {% endblock %}

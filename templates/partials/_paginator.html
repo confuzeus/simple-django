@@ -1,7 +1,6 @@
 {% load i18n %}
 {% load url_tags %}
 {% load useful_filters %}
-
 {% if page_obj.has_other_pages %}
     <nav aria-label="{{ nav_label|default:"Pagination" }}">
         {% get_qs request "page" as qs_without_page %}
@@ -9,34 +8,31 @@
             {% if page_obj.has_previous %}
                 <li class="page-item">
                     <a class="page-link"
-                        href="?{{ qs_without_page }}page={{ page_obj.previous_page_number }}">{% trans 'Previous' %}</a>
+                       href="?{{ qs_without_page }}page={{ page_obj.previous_page_number }}">{% trans 'Previous' %}</a>
                 </li>
             {% endif %}
             {% for page_number in elided_page_range %}
                 {% if page_number|is_number %}
                     {% if page_obj.number == page_number %}
                         <li class="page-item active">
-                            <a class="page-link"
-                                href="?{{ qs_without_page }}page={{ page_number }}">{{ page_number }}
+                            <a class="page-link" href="?{{ qs_without_page }}page={{ page_number }}">{{ page_number }}
                                 <span class="sr-only">({% trans 'current' %})</span></a>
                         </li>
                     {% else %}
                         <li class="page-item">
-                            <a class="page-link"
-                                href="?{{ qs_without_page }}page={{ page_number }}">{{ page_number }}</a>
+                            <a class="page-link" href="?{{ qs_without_page }}page={{ page_number }}">{{ page_number }}</a>
                         </li>
                     {% endif %}
                 {% else %}
                     <li class="page-item">
-                        <a class="page-link"
-                            href="#">{{ page_number }}</a>
+                        <a class="page-link" href="#">{{ page_number }}</a>
                     </li>
                 {% endif %}
             {% endfor %}
             {% if page_obj.has_next %}
                 <li class="page-item">
                     <a class="page-link"
-                        href="?{{ qs_without_page }}page={{ page_obj.next_page_number }}">{% trans 'Next' %}</a>
+                       href="?{{ qs_without_page }}page={{ page_obj.next_page_number }}">{% trans 'Next' %}</a>
                 </li>
             {% endif %}
         </ul>
