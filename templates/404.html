@@ -1,9 +1,13 @@
 {% extends "error-layout.html" %}
-{% block seo_title %}Page not found{% endblock %}
-{% block headline %}Page not found{% endblock %}
+{% block seo_title %}
+    Page not found
+{% endblock seo_title %}
+{% block headline %}
+    Page not found
+{% endblock headline %}
 {% block content %}
     <p class="alert alert-danger text-center mb-5">The page you're looking for doesn't exist.</p>
     <div class="d-flex justify-content-center">
-        <a class="btn btn-primary btn-lg" href="/">Back to home</a>
+        <a class="btn btn-primary btn-lg" href="{% url 'home' %}">Back to home</a>
     </div>
 {% endblock content %}

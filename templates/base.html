@@ -6,23 +6,27 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>
-            {% block seo_title %}{% endblock %}
+            {% block seo_title %}
+            {% endblock seo_title %}
         | Simple Django</title>
         <meta name="description"
-              content="{% block seo_description %}{% endblock %}">
+              content="{% block seo_description %}{% endblock seo_description %}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Josh Michael Karamuth">
+        <meta name="keywords" content="django">
         {% block css %}
             {% if debug %}
                 <link href="{% static 'css/main.css' %}" rel="stylesheet">
             {% else %}
                 <link href="{% static 'css/main.min.css' %}" rel="stylesheet">
             {% endif %}
-        {% endblock %}
+        {% endblock css %}
     </head>
     <body>
-        {% block layout %}{% endblock %}
-        {% block modal %}{% endblock %}
+        {% block layout %}
+        {% endblock layout %}
+        {% block modal %}
+        {% endblock modal %}
         <div hx-get="{% url "core:toast-messages" %}"
              hx-trigger="htmx:afterRequest"
              hx-swap="afterbegin"
@@ -33,11 +37,11 @@
         {% endblock vendor_js %}
         {% block js %}
             <script src="{% static 'js/main.min.js' %}"></script>
-        {% endblock %}
+        {% endblock js %}
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 {% block onbodyload %}
-                {% endblock %}
+                {% endblock onbodyload %}
             })
 
         </script>

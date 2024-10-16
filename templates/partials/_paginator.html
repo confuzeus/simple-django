@@ -1,4 +1,3 @@
-{% load i18n %}
 {% load url_tags %}
 {% load useful_filters %}
 {% if page_obj.has_other_pages %}
@@ -8,7 +7,7 @@
             {% if page_obj.has_previous %}
                 <li class="page-item">
                     <a class="page-link"
-                       href="?{{ qs_without_page }}page={{ page_obj.previous_page_number }}">{% trans 'Previous' %}</a>
+                       href="?{{ qs_without_page }}page={{ page_obj.previous_page_number }}">Previous</a>
                 </li>
             {% endif %}
             {% for page_number in elided_page_range %}
@@ -16,7 +15,7 @@
                     {% if page_obj.number == page_number %}
                         <li class="page-item active">
                             <a class="page-link" href="?{{ qs_without_page }}page={{ page_number }}">{{ page_number }}
-                                <span class="sr-only">({% trans 'current' %})</span></a>
+                                <span class="sr-only">(current)</span></a>
                         </li>
                     {% else %}
                         <li class="page-item">
@@ -32,7 +31,7 @@
             {% if page_obj.has_next %}
                 <li class="page-item">
                     <a class="page-link"
-                       href="?{{ qs_without_page }}page={{ page_obj.next_page_number }}">{% trans 'Next' %}</a>
+                       href="?{{ qs_without_page }}page={{ page_obj.next_page_number }}">Next</a>
                 </li>
             {% endif %}
         </ul>

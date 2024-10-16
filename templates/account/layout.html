@@ -4,12 +4,15 @@
         <div class="row mb-5">
             <div class="col-12">
                 <h1 class="text-center">
-                    {% block title %}Untitled{% endblock %}
+                    {% block title %}
+                        Untitled
+                    {% endblock title %}
                 </h1>
             </div>
         </div>
         <div class="row">
-            {% block content %}{% endblock %}
+            {% block content %}
+            {% endblock content %}
         </div>
     </div>
-{% endblock %}
+{% endblock inner %}

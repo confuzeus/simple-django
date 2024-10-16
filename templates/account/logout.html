@@ -1,6 +1,10 @@
 {% extends "account/layout.html" %}
-{% block seo_title %}Logout{% endblock %}
-{% block title %}Logout{% endblock %}
+{% block seo_title %}
+    Logout
+{% endblock seo_title %}
+{% block title %}
+    Logout
+{% endblock title %}
 {% block content %}
     <div class="col-lg-3"></div>
     <div class="col-lg-6">
@@ -9,9 +13,9 @@
             <p class="alert alert-info text-center">Are you sure you want to log out?</p>
             <div class="d-flex justify-content-center align-items-center">
                 <button class="btn btn-primary me-2">Yes, logout.</button>
-                <a href="/" class="btn btn-secondary">No, cancel.</a>
+                <a href="{% url 'home' %}" class="btn btn-secondary">No, cancel.</a>
             </div>
         </form>
     </div>
     <div class="col-lg-3"></div>
-{% endblock %}
+{% endblock content %}
