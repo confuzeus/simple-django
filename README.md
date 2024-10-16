@@ -7,6 +7,9 @@ This template contains everything you need to bootstrap a new Django project.
 Install the following tools first.
 
 1. [uv](https://astral.sh)
+2. [pnpm](https://pnpm.io/)
+3. [just](https://just.systems/man/en/introduction.html)
+4. [Podman](https://podman.io/) or [Docker](https://www.docker.com/)
 
 ## Quick start
 
@@ -18,7 +21,7 @@ Your can either delete .git or set the origin to your own repo:
 git remote set-url origin <your-repo>
 ```
 
-## Configuration
+### Configuration
 
 Copy the example app config file:
 
@@ -28,18 +31,14 @@ cp appconfig.example.env appconfig.env
 
 Edit the file and change all the variables to your liking.
 
-## Rename the project
+### Rename the project
 
 Execute the script named `rename.sh` and it will ask you a bunch of
 questions that will be used to baptise your new project.
 
-## Initialize project
+### Initialize project
 
-Bootstrap the project with make:
-
-```shell
-make
-```
+Run `just` to bootstrap the project. See the _justfile_ for details.
 
 Your project is now ready for you to ship features.
 
@@ -47,4 +46,4 @@ Your project is now ready for you to ship features.
 
 License is MIT
 
-Copyright 2022 Josh Michael Karamuth
+Copyright 2022 Josh Karamuth
