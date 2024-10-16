@@ -16,7 +16,7 @@
 
 @fmt:
   uv tool run ruff --format simple_django
-  uv tool run djhtml templates/**/*.html
+  uv tool run djlint templates
   pnpm exec prettier --write staticSrc/js staticSrc/scss
 
 @lint:
