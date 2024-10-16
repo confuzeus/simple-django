@@ -10,5 +10,5 @@ module.exports = {
     browser: true,
     node: true,
   },
-  plugins: ["import", "prettier"],
+  plugins: ["import"],
 };
