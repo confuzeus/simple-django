@@ -32,3 +32,4 @@ dev-dependencies = [
 
 [tool.djlint]
 profile="django"
+ignore="H021"
