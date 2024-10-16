@@ -15,12 +15,14 @@
   python manage.py init_site
 
 @fmt:
-  uv tool run ruff --format simple_django
-  uv tool run djlint templates
+  uv tool run ruff format simple_django
+  uv tool run djlint --reformat templates
   pnpm exec prettier --write staticSrc/js staticSrc/scss
 
 @lint:
   uv tool run ruff check --fix simple_django
+  uv tool run djlint templates
+  python manage.py validate_templates
   pnpm js-lint
 
 @fmtl: fmt lint
