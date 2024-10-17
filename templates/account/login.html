@@ -1,5 +1,6 @@
 {% extends "account/layout.html" %}
 {% load crispy_forms_filters %}
+{% load socialaccount %}
 {% block seo_title %}
     Login
 {% endblock seo_title %}
@@ -9,6 +10,11 @@
 {% block content %}
     <div class="col-lg-4"></div>
     <div class="col-lg-4">
+        <a class="btn btn-outline-primary icon-btn w-100 mb-5"
+           href="{% provider_login_url "google" %}">
+            {% include "helpers/_bootstrap-svg.html" with icon_name="google" %}
+            Login with Google
+        </a>
         <form action="." method="post">
             {% csrf_token %}
             {{ form|crispy }}
