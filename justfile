@@ -27,7 +27,7 @@
 
 @fmtl: fmt lint
 
-@server-django:
+@serve-django:
   python manage.py runserver_plus --keep-meta-shutdown
 
 @shell:
