@@ -20,8 +20,8 @@
             group: root
             mode: "u=r,g=r,o=r"
 
-    - name: Copy sshd config
-      ansible.builtin.copy:
+    - name: Template out sshd config
+      ansible.builtin.template:
         src: sshd_config
         dest: /etc/ssh/sshd_config.d/custom.conf
         owner: root
