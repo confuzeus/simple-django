@@ -9,7 +9,7 @@
             type: ed25519
             owner: root
             group: root
-            mode: "u=r,g=r,o=r"
+            mode: "u=r,g=r,o="
 
         - name: Ensure RSA host key has been generated
           community.crypto.openssh_keypair:
@@ -18,7 +18,7 @@
             size: 4096
             owner: root
             group: root
-            mode: "u=r,g=r,o=r"
+            mode: "u=r,g=r,o="
 
     - name: Template out sshd config
       ansible.builtin.template:
