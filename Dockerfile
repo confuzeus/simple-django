@@ -42,5 +42,5 @@ WORKDIR /app
 
 EXPOSE 8000
 
-CMD ["/app/venv/bin/python", "-m", "gunicorn", "simple_django.wsgi"]
+CMD ["echo", "Specify a default command."]
 
