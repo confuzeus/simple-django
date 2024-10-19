@@ -21,16 +21,6 @@
     group: root
     mode: "u=r,g=r,o=r"
 
-- name: Template virtual host
-  ansible.builtin.template:
-    src: example.com.conf
-    dest: /etc/nginx/sites-enabled/example.com.conf
-    owner: root
-    group: root
-    mode: "u=r,g=r,o=r"
-  notify:
-    - Reload nginx
-
 - name: Clear all virtual hosts
   ansible.builtin.command: "rm -f /etc/nginx/sites-available/* && rm -f /etc/nginx/sites-enabled/*"
 
