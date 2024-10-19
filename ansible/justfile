@@ -1,5 +1,5 @@
-export ANSIBLE_VAULT_PASSWORD_FILE=.vault
-export ANSIBLE_INVENTORY=hosts
+export ANSIBLE_VAULT_PASSWORD_FILE := ".vault"
+export ANSIBLE_INVENTORY := "hosts"
 
 @default:
   ansible-playbook playbook.yml
