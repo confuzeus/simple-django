@@ -1,0 +1,46 @@
+---
+- name: Ensure nginx is installed
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+    update_cache: true
+
+- name: Ensure 503 root directory is present
+  ansible.builtin.file:
+    path: /var/www/503
+    state: directory
+    owner: root
+    group: root
+    mode: "u=rwx,g=rwx,o=rx"
+
+- name: Copy 503 error template
+  ansible.builtin.copy:
+    src: 503.html
+    dest: /var/www/503/index.html
+    owner: root
+    group: root
+    mode: "u=r,g=r,o=r"
+
+- name: Template virtual host
+  ansible.builtin.template:
+    src: example.com.conf
+    dest: /etc/nginx/sites-enabled/example.com.conf
+    owner: root
+    group: root
+    mode: "u=r,g=r,o=r"
+  notify:
+    - Reload nginx
+
+- name: Clear all virtual hosts
+  ansible.builtin.command: "rm -f /etc/nginx/sites-available/* && rm -f /etc/nginx/sites-enabled/*"
+
+- name: Copy virtual hosts
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/etc/nginx/sites-enabled/{{ item }}"
+    owner: root
+    group: root
+    mode: "u=r,g=r,o=r"
+  loop:
+    - default.conf
+    - example.com.conf

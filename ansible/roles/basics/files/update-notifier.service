@@ -1,0 +1,7 @@
+[Unit]
+Description=Email admins a list of available package updates
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/update-notifier
+

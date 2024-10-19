@@ -1,0 +1,15 @@
+- name: Manage configuration for the servers
+  hosts: all
+  become: true
+  become_method: ansible.builtin.sudo
+  roles:
+    - role: packages
+      tags: packages
+    - role: basics
+      tags: basics
+    - role: security
+      tags: security
+    - role: letsencrypt
+      tags: letsencrypt
+    - role: nginx
+      tags: nginx

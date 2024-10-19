@@ -1,0 +1,17 @@
+---
+- name: Ensure all packages are up to date
+  ansible.builtin.apt:
+    name: "*"
+    state: latest
+    update_cache: true
+    only_upgrade: true
+
+- name: Ensure packages are installed
+  ansible.builtin.apt:
+    name:
+      - ufw
+      - fail2ban
+      - ca-certificates
+      - msmtp
+    state: present
+    update_cache: true

@@ -1,0 +1,74 @@
+---
+- name: Ensure sudo group exists
+  ansible.builtin.group:
+    name: sudo
+    state: present
+
+- name: Ensure admin user is setup
+  block:
+    - name: Ensure admin user exists
+      ansible.builtin.user:
+        name: "{{ admin_username }}"
+        password: "{{ admin_password_hash }}"
+        append: true
+        groups: "{{ admin_user_groups | list }}"
+        shell: /bin/bash
+
+    - name: Ensure admin user .ssh exists
+      ansible.buintin.file:
+        path: "/home/{{ admin_username }}/.ssh"
+        state: directory
+        mode: "0700"
+        owner: "{{ admin_username }}"
+        group: "{{ admin_username }}"
+
+    - name: Copy admin user authorized_keys
+      ansible.builtin.copy:
+        src: admin_authorized_keys
+        dest: "/home/{{ admin_username }}/.ssh/authorized_keys"
+        mode: "0600"
+        owner: "{{ admin_username }}"
+        group: "{{ admin_username }}"
+
+- name: Copy sudoers file
+  ansible.builtin.copy:
+    src: sudoers
+    dest: /etc/sudoers.d/custom
+    owner: root
+    mode: "u=r,g=r,o=r"
+
+- name: Template out msmtprc
+  ansible.builtin.template:
+    src: msmtprc
+    dest: /etc/msmtprc
+    owner: root
+    group: root
+    mode: "u=r,g=r,o="
+
+- name: Ensure package update notifications are setup
+  block:
+    - name: Template out update-notifier script
+      ansible.builtin.template:
+        src: update-notifier
+        dest: /usr/local/bin/update-notifier
+        owner: root
+        group: root
+        mode: "u=rx,g=rx,o="
+
+    - name: Copy update-notifier systemd units
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: "/etc/systemd/system/{{ item }}"
+        owner: root
+        group: root
+        mode: "u=r,g=r,o="
+      loop:
+        - update-notifier.service
+        - update-notifier.timer
+
+    - name: Ensure update-notifier timer is enabled and started
+      ansible.builtin.systemd_service:
+        name: update-notifier.timer
+        state: started
+        enabled: true
+        daemon_reload: true

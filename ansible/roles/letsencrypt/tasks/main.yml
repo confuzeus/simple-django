@@ -1,0 +1,26 @@
+---
+- name: Ensure certbot packages are present
+  ansible.builtin.apt:
+    name:
+      - certbot
+      - python3-certbot-dns-cloudflare
+    state: present
+    update_cache: true
+
+- name: Template out cloudflare credentials file
+  ansible.builtin.template:
+    src: cloudflare.ini
+    dest: /root/cloudflare.ini
+    owner: root
+    group: root
+    mode: "u=r,g=,o="
+
+- name: Copy certificates script
+  ansible.builtin.copy:
+    src: certificates.sh
+    dest: /root/certificates.sh
+    owner: root
+    group: root
+    mode: "u=rx,g=,o="
+  notify:
+    - Execute certificates script

@@ -1,0 +1,60 @@
+---
+- name: Ensure SSH is configured
+  block:
+    - name: Ensure SSH host keys have been (re)-generated.
+      block:
+        - name: Ensure ED25519 host key has been generated
+          community.crypto.openssh_keypair:
+            path: /etc/ssh/ssh_host_ed25519_key
+            type: ed25519
+            owner: root
+            group: root
+            mode: "u=r,g=r,o=r"
+
+        - name: Ensure RSA host key has been generated
+          community.crypto.openssh_keypair:
+            path: /etc/ssh/ssh_host_rsa_key
+            type: rsa
+            size: 4096
+            owner: root
+            group: root
+            mode: "u=r,g=r,o=r"
+
+    - name: Copy sshd config
+      ansible.builtin.copy:
+        src: sshd_config
+        dest: /etc/ssh/sshd_config.d/custom.conf
+        owner: root
+        group: root
+        mode: "u=r,g=r,o=r"
+      notify:
+        - Reload sshd
+
+- name: Ensure firewall is configured
+  block:
+    - name: Ensure all incoming traffic is blocked
+      community.general.ufw:
+        default: deny
+        direction: incoming
+
+    - name: Ensure all outgoing traffic is allowed
+      community.general.ufw:
+        default: allow
+        direction: outgoing
+
+    - name: Ensure specified ports are allowed
+      community.general.ufw:
+        rule: allow
+        port: "{{ item }}"
+        loop: "{{ firewall_open_ports | flatten(1) }}"
+      notify:
+        - Reload and enable firewall
+
+- name: Ensure fail2ban is setup
+  block:
+    - name: Copy sshd jail
+      src: sshd_jail.conf
+      dest: /etc/fail2ban/jail.d/sshd.conf
+      owner: root
+      group: root
+      mode: "u=r,g=r,o=r"

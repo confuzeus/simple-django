@@ -1,0 +1,6 @@
+#!/bin/bash
+
+apt update >/dev/null 2>/dev/null && \
+printf "Subject: $HOSTNAME packages $(date +%Y-%m-%d)\n\n$(apt list --upgradable 2>/dev/null)" \
+| msmtp {{ update_notifications_recipient }}
+

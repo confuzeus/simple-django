@@ -1,0 +1,13 @@
+---
+- name: Ensure django user exists
+  ansible.builtin.user:
+    name: django
+    state: present
+
+- name: Copy appconfig
+  ansible.builtin.copy:
+    src: appconfig.env
+    dest: /home/django/appconfig.env
+    owner: django
+    group: django
+    mode: "u=r,g=r,o="

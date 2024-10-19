@@ -1,0 +1,34 @@
+export ANSIBLE_VAULT_PASSWORD_FILE=.vault
+export ANSIBLE_INVENTORY=hosts
+
+@default:
+  ansible-playbook playbook.yml
+
+@packages:
+  ansible-playbook playbook.yml --tags packages
+
+@basics:
+  ansible-playbook playbook.yml --tags basics
+
+@security:
+  ansible-playbook playbook.yml --tags security
+
+@letsencrypt:
+  ansible-playbook playbook.yml --tags letsencrypt
+
+@nginx:
+  ansible-playbook playbook.yml --tags nginx
+
+@collections:
+  ansible-galaxy collection install \
+  community.general \
+  community.crypto
+
+@encrypt:
+  ansible-vault encrypt group_vars/all.yml
+  ansible-vault encrypt roles/django/files/appconfig.env
+
+@decrypt:
+  ansible-vault decrypt roles/django/files/appconfig.env
+  ansible-vault decrypt roles/django/files/appconfig.env
+

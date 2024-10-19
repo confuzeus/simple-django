@@ -239,3 +239,7 @@ media
 /.coverage
 appconfig.env
 db.sqlite3
+
+ansible/hosts
+ansible/.vault
+!ansible/roles/django/files/appconfig.env

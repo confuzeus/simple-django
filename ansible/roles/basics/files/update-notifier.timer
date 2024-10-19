@@ -1,0 +1,10 @@
+[Unit]
+Description=Trigger for update-notifier.service
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+
