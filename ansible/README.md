@@ -35,6 +35,9 @@ Or by running `just collections`.
 1. Open _roles/nginx/tasks/main.yml_. In the task _Copy virtual hosts_, edit the list below the _loop_ instruction.
    Remove _example.com.conf_ and add all the virtual host files you created above.
 
+1. Create a file called _hosts_. Add the IP address(es) of the server(s) that will be configured.
+   You can also use hostnames as defined in your ssh config instead of IP addresses.
+
 1. Run the playbook by typing `just`.
 
 ## Encryption
