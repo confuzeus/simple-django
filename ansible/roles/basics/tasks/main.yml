@@ -15,7 +15,7 @@
         shell: /bin/bash
 
     - name: Ensure admin user .ssh exists
-      ansible.buintin.file:
+      ansible.builtin.file:
         path: "/home/{{ admin_username }}/.ssh"
         state: directory
         mode: "0700"
