@@ -53,8 +53,9 @@
 - name: Ensure fail2ban is setup
   block:
     - name: Copy sshd jail
-      src: sshd_jail.conf
-      dest: /etc/fail2ban/jail.d/sshd.conf
-      owner: root
-      group: root
-      mode: "u=r,g=r,o=r"
+      ansible.builtin.copy:
+        src: sshd_jail.conf
+        dest: /etc/fail2ban/jail.d/sshd.conf
+        owner: root
+        group: root
+        mode: "u=r,g=r,o=r"
