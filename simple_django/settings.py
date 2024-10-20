@@ -24,7 +24,7 @@ TEST = env.bool("DJANGO_TEST", False)
 
 PROJECT_NAME = "Simple Django"
 
-DOMAIN_NAME = "example.com"
+DOMAIN_NAME = env.str("DJANGO_DOMAIN_NAME", "example.com")
 
 PORT_NUMBER = env.int("DJANGO_SITE_PORT_NUMBER")
 
