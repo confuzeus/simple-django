@@ -242,4 +242,5 @@ db.sqlite3
 
 ansible/hosts
 ansible/.vault
+ansible/.become
 !ansible/roles/django/files/appconfig.env
