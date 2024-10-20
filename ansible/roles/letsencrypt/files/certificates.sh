@@ -5,4 +5,5 @@ certbot certonly -n \
   --agree-tos \
   --dns-cloudflare \
   --dns-cloudflare-credentials /root/cloudflare.ini \
+  --dns-cloudflare-propagation-seconds 30 \
   -d example.com
