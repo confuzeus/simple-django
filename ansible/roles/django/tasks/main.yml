@@ -3,6 +3,7 @@
   ansible.builtin.user:
     name: django
     state: present
+    shell: /bin/bash
 
 - name: Copy appconfig
   ansible.builtin.copy:
