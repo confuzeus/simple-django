@@ -35,6 +35,17 @@ EOT
 
 FROM python:3.12-slim-bookworm
 
+RUN <<EOT
+apt-get update -qy
+apt-get install -qyy \
+    -o APT::Install-Recommends=false \
+    -o APT::Install-Suggests=false \
+    ca-certificates \
+    sqlite3
+apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false
+rm -rf /var/lib/apt/lists/*
+EOT
+
 COPY --from=build /app/venv/ /app/venv/
 COPY . /app
 
