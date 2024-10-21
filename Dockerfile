@@ -49,6 +49,8 @@ EOT
 COPY --from=build /app/venv/ /app/venv/
 COPY . /app
 
+RUN chmod +x /app/gunicorn-docker-cmd
+
 WORKDIR /app
 
 EXPOSE 8000

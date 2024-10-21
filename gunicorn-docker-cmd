@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+if test -f "/data/simple_django.sqlite3"; then
+  now=$(date +%Y%m%dT%H%M)
+  sqlite3 /data/simple_django.sqlite3 ".backup /data/simple_django-$now.sqlite3"
+fi
+
+python manage.py migrate
+
+exec gunicorn simple_django.wsgi
