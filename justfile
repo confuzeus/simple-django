@@ -39,8 +39,3 @@
 @mailhog:
   podman run -p "127.0.0.1:1025:1025" -p "127.0.0.1:8025:8025" docker://mailhog/mailhog
 
-@build-image:
-  #!/bin/bash
-  now=$(date +%Y%m%dT%H%M)
-  podman build --tag simple_django:$now .
-
