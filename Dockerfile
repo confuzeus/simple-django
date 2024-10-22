@@ -35,7 +35,7 @@ EOT
 
 FROM python:3.12-slim-bookworm
 
-RUN <<EOT
+RUN <<_EOF
 apt-get update -qy
 apt-get install -qyy \
     -o APT::Install-Recommends=false \
@@ -44,7 +44,7 @@ apt-get install -qyy \
     sqlite3
 apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false
 rm -rf /var/lib/apt/lists/*
-EOT
+_EOF
 
 COPY --from=build /app/venv/ /app/venv/
 COPY . /app
