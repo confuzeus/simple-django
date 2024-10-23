@@ -261,7 +261,7 @@ template_loaders = [
 ]
 
 if DEBUG is False:
-    template_loaders = ("django.template.loaders.cached.Loader", template_loaders)
+    template_loaders = [("django.template.loaders.cached.Loader", template_loaders)]
 
 TEMPLATES = [
     {
