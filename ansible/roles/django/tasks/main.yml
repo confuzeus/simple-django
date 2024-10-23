@@ -1,14 +1,84 @@
 ---
-- name: Ensure django user exists
-  ansible.builtin.user:
-    name: django
-    state: present
-    shell: /bin/bash
+- name: Ensure docker is setup
+  block:
+    - name: Setup docker apt key
+      ansible.builtin.apt_key:
+        url: "https://download.docker.com/linux/ubuntu/gpg"
+        keyring: /etc/apt/trusted.gpg.d/docker.gpg
+        state: present
+
+    - name: Setup docker repository
+      ansible.builtin.apt_repository:
+        repo: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+
+    - name: Ensure docker packages are present
+      ansible.builtin.apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: present
+        update_cache: true
+
+- name: Ensure config directory exists
+  ansible.builtin.file:
+    path: /etc/simple_django
+    state: directory
+    owner: "{{ admin_username }}"
+    group: "{{ admin_username }}"
+    mode: "u=rwx,g=rwx,o=rx"
 
 - name: Copy appconfig
   ansible.builtin.copy:
     src: appconfig.env
-    dest: /home/django/appconfig.env
-    owner: django
-    group: django
-    mode: "u=r,g=r,o="
+    dest: /etc/simple_django/appconfig.env
+    owner: "{{ admin_username }}"
+    group: "{{ admin_username }}"
+    mode: "u=rw,g=rw,o=r"
+
+- name: Ensure docker-exports directory is present
+  ansible.builtin.file:
+    path: /var/docker-exports
+    state: directory
+    owner: "{{ admin_username }}"
+    group: "{{ admin_username }}"
+    mode: "u=rwx,g=rwx,o="
+
+- name: Ensure data volume is present
+  community.docker.docker_volume:
+    volume_name: simpe_django_data
+
+- name: Ensure deployment systemd service is setup
+  block:
+    - name: Copy deployment path unit
+      ansible.builtin.copy:
+        src: deploy-app.path
+        dest: /etc/systemd/system/deploy-app.path
+        owner: root
+        group: root
+        mode: "u=r,g=r,o=r"
+
+    - name: Copy deployment service unit
+      ansible.builtin.copy:
+        src: deploy-app.service
+        dest: /etc/systemd/system/deploy-app.service
+        owner: root
+        group: root
+        mode: "u=r,g=r,o=r"
+
+    - name: Copy deployment service unit
+      ansible.builtin.copy:
+        src: deploy-app.py
+        dest: /usr/local/bin/deploy-app.py
+        owner: root
+        group: root
+        mode: "u=rx,g=rx,o="
+
+    - name: Ensure path unit is enabled and started
+      ansible.builtin.systemd_service:
+        name: deploy-app.path
+        state: started
+        daemon_reload: true
+        enabled: true
