@@ -23,7 +23,8 @@ export ANSIBLE_BECOME_PASSWORD_FILE := ".become"
 @collections:
   ansible-galaxy collection install \
   community.general \
-  community.crypto
+  community.crypto \
+  community.docker
 
 @encrypt:
   ansible-vault encrypt group_vars/all.yml
