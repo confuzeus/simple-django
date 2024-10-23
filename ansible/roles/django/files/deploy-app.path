@@ -1,0 +1,8 @@
+[Unit]
+Description="Monitor /var/docker-exports and execute deployment service when file is present"
+
+[Path]
+DirectoryNotEmpty=/var/docker-exports
+
+[Install]
+WantedBy=default.target

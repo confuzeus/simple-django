@@ -1,0 +1,5 @@
+[Unit]
+Description="Execute deployment script when archive present"
+
+[Service]
+ExecStart="/usr/local/bin/deploy-app.py"
