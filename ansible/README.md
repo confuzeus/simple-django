@@ -8,7 +8,7 @@ You need to install the following modules:
 
 1. community.general
 2. community.crypto
-3. containers.podman
+3. community.docker
 
 Install them with _ansible-galaxy_:
 
@@ -48,3 +48,7 @@ commit them to your Git repository.
 First, you need to create a file called _.vault_ inside the _ansible_ directory. Put the password you want to use
 in this file on a single line. This file is ignored by Git. After that, run `just encrypt` to encrypt everything.
 Be sure to add and commit the changes to Git.
+
+## Deployment
+
+The _django_ role contains an example deployment scenario. Modify it to fit your needs.
