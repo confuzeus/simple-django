@@ -228,7 +228,7 @@ if DEBUG or TEST:
 # ------------------------------------------------------------------------------
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#static-root
-STATIC_ROOT = BASE_DIR / "static_collected"
+STATIC_ROOT = env.str("DJANGO_STATIC_ROOT", str(BASE_DIR / "static_collected"))
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
