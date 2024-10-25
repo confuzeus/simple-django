@@ -3,7 +3,7 @@ import re
 import subprocess
 from pathlib import Path
 
-VOLUME_NAME = "simple_django_data"
+VOLUME_NAME = "/var/simple_django"
 ENVIRONMENT_PATH = "/etc/simple_django/appconfig.env"
 
 

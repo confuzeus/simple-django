@@ -46,9 +46,30 @@
     group: "{{ admin_username }}"
     mode: "u=rwx,g=rwx,o="
 
-- name: Ensure data volume is present
-  community.docker.docker_volume:
-    volume_name: simpe_django_data
+- name: Ensure app user is setup
+  block:
+    - name: Ensure app group exists
+      ansible.builtin.group:
+        name: simple_django
+        system: true
+        gid: 700
+        state: present
+
+    - name: Ensure app user exists
+      ansible.builtin.user:
+        name: simple_django
+        system: true
+        group: simple_django
+        uid: 700
+        create_home: false
+
+- name: Ensure data directory is present
+  ansible.builtin.file:
+    path: /var/simple_django
+    owner: simple_django
+    group: simple_django
+    state: directory
+    mode: "u=rwx,g=rwx,o="
 
 - name: Ensure deployment systemd service is setup
   block:
