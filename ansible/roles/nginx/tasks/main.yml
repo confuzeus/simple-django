@@ -33,3 +33,5 @@
     mode: "u=r,g=r,o=r"
   loop:
     - example.com.conf
+  notify:
+    - Reload nginx
