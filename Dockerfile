@@ -55,5 +55,12 @@ WORKDIR /app
 
 EXPOSE 8000
 
+RUN <<_EOF
+groupadd -g 700 -r simple_django
+useradd -g 700 -u 700 -r simple_django
+_EOF
+
+USER simple_django
+
 CMD ["echo", "Specify a default command."]
 
