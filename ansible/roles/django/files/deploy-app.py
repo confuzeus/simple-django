@@ -39,7 +39,6 @@ def main():
                 "container",
                 "run",
                 "--detach",
-                "--rm",
                 "--volume",
                 f"{VOLUME_NAME}:/data",
                 "--env-file",
