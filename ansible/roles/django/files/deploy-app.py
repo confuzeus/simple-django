@@ -33,6 +33,8 @@ def main():
 
         subprocess.run(["docker", "container", "stop", "simple_django_app"])
 
+        subprocess.run(["docker", "container", "rm", "simple_django_app"])
+
         subprocess.run(
             [
                 "docker",
