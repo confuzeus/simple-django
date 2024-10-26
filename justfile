@@ -37,5 +37,5 @@
   python manage.py migrate
 
 @mailhog:
-  podman run -p "127.0.0.1:1025:1025" -p "127.0.0.1:8025:8025" docker://mailhog/mailhog
+  docker run -p "127.0.0.1:1025:1025" -p "127.0.0.1:8025:8025" mailhog/mailhog
 
