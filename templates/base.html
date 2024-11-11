@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+{% load django_htmx %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:'en' }}">
     <head>
@@ -28,12 +29,13 @@
         {% block modal %}
         {% endblock modal %}
         <div hx-get="{% url "core:toast-messages" %}"
-             hx-trigger="htmx:afterRequest, DOMContentLoaded"
+             hx-trigger="fetchToasts from:body"
              hx-swap="afterbegin"
-             class="toast-container top-0 end-0 p-3"></div>
+             class="toast-container top-0 end-0 p-3">{% include "common/toast_messages.html" %}</div>
         {% block vendor_js %}
             <script src="{% static 'js/htmx.min.js' %}"></script>
             <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+            {% django_htmx_script %}
         {% endblock vendor_js %}
         {% block js %}
             <script src="{% static 'js/main.min.js' %}"></script>

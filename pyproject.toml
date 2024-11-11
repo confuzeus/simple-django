@@ -13,6 +13,7 @@ dependencies = [
     "whitenoise[brotli]>=6.7.0",
     "django-crispy-forms>=2.3",
     "crispy-bootstrap5>=2024.2",
+    "django-htmx>=1.21.0",
 ]
 
 [project.optional-dependencies]

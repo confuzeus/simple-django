@@ -99,6 +99,7 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount.providers.google",
     "crispy_forms",
     "crispy_bootstrap5",
+    "django_htmx",
 ]
 
 LOCAL_APPS = [
@@ -210,6 +211,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "django_htmx.middleware.HtmxMiddleware",
 ]
 
 if DEBUG or TEST:
