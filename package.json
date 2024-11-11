@@ -34,7 +34,7 @@
     "css-compile": "sass --style expanded --embed-sources --no-error-css staticSrc/scss/main.scss static/css/main.css",
     "css-prefix": "postcss --config postcss.config.js --replace \"static/css/*.css\" \"!static/css/*.min.css\"",
     "css-minify": "cleancss -O1 --format breakWith=lf --with-rebase --source-map --source-map-inline-sources --output static/css/ --batch --batch-suffix \".min\" \"static/css/*.css\" \"!static/css/*.min.css\"",
-    "js-compile": "esbuild staticSrc/js/main.js --bundle --minify --sourcemap --target=chrome112,firefox112,safari16 --outfile=static/js/main.min.js",
+    "js-compile": "esbuild staticSrc/js/main.js --global-name=simpleDjango --keep-names --bundle --minify --sourcemap --target=chrome112,firefox112,safari16 --outfile=static/js/main.min.js",
     "js-lint": "eslint --fix --cache --cache-location .cache/.eslintcache --report-unused-disable-directives staticSrc/js",
     "vendors": "bash vendor-assets.sh",
     "images-compress": "imagemin 'staticSrc/images/**/*' --out-dir=static/images",
