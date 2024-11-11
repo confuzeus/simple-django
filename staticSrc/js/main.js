@@ -1,5 +1,3 @@
-import { getCookie } from "./utils";
-
-window.App = {
-  getCookie,
-};
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("ready");
+});
