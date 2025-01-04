@@ -409,7 +409,7 @@ LOGGING = {
 }
 
 if not DEBUG:
-    LOGGING["loggers"]["million_timer"]["level"] = "INFO"
+    LOGGING["loggers"]["simple_django"]["level"] = "INFO"
 
 # CACHES
 # ------------------------------------------------------------------------------
