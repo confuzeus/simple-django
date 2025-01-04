@@ -10,14 +10,7 @@ function initToasts() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("ready");
   initToasts();
-});
-
-document.addEventListener("htmx:afterRequest", (evt) => {
-  if (!evt.detail.requestConfig.path.includes("toasts")) {
-    document.querySelector("body").dispatchEvent(new Event("fetchToasts"));
-  }
 });
 
 document.addEventListener("initToasts", () => {

@@ -212,6 +212,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
+    "simple_django.core.middleware.toaster_middleware",
 ]
 
 if DEBUG or TEST:

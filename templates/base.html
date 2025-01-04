@@ -29,7 +29,7 @@
         {% block modal %}
         {% endblock modal %}
         <div hx-get="{% url "core:toast-messages" %}"
-             hx-trigger="fetchToasts from:body"
+             hx-trigger="toasts:fetch from:body"
              hx-swap="afterbegin"
              class="toast-container top-0 end-0 p-3">{% include "common/toast_messages.html" %}</div>
         {% block vendor_js %}
