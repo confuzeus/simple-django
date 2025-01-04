@@ -1,18 +1,17 @@
-function initToasts() {
-  const toastEls = document.querySelectorAll(".toast");
-  toastEls.forEach((el) => {
-    const toast = window.bootstrap.Toast.getOrCreateInstance(el);
-    toast.show();
-    el.addEventListener("hidden.bs.toast", () => {
-      el.remove();
-    });
-  });
-}
+import Alpine from 'alpinejs';
+import { Toast } from 'bootstrap';
+
+window.Alpine = Alpine;
 
 document.addEventListener("DOMContentLoaded", () => {
-  initToasts();
+  Alpine.start()
 });
 
-document.addEventListener("initToasts", () => {
-  initToasts();
-});
+document.addEventListener("alpine:init", () => {
+  Alpine.data("toast", () => ({
+    init() {
+      const bsToast = new Toast(this.$el);
+      bsToast.show();
+    }
+  }))
+})

@@ -1,7 +1,9 @@
 {% load toast_tags %}
 {% if messages %}
     {% for message in messages %}
-        <div class="toast align-items-center {% get_toast_color_scheme message.level_tag %}"
+        <div x-data="toast"
+             @hidden.bs.toast="$el.remove()"
+             class="toast align-items-center {% get_toast_color_scheme message.level_tag %}"
              role="alert"
              aria-live="assertive"
              aria-atomic="true">

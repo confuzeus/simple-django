@@ -14,5 +14,4 @@ def toast_messages(request):
         response = HttpResponse()
         return reswap(response, "none")
 
-    response = render(request, "common/toast_messages.html")
-    return trigger_client_event(response, "initToasts")
+    return render(request, "common/toast_messages.html")
