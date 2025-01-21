@@ -48,7 +48,7 @@
       community.general.ufw:
         rule: allow
         port: "{{ item }}"
-        loop: "{{ firewall_open_ports | flatten(1) }}"
+      loop: "{{ firewall_open_ports | flatten(1) }}"
       notify:
         - Reload and enable firewall
 
