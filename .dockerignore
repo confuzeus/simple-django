@@ -5,3 +5,4 @@
 !manage.py
 !pyproject.toml
 !uv.lock
+!gunicorn-docker-cmd

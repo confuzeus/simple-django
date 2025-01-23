@@ -410,7 +410,12 @@ LOGGING = {
 }
 
 if not DEBUG:
-    LOGGING["loggers"]["simple_django"]["level"] = "INFO"
+    LOGGING["loggers"]["million_timer"]["level"] = "INFO"
+    LOGGING["handlers"]["console"] = {
+        "level": "INFO",
+        "class": "logging.StreamHandler",
+    }
+    LOGGING["root"] = {"level": "INFO", "handlers": ["console"]}
 
 # CACHES
 # ------------------------------------------------------------------------------
