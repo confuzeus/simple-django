@@ -2,6 +2,14 @@
 
 This template contains everything you need to bootstrap a new Django project.
 
+## Features
+
+- Asset pipeline for compiling, and minifying CSS and Javascript.
+- Live reload using [Browsersync](https://browsersync.io/)
+- Project management with [uv](https://docs.astral.sh/uv/)
+- Automated production server configuration with [Ansible](https://docs.ansible.com/).
+- Automated [Docker](https://www.docker.com/) image deployment.
+
 ## Requirements
 
 Install the following tools first.
