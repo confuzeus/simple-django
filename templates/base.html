@@ -16,11 +16,7 @@
         <meta name="author" content="Josh Michael Karamuth">
         <meta name="keywords" content="django">
         {% block css %}
-            {% if debug %}
-                <link href="{% static 'css/main.css' %}" rel="stylesheet">
-            {% else %}
-                <link href="{% static 'css/main.min.css' %}" rel="stylesheet">
-            {% endif %}
+            <link rel="stylesheet" href="{% static 'css/index.css' %}">
         {% endblock css %}
     </head>
     <body>
