@@ -1,0 +1,4 @@
+<c-vars value current_value label />
+<option value="{{ value|stringformat:'s' }}"
+        {% if current_value %}{% if current_value|stringformat:'s' == value|stringformat:'s' %}selected{% endif %}
+        {% endif %}>{{ label }}</option>

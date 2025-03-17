@@ -1,0 +1,11 @@
+<c-vars text="" />
+<div class="toast-header">
+    <div class="toast-header-content">
+        <c-icon name="exclamation-circle" /><span>{{ text }}</span>
+    </div>
+    <button @click="$dispatch('dismiss-toast')"
+            class="toast-close-btn"
+            type="button">
+        <c-icon name="x-lg" />
+    </button>
+</div>

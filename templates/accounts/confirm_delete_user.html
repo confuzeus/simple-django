@@ -1,26 +1,15 @@
-{% extends "account/layout.html" %}
-{% load crispy_forms_filters %}
-{% block seo_title %}
-    Delete your account
-{% endblock seo_title %}
-{% block title %}
-    Delete your account
-{% endblock title %}
-{% block content %}
-    <div class="col-lg-4"></div>
-    <div class="col-lg-4">
-        <form action="." method="post">
-            {% csrf_token %}
-            <p class="alert alert-info text-center">
-                Enter your password below to delete your
-                account.
-            </p>
-            {{ form|crispy }}
-            <div class="d-flex justify-content-center align-items-center">
-                <button class="btn btn-danger me-2">Delete</button>
-                <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
-            </div>
-        </form>
+<c-layouts.auth meta_title="Delete your account" page_title="Delete your account">
+<form action="" method="post">
+    {% csrf_token %}
+    <p class="alert alert-info text-center mb-6">
+        Enter your password below to delete your
+        account.
+    </p>
+    <p class="alert alert-warning text-center mb-6">This action is irreversible.</p>
+    <c-form :form="form" />
+    <div class="flex justify-center items-center gap-3">
+        <button class="btn btn-danger">Delete</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
     </div>
-    <div class="col-lg-4"></div>
-{% endblock content %}
+</form>
+</c-layouts.auth>

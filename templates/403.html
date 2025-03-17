@@ -1,10 +1,1 @@
-{% extends "error-layout.html" %}
-{% block seo_title %}
-    Forbidden (403)
-{% endblock seo_title %}
-{% block headline %}
-    Forbidden (403)
-{% endblock headline %}
-{% block content %}
-    <p class="alert alert-danger text-center">Permission denied.</p>
-{% endblock content %}
+<c-layouts.error meta_title="Forbidden (403)" error_name="Permission denied" error_details="You don't have permission to access this page." />

@@ -1,0 +1,11 @@
+<c-vars bf class />
+{# djlint:off #}
+<input
+name="{{ bf.name }}"
+class="border {% if bf.errors|length > 0 %}border-red-400 text-red-600{% else %}border-zinc-400{% endif %} rounded-lg p-3 transition-shadow focus:shadow-lg {{ class|default:"" }}"
+id="{{ bf.auto_id }}" 
+{% if bf.value != None %}
+    value="{{ bf.value|stringformat:'s' }}"
+{% endif %} 
+{% for name, value in bf.field.widget.attrs.items %}{% if value is not False %} {{ name }}{% if value is not True %}="{{ value|stringformat:'s' }}"{% endif %}{% endif %}{% endfor %} {{ attrs }}>
+{# djlint:on #}

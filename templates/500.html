@@ -1,15 +1,1 @@
-{% extends "error-layout.html" %}
-{% block seo_title %}
-    Server Error
-{% endblock seo_title %}
-{% block headline %}
-    Server Error
-{% endblock headline %}
-{% block content %}
-    <p class="text-center alert alert-danger mb-5">
-        We encountered an error. Our team has already been notified and it should be resolved soon.
-    </p>
-    <div class="d-flex justify-content-center">
-        <button type="button" class="btn btn-primary btn-lg">Back to home</button>
-    </div>
-{% endblock content %}
+<c-layouts.error meta_title="Error (500)" error_name="Error" error_details="We encountered an error while processing your request, please try again later." />

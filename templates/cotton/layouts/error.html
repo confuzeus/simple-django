@@ -1,0 +1,10 @@
+<c-vars meta_title />
+<c-layouts.base :meta_title="meta_title">
+<div class="container mx-auto max-w-5xl mt-20">
+    <h1 class="text-center mb-10 text-4xl">{{ error_name }}</h1>
+    <p class="alert alert-error mb-6">{{ error_details }}</p>
+    <div class="flex justify-center">
+        <a href="{% url 'home' %}" class="btn btn-primary">Go back</a>
+    </div>
+</div>
+</c-layouts.base>

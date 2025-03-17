@@ -1,0 +1,6 @@
+<c-vars errors />
+{% if errors %}
+    <ul>
+        {% for error in errors %}<li class="text-red-600 text-sm">{{ error }}</li>{% endfor %}
+    </ul>
+{% endif %}

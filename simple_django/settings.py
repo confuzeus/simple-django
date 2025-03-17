@@ -95,11 +95,8 @@ THIRD_PARTY_APPS = [
     "django_extensions",
     "allauth",
     "allauth.account",
-    "allauth.socialaccount",
-    "allauth.socialaccount.providers.google",
-    "crispy_forms",
-    "crispy_bootstrap5",
     "django_htmx",
+    "django_cotton",
 ]
 
 LOCAL_APPS = [

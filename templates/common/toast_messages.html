@@ -1,19 +1,4 @@
 {% load toast_tags %}
 {% if messages %}
-    {% for message in messages %}
-        <div x-data="toast"
-             @hidden.bs.toast="$el.remove()"
-             class="toast align-items-center {% get_toast_color_scheme message.level_tag %}"
-             role="alert"
-             aria-live="assertive"
-             aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body">{{ message|safe }}</div>
-                <button type="button"
-                        class="btn-close me-2 m-auto {% get_toast_close_button_color message.level_tag %}"
-                        data-bs-dismiss="toast"
-                        aria-label="Close"></button>
-            </div>
-        </div>
-    {% endfor %}
+    {% for message in messages %}<c-toast :message="message" />{% endfor %}
 {% endif %}

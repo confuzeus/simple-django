@@ -1,0 +1,36 @@
+{% load static %}
+{% load django_htmx %}
+<c-vars :base_css="True" before_css after_css meta_description meta_title :toasts="True" :vendor_js="True" :main_js="True" />
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'en' }}">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{{ meta_title }} | Simple Django</title>
+        <meta name="description" content="{{ meta_description|default:"" }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Josh Michael Karamuth">
+        <meta name="keywords" content="django">
+        {{ before_css }}
+        {% if base_css %}
+            <link rel="stylesheet" href="{% static 'css/index.css' %}">
+        {% endif %}
+        {{ after_css }}
+    </head>
+    <body>
+        {{ slot }}
+        {% if toasts %}
+            <div hx-get="{% url "core:toast-messages" %}"
+                 hx-trigger="toasts:fetch from:body"
+                 hx-swap="afterbegin"
+                 class="toast-container top-0 end-0 p-3">{% include "common/toast_messages.html" %}</div>
+        {% endif %}
+        {% if vendor_js %}
+            <script src="{% static 'js/htmx.min.js' %}"></script>
+            {% django_htmx_script %}
+        {% endif %}
+        {% if main_js %}
+            <script src="{% static 'js/main.min.js' %}"></script>
+        {% endif %}
+    </body>
+</html>

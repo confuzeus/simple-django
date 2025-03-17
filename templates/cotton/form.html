@@ -1,0 +1,8 @@
+<c-vars form />
+{% if form.non_field_errors %}<c-form.errors :errors="form.non_field_errors" />{% endif %}
+{% for field in form.hidden_fields %}{{ field }}{% endfor %}
+{% for field in form.visible_fields %}
+    <div class="mb-5">
+        <c-form.field-group :bf="field" />
+    </div>
+{% endfor %}

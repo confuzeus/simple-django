@@ -1,37 +1,15 @@
-{% extends "fullbleed.html" %}
-{% load crispy_forms_filters %}
-{% block seo_title %}
-    Update your profile
-{% endblock seo_title %}
-{% block inner %}
-    <div style="margin-top: 20vh" class="container">
-        <div class="row mb-5">
-            <div class="col-lg-12">
-                <h1 class="text-center">Update your profile</h1>
-            </div>
-        </div>
-        {% if messages %}
-            <div class="row mb-5">
-                <div class="col-lg-4"></div>
-                <div class="col-lg-4">{% include "partials/_flash-messages.html" %}</div>
-                <div class="col-lg-4"></div>
-            </div>
-        {% endif %}
-        <div class="row">
-            <div class="col-lg-4"></div>
-            <div class="col-lg-4">
-                <form class="mb-4" action="." method="post">
-                    {% csrf_token %}
-                    {{ form|crispy }}
-                    <button type="submit" class="btn btn-primary w-100">Save</button>
-                </form>
-                <a href="{% url "account_change_password" %}"
-                   class="btn btn-info w-100 mb-3">Change
-                password</a>
-                <a href="{% url "accounts:delete-user" %}" class="btn btn-danger w-100">Delete
-                account</a>
-            </div>
-            <div class="col-lg-4"></div>
-        </div>
-    </div>
-{% endblock inner %}
+<c-layouts.base meta_title="Update your profile">
+<div class="container mt-20">
+    <h1 class="mb-12">Update your profile</h1>
+    <form class="mb-8" action="." method="post">
+        {% csrf_token %}
+        <c-form :form="form" />
+        <button type="submit" class="btn btn-primary w-full">Save</button>
+    </form>
+    <a href="{% url "account_change_password" %}"
+       class="btn btn-info w-full mb-4">Change
+    password</a>
+    <a href="{% url "accounts:delete-user" %}" class="btn btn-danger w-full">Delete
+    account</a>
+</div>
+</c-layouts.base>

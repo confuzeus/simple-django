@@ -3,12 +3,6 @@
     "templates/**/*.html": "django-html",
     "templates/**/*.txt": "django-txt"
   },
-  "[django-html]": {
-    "editor.formatOnSave": false
-  },
-  "[django-txt]": {
-    "editor.formatOnSave": false
-  },
   "[python]": {
     "editor.defaultFormatter": "charliermarsh.ruff"
   },
@@ -16,5 +10,7 @@
     "source.fixAll": "explicit",
     "source.organizeImports": "explicit",
     "source.unusedImports": "explicit"
-  }
+  },
+  "djlint.useVenv": false,
+  "djlint.pythonPath": "/home/josh/.local/share/uv/tools/djlint/bin/python"
 }

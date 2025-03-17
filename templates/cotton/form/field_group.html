@@ -1,0 +1,34 @@
+{% load form_tags %}
+<c-vars bf />
+{% if bf|is_input %}
+    {% if bf|is_checkbox %}
+        <div class="flex gap-2">
+            <c-form.input type="checkbox" :bf="bf" />
+            <c-form.label :bf="bf" />
+        </div>
+        <c-form.field-errors :errors="bf.errors" />
+    {% else %}
+        <div class="flex flex-col gap-2">
+            <c-form.label :bf="bf" />
+            {% with input_type=bf.field.widget.input_type %}<c-form.input :type="input_type" :bf="bf" />{% endwith %}
+            {% if bf.help_text %}<div class="text-xs text-gray-600">{{ bf.help_text|safe }}</div>{% endif %}
+            <c-form.field-errors :errors="bf.errors" />
+        </div>
+    {% endif %}
+{% elif bf|is_select %}
+    <div class="flex flex-col gap-2">
+        <c-form.label :bf="bf" />
+        <c-form.select :bf="bf" />
+        <div class="text-xs text-gray-600">{{ bf.help_text|safe }}</div>
+        <c-form.field-errors :errors="bf.errors" />
+    </div>
+{% elif bf|is_textarea %}
+    <div class="flex flex-col gap-2">
+        <c-form.label :bf="bf" />
+        <c-form.textarea :bf="bf" />
+        <div class="text-xs text-gray-600">{{ bf.help_text|safe }}</div>
+        <c-form.field-errors :errors="bf.errors" />
+    </div>
+{% else %}
+    <p>Unknown field type.</p>
+{% endif %}

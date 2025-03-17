@@ -1,0 +1,8 @@
+{% load forms_tags %}
+<c-vars bf class />
+{# djlint:off #}
+<select name="{{ bf.name }}" id="{{ bf.auto_id }}" class="{% if bf.errors|length > 0 %}border-red-400 text-red-600{% else %}border-zinc-400{% endif %} rounded-lg p-3 transition-shadow focus:shadow-lg  {{ class|default:"" }}" {{ attrs }} {% for name, value in bf.field.widget.attrs.items %}{% if value is not False %} {{ name }}{% if value is not True %}="{{ value|stringformat:'s' }}"{% endif %}{% endif %}{% endfor %}>
+    {% for value, label in bf.field|field_choices %}
+        <c-form.select-option :value="value" :label="label" :current_value="bf.value" />
+    {% endfor %}
+</select>

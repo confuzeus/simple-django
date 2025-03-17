@@ -1,17 +1,9 @@
-import Alpine from 'alpinejs';
-import { Toast } from 'bootstrap';
+import Alpine from "alpinejs";
 
 window.Alpine = Alpine;
 
 document.addEventListener("DOMContentLoaded", () => {
-  Alpine.start()
+  Alpine.start();
 });
 
-document.addEventListener("alpine:init", () => {
-  Alpine.data("toast", () => ({
-    init() {
-      const bsToast = new Toast(this.$el);
-      bsToast.show();
-    }
-  }))
-})
+document.addEventListener("alpine:init", () => {});

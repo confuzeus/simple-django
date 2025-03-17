@@ -1,13 +1,1 @@
-{% extends "error-layout.html" %}
-{% block seo_title %}
-    Page not found
-{% endblock seo_title %}
-{% block headline %}
-    Page not found
-{% endblock headline %}
-{% block content %}
-    <p class="alert alert-danger text-center mb-5">The page you're looking for doesn't exist.</p>
-    <div class="d-flex justify-content-center">
-        <a class="btn btn-primary btn-lg" href="{% url 'home' %}">Back to home</a>
-    </div>
-{% endblock content %}
+<c-layouts.error meta_title="Not Found (404)" error_name="Not found" error_details="The page you're looking for doesn't exist." />

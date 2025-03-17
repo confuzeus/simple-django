@@ -1,0 +1,6 @@
+<c-vars bf />
+<label for="{{ bf.auto_id }}"
+       {% if bf.errors|length > 0 %}class="text-red-600"{% endif %}>
+    {{ bf.label }}
+    {% if bf.field.required %}*{% endif %}
+</label>

@@ -1,0 +1,8 @@
+<c-vars class="" />
+<div x-data
+     x-init="setTimeout(() => $dispatch('dismiss-toast'), 10000)"
+     @dismiss-toast="$el.remove()"
+     class="toast {{ class }}"
+     role="alert"
+     aria-live="assertive"
+     aria-atomic="true">{{ slot }}</div>
