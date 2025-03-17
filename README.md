@@ -4,7 +4,9 @@ This template contains everything you need to bootstrap a new Django project.
 
 ## Features
 
-- Asset pipeline for compiling, and minifying CSS and Javascript.
+- Styling with [TailwindCSS](https://tailwindcss.com)
+- Javascript bundling and minifying with [esbuild](https://esbuild.github.io/)
+- Modern Javascript stack with [htmx](https://htmx.org) and [AlpineJS](https://alpinejs.dev/)
 - Live reload using [Browsersync](https://browsersync.io/)
 - Project management with [uv](https://docs.astral.sh/uv/)
 - Automated production server configuration with [Ansible](https://docs.ansible.com/).
@@ -17,7 +19,7 @@ Install the following tools first.
 1. [uv](https://astral.sh)
 2. [pnpm](https://pnpm.io/)
 3. [just](https://just.systems/man/en/introduction.html)
-4. [Podman](https://podman.io/) or [Docker](https://www.docker.com/)
+4. [Docker](https://www.docker.com/)
 
 ## Quick start
 
