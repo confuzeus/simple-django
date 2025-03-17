@@ -441,9 +441,3 @@ SHELL_PLUS_IMPORTS = [
 ]
 
 SHELL_PLUS_PRINT_SQL = True
-
-# Crispy forms
-
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-
-CRISPY_TEMPLATE_PACK = "bootstrap5"
