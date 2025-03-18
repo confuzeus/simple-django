@@ -52,6 +52,20 @@ Run `just` to bootstrap the project. See the _justfile_ for details.
 
 Your project is now ready for you to ship features.
 
+### Deployment
+
+Executing the `deploy.py` script will do the following:
+
+1. Build a Docker image containing the source code.
+2. Optionally make an tar archive of this image, and upload it to your server.
+
+Configure this deployment script by creating a `deploy.toml` file. See the `deploy.example.toml` file for details.
+
+I wrote a post about [how to deploy a Django app without a container
+registry](https://joshkaramuth.com/blog/deploy-container-no-registry/). Read it more details on how to setup your server to make this work.
+
+Inside the ansible directory, you'll find the _django_ role where there's automation for this.
+
 ## License and Copyright
 
 License is MIT
