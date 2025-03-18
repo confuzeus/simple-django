@@ -17,7 +17,7 @@ This template contains everything you need to bootstrap a new Django project.
 Install the following tools first.
 
 1. [uv](https://astral.sh)
-2. [pnpm](https://pnpm.io/)
+2. [Bun](https://bun.sh/)
 3. [just](https://just.systems/man/en/introduction.html)
 4. [Docker](https://www.docker.com/)
 
