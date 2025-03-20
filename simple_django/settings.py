@@ -126,15 +126,13 @@ LOGIN_URL = reverse_lazy("account_login")
 
 # Allauth
 
-ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_LOGIN_METHODS = {"email"}
+
+ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
 
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
-ACCOUNT_EMAIL_REQUIRED = True
-
 ACCOUNT_EMAIL_VERIFICATION = "optional"
-
-ACCOUNT_USERNAME_REQUIRED = False
 
 ACCOUNT_MAX_EMAIL_ADDRESSES = 3
 
