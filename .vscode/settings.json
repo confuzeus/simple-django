@@ -12,5 +12,6 @@
     "source.unusedImports": "explicit"
   },
   "djlint.useVenv": false,
-  "djlint.pythonPath": "/home/josh/.local/share/uv/tools/djlint/bin/python"
+  "djlint.pythonPath": "/home/josh/.local/share/uv/tools/djlint/bin/python",
+  "ansible.python.interpreterPath": ""
 }
