@@ -2,9 +2,10 @@
 <c-layouts.base :meta_title="meta_title">
 <div class="container mx-auto max-w-5xl mt-20">
     <h1 class="text-center mb-10 text-4xl">{{ error_name }}</h1>
-    <p class="alert alert-error mb-6">{{ error_details }}</p>
+    <p class="p-3 border rounded-lg border-red-600 bg-red-100 mb-6">{{ error_details }}</p>
     <div class="flex justify-center">
-        <a href="{% url 'home' %}" class="btn btn-primary">Go back</a>
+        <a href="{% url 'home' %}"
+           class="px-3 py-2 rounded-lg border cursor-pointer bg-black text-white">Go back</a>
     </div>
 </div>
 </c-layouts.base>

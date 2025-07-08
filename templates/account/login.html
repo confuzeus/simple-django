@@ -1,12 +1,13 @@
 <c-layouts.auth meta_title="Login" page_title="Login">
 <div class="flex flex-col items-center gap-10">
-    <p class="text-center alert alert-info w-full">
+    <p class="text-center p-3 border rounded-lg bg-sky-100 border-sky-600 w-full">
         Don't have an account? <a href="{% url "account_signup" %}">Create one now.</a>
     </p>
     <form action="" method="post" class="grow w-full">
         {% csrf_token %}
         <c-form :form="form" />
-        <button type="submit" class="btn btn-primary w-full">Login</button>
+        <button type="submit"
+                class="px-3 py-2 rounded-lg border cursor-pointer bg-black text-white w-full">Login</button>
     </form>
 </div>
 </c-layouts.auth>

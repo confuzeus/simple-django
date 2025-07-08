@@ -4,12 +4,14 @@
     <form class="mb-8" action="." method="post">
         {% csrf_token %}
         <c-form :form="form" />
-        <button type="submit" class="btn btn-primary w-full">Save</button>
+        <button type="submit"
+                class="px-3 py-2 rounded-lg border cursor-pointer bg-black text-white w-full">Save</button>
     </form>
     <a href="{% url "account_change_password" %}"
-       class="btn btn-info w-full mb-4">Change
+       class="px-3 py-2 rounded-lg border cursor-pointer bg-sky-700 text-white w-full mb-4">Change
     password</a>
-    <a href="{% url "accounts:delete-user" %}" class="btn btn-danger w-full">Delete
+    <a href="{% url "accounts:delete-user" %}"
+       class="px-3 py-2 rounded-lg border cursor-pointer bg-red-100 text-white w-full">Delete
     account</a>
 </div>
 </c-layouts.base>

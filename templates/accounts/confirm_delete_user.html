@@ -1,15 +1,16 @@
 <c-layouts.auth meta_title="Delete your account" page_title="Delete your account">
 <form action="" method="post">
     {% csrf_token %}
-    <p class="alert alert-info text-center mb-6">
+    <p class="p-3 border rounded-lg bg-sky-100 border-sky-600 text-center mb-6">
         Enter your password below to delete your
         account.
     </p>
-    <p class="alert alert-warning text-center mb-6">This action is irreversible.</p>
+    <p class="p-3 border rounded-lg bg-yellow-100 border-yellow-600 text-center mb-6">This action is irreversible.</p>
     <c-form :form="form" />
     <div class="flex justify-center items-center gap-3">
-        <button class="btn btn-danger">Delete</button>
-        <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+        <button class="px-3 py-2 rounded-lg border cursor-pointer bg-red-100 text-white">Delete</button>
+        <a href="{% url 'home' %}"
+           class="px-3 py-2 rounded-lg border cursor-pointer bg-zinc-700 text-white">Cancel</a>
     </div>
 </form>
 </c-layouts.auth>

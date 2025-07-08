@@ -1,10 +1,10 @@
 <c-vars text="" />
-<div class="toast-header">
-    <div class="toast-header-content">
+<div class="flex items-center justify-between p-3 rounded-tl-lg rounded-tr-lg">
+    <div class="flex items-center gap-2">
         <c-icon name="exclamation-circle" /><span>{{ text }}</span>
     </div>
     <button @click="$dispatch('dismiss-toast')"
-            class="toast-close-btn"
+            class="transition-colors text-white hover:text-gray-300"
             type="button">
         <c-icon name="x-lg" />
     </button>

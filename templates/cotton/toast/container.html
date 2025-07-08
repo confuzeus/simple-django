@@ -2,7 +2,7 @@
 <div x-data
      x-init="setTimeout(() => $dispatch('dismiss-toast'), 10000)"
      @dismiss-toast="$el.remove()"
-     class="toast {{ class }}"
+     class="rounded-lg w-80 shadow-lg border text-sm {{ class }}"
      role="alert"
      aria-live="assertive"
      aria-atomic="true">{{ slot }}</div>
