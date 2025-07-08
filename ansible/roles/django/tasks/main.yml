@@ -71,6 +71,12 @@
     state: directory
     mode: "u=rwx,g=rwx,o="
 
+- name: Copy docker-compose
+  ansible.builtin.copy:
+    src: compose.yml
+    dest: /root/compose.yml
+    mode: "u=r,g=r,o="
+
 - name: Ensure deployment systemd service is setup
   block:
     - name: Copy deployment path unit

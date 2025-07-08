@@ -1,3 +1,7 @@
 servers = ["192.168.1.1"]
 remote_user = "alice"
 remote_directory = "/var/docker-exports"
+docker_uid = 700
+docker_gid = 700
+docker_username = "simple_django"
+docker_groupname = "simple_django"

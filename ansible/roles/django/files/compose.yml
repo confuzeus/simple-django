@@ -1,0 +1,30 @@
+name: simple_django_app
+
+services:
+  web:
+    image: simple_django:latest
+    command: "./gunicorn-docker-cmd"
+    ports:
+      - "127.0.0.1:8000:8000"
+    env_file: /etc/simple_django/appconfig.env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/up/"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+      start_interval: 5s
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /var/simple_django
+        target: /data
+  worker:
+    image: simple_django:latest
+    command: python manage.py run_huey
+    env_file: /etc/simple_django/appconfig.env
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /var/simple_django
+        target: /data

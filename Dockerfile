@@ -1,6 +1,6 @@
 ### BUILD Stage
 
-FROM python:3.12-bookworm AS build
+FROM python:3.13-bookworm AS build
 
 RUN <<EOT
 apt-get update -qy
@@ -33,7 +33,7 @@ EOT
 
 ### Final stage
 
-FROM python:3.12-slim-bookworm
+FROM python:3.13-slim-bookworm
 
 RUN <<_EOF
 apt-get update -qy
@@ -55,12 +55,18 @@ WORKDIR /app
 
 EXPOSE 8000
 
+ARG app_uid
+ARG app_gid
+ARG app_username
+ARG app_groupname
+
 RUN <<_EOF
-groupadd -g 700 -r simple_django
-useradd -g 700 -u 700 -r simple_django
+groupadd -g $app_gid -r $app_username
+useradd -g $app_gid -u $app_uid -r $app_username
+chmod -R 775 /app
 _EOF
 
-USER simple_django
+USER $app_username
 
 CMD ["echo", "Specify a default command."]
 
