@@ -1,6 +1,6 @@
 import factory
 
-from simple_django.accounts.models import User
+from src.accounts.models import User
 
 
 class UserFactory(factory.django.DjangoModelFactory):

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 
-from simple_django.accounts.forms import UserDeleteForm, UserForm
+from src.accounts.forms import UserDeleteForm, UserForm
 
 
 @login_required

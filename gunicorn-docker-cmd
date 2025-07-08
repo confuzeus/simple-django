@@ -11,4 +11,4 @@ fi
 
 python manage.py migrate
 
-exec gunicorn simple_django.wsgi
+exec gunicorn src.wsgi

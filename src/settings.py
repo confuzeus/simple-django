@@ -100,8 +100,8 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "simple_django.core",
-    "simple_django.accounts",
+    "src.core",
+    "src.accounts",
 ]
 # https://docs.djangoproject.com/en/3.2/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

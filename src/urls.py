@@ -6,15 +6,15 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 
-from simple_django.core import views as core_views
+from src.core import views as core_views
 
 urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     path("i18n/", include("django.conf.urls.i18n")),
     path("up/", core_views.healthcheck, name="healthcheck"),
     path("accounts/", include("allauth.urls")),
-    path("accounts/", include("simple_django.accounts.urls")),
-    path("", include("simple_django.core.urls")),
+    path("accounts/", include("src.accounts.urls")),
+    path("", include("src.core.urls")),
     path(
         "",
         login_required(TemplateView.as_view(template_name="pages/home.html")),

@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render
-from django_htmx.http import reswap, trigger_client_event
+from django_htmx.http import reswap
 
 
 def healthcheck(request):  # pragma: no cover
