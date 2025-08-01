@@ -11,5 +11,3 @@
       tags: security
     - role: letsencrypt
       tags: letsencrypt
-    - role: nginx
-      tags: nginx

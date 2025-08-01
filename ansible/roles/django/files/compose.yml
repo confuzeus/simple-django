@@ -4,8 +4,6 @@ services:
   web:
     image: simple_django:latest
     command: "./gunicorn-docker-cmd"
-    ports:
-      - "127.0.0.1:8000:8000"
     env_file: /etc/simple_django/appconfig.env
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/up/"]
@@ -28,3 +26,22 @@ services:
       - type: bind
         source: /var/simple_django
         target: /data
+
+  caddy:
+    image: caddy:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - type: bind
+        source: /etc/clarohq/caddy
+        target: /etc/caddy
+      - type: bind
+        source: /var/caddy/data
+        target: /data
+      - type: bind
+        source: /var/caddy/config
+        target: /config
+    depends_on:
+      - web

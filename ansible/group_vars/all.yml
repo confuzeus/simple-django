@@ -13,6 +13,7 @@ update_notifications_recipient: me@example.com
 
 firewall_open_ports:
   - 22
+  - 80
   - 443
 
-cloudflare_api_token: abcd1234
+app_domain_name: app.example.com

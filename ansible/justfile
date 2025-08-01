@@ -17,9 +17,6 @@ export ANSIBLE_BECOME_PASSWORD_FILE := ".become"
 @letsencrypt:
   ansible-playbook playbook.yml --tags letsencrypt
 
-@nginx:
-  ansible-playbook playbook.yml --tags nginx
-
 @collections:
   ansible-galaxy collection install \
   community.general \

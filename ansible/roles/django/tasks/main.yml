@@ -30,6 +30,14 @@
     group: "{{ admin_username }}"
     mode: "u=rwx,g=rwx,o=rx"
 
+- name: Ensure caddy config directory exists
+  ansible.builtin.file:
+    path: /etc/simple_django/caddy
+    state: directory
+    owner: "root"
+    group: "root"
+    mode: "u=rwx,g=rwx,o=rx"
+
 - name: Copy appconfig
   ansible.builtin.copy:
     src: appconfig.env
@@ -38,13 +46,13 @@
     group: "{{ admin_username }}"
     mode: "u=rw,g=rw,o=r"
 
-- name: Ensure docker-exports directory is present
-  ansible.builtin.file:
-    path: /var/docker-exports
-    state: directory
-    owner: "{{ admin_username }}"
-    group: "{{ admin_username }}"
-    mode: "u=rwx,g=rwx,o="
+- name: Template out Caddyfile
+  ansible.builtin.template:
+    src: Caddyfile
+    dest: /etc/simple_django/caddy/Caddyfile
+    owner: "root"
+    group: "root"
+    mode: "u=r,g=r,o="
 
 - name: Ensure app user is setup
   block:
@@ -63,6 +71,18 @@
         uid: 700
         create_home: false
 
+- name: Ensure caddy data directory is present
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "root"
+    group: "root"
+    mode: "u=rwx,g=rwx,o=rx"
+  loop:
+    - /var/caddy
+    - /var/caddy/data
+    - /var/caddy/config
+
 - name: Ensure data directory is present
   ansible.builtin.file:
     path: /var/simple_django
@@ -76,36 +96,3 @@
     src: compose.yml
     dest: /root/compose.yml
     mode: "u=r,g=r,o="
-
-- name: Ensure deployment systemd service is setup
-  block:
-    - name: Copy deployment path unit
-      ansible.builtin.copy:
-        src: deploy-app.path
-        dest: /etc/systemd/system/deploy-app.path
-        owner: root
-        group: root
-        mode: "u=r,g=r,o=r"
-
-    - name: Copy deployment service unit
-      ansible.builtin.copy:
-        src: deploy-app.service
-        dest: /etc/systemd/system/deploy-app.service
-        owner: root
-        group: root
-        mode: "u=r,g=r,o=r"
-
-    - name: Copy deployment service unit
-      ansible.builtin.copy:
-        src: deploy-app.py
-        dest: /usr/local/bin/deploy-app.py
-        owner: root
-        group: root
-        mode: "u=rx,g=rx,o="
-
-    - name: Ensure path unit is enabled and started
-      ansible.builtin.systemd_service:
-        name: deploy-app.path
-        state: started
-        daemon_reload: true
-        enabled: true
