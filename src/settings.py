@@ -72,10 +72,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # URLS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.2/ref/settings/#root-urlconf
-ROOT_URLCONF = "simple_django.urls"
+ROOT_URLCONF = "src.urls"
 
 # https://docs.djangoproject.com/en/3.2/ref/settings/#wsgi-application
-WSGI_APPLICATION = "simple_django.wsgi.application"
+WSGI_APPLICATION = "src.wsgi.application"
 
 # APPS
 # ------------------------------------------------------------------------------
@@ -207,7 +207,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
-    "simple_django.core.middleware.toaster_middleware",
+    "src.core.middleware.toaster_middleware",
 ]
 
 if DEBUG or TEST:
@@ -287,7 +287,7 @@ TEMPLATES = [
 THIRD_PARTY_CONTEXT_PROCESSORS = []
 
 OWN_CONTEXT_PROCESSORS = [
-    "simple_django.core.context_processors.site_data",
+    "src.core.context_processors.site_data",
 ]
 
 TEMPLATES[0]["OPTIONS"]["context_processors"] += (
@@ -435,7 +435,7 @@ MESSAGE_TAGS = {
 # Django Extensions
 
 SHELL_PLUS_IMPORTS = [
-    "from simple_django.accounts.tests import factories as accounts_factories",
+    "from src.accounts.tests import factories as accounts_factories",
 ]
 
 SHELL_PLUS_PRINT_SQL = True
