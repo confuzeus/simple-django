@@ -35,7 +35,7 @@ services:
       - "443:443"
     volumes:
       - type: bind
-        source: /etc/clarohq/caddy
+        source: /etc/simple_django/caddy
         target: /etc/caddy
       - type: bind
         source: /var/caddy/data
