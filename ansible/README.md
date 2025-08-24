@@ -49,13 +49,12 @@ Before you begin, ensure you have the following software installed on your local
 
 This playbook is organized into several roles, each responsible for a specific aspect of the server configuration.
 
-| Role          | Description                                                                                                                                                                                                                                                |
-| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `packages`    | Ensures all necessary system packages (like `ufw`, `fail2ban`, `msmtp`) are installed and that the system is fully up-to-date.                                                                                                                             |
-| `basics`      | Handles fundamental server setup, including setting the hostname, creating an admin user with sudo privileges, and configuring SSH key access. It also configures a daily systemd timer to email administrators about pending package updates.             |
-| `security`    | Hardens the server by configuring UFW (Uncomplicated Firewall) to block incoming traffic by default, setting up Fail2Ban to prevent SSH brute-force attacks, and applying a secure SSH configuration that disables root login and password authentication. |
-| `django`      | Deploys the Django application stack using Docker Compose. It sets up the required users, directories, and configuration files for the web, worker, Caddy, and Litestream services.                                                                        |
-| `maintenance` | Used for running ongoing maintenance tasks on the server.                                                                                                                                                                                                  |
+| Role       | Description                                                                                                                                                                                                                                                |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `packages` | Ensures all necessary system packages (like `ufw`, `fail2ban`, `msmtp`) are installed and that the system is fully up-to-date.                                                                                                                             |
+| `basics`   | Handles fundamental server setup, including setting the hostname, creating an admin user with sudo privileges, and configuring SSH key access. It also configures a daily systemd timer to email administrators about pending package updates.             |
+| `security` | Hardens the server by configuring UFW (Uncomplicated Firewall) to block incoming traffic by default, setting up Fail2Ban to prevent SSH brute-force attacks, and applying a secure SSH configuration that disables root login and password authentication. |
+| `django`   | Deploys the Django application stack using Docker Compose. It sets up the required users, directories, and configuration files for the web, worker, Caddy, and Litestream services.                                                                        |
 
 ## Usage
 
