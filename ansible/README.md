@@ -61,7 +61,7 @@ This playbook is organized into several roles, each responsible for a specific a
 A `justfile` is included to provide simple commands for running the playbook and performing common tasks.
 
 - **Run the full playbook:**
-  This will execute all roles except for `maintenance`.
+  This will execute all roles.
 
   ```sh
   just
