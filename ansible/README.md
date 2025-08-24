@@ -1,54 +1,103 @@
-# Ansible playbook
+# Ansible Playbook for Ubuntu Web Application Server
 
-This playbook will configure an Ubuntu 24.04 server for hosting this Django project.
+This project contains an Ansible playbook to automate the provisioning and configuration of a secure Ubuntu server designed to host a Django web application. It leverages a containerized approach with Docker and uses Caddy as a reverse proxy with automatic HTTPS.
 
-## Required ansible collections
+## Overview
 
-You need to install the following modules:
+The playbook is designed to be idempotent and modular. It automates everything from initial server hardening and package installation to the deployment of a full application stack. The goal is to create a repeatable, secure, and production-ready environment with minimal manual intervention.
 
-1. community.general
-2. community.crypto
-3. community.docker
+The core application stack deployed by this playbook includes:
 
-Install them with _ansible-galaxy_:
+- **Django Application**: Running in a Docker container via Gunicorn.
+- **Huey Worker**: A background task queue worker running in a separate container.
+- **Caddy**: A modern web server that acts as a reverse proxy and automatically provisions and renews SSL/TLS certificates.
+- **Litestream**: Provides real-time, continuous backups of the application's SQLite database to a Backblaze B2 bucket for disaster recovery.
 
-```shell
-ansible-galaxy collection install <collection-name>
-```
+## Getting Started
 
-Or by running `just collections`.
+### Prerequisites
 
-## User Guide
+Before you begin, ensure you have the following software installed on your local machine (from which you will run Ansible):
 
-1. Configure variables in _group_vars/all.yml_. See [this page](https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-encrypted-passwords-for-the-user-module) to learn how to
-   generate the password hash for the admin user.
+- Ansible
+- [Just](https://github.com/casey/just) - a command runner
 
-1. Open _roles/basics/files/admin_authorized_keys_. Add all the SSH public keys (one per line) that you will use to
-   login as the admin user on this box.
+### Setup Instructions
 
-1. Add environment variables for Django in _roles/django/files/appconfig.env_.
+1.  **Install Ansible Collections:**
+    This project requires several Ansible collections. You can install them using the provided `just` command:
 
-1. Open _roles/letsencrypt/files/certificates.sh_. Enter all the domain names for which you'd like to create SSL certificates.
+    ```sh
+    just collections
+    ```
 
-1. Create virtual hosts files for your domains in _roles/nginx/files/_. For example, create a file called _mydomain.com.conf_. Use the same format as the provided _example.com.conf_. Just replace _example.com_ wherever it appears.
+2.  **Configure Inventory:**
+    Edit the `hosts` file to include the hostname or IP address of the server you wish to provision.
 
-1. Open _roles/nginx/tasks/main.yml_. In the task _Copy virtual hosts_, edit the list below the _loop_ instruction.
-   Remove _example.com.conf_ and add all the virtual host files you created above.
+3.  **Configure Variables:**
+    All server-specific and sensitive variables are managed in `group_vars/all.yml`. This file is encrypted using Ansible Vault. To configure your variables:
 
-1. Create a file called _hosts_. Add the IP address(es) of the server(s) that will be configured.
-   You can also use hostnames as defined in your ssh config instead of IP addresses.
+    - Decrypt the file: `just decrypt`
+    - Edit `group_vars/all.yml` to set your hostname, admin user, SMTP credentials, Backblaze keys, etc.
+    - Re-encrypt the file: `just encrypt`
 
-1. Run the playbook by typing `just`.
+4.  **Provide Passwords:**
+    - **Vault Password:** Create a file named `.vault` in the project root and place your Ansible Vault password in it.
+    - **Sudo Password:** Create a file named `.become` in the project root and place the sudo password for the remote user in it.
 
-## Encryption
+## Ansible Roles
 
-If you run `just encrypt`, it will encrypt the variables file as well as the _appconfig.env_ so that you can safely
-commit them to your Git repository.
+This playbook is organized into several roles, each responsible for a specific aspect of the server configuration.
 
-First, you need to create a file called _.vault_ inside the _ansible_ directory. Put the password you want to use
-in this file on a single line. This file is ignored by Git. After that, run `just encrypt` to encrypt everything.
-Be sure to add and commit the changes to Git.
+| Role          | Description                                                                                                                                                                                                                                                |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `packages`    | Ensures all necessary system packages (like `ufw`, `fail2ban`, `msmtp`) are installed and that the system is fully up-to-date.                                                                                                                             |
+| `basics`      | Handles fundamental server setup, including setting the hostname, creating an admin user with sudo privileges, and configuring SSH key access. It also configures a daily systemd timer to email administrators about pending package updates.             |
+| `security`    | Hardens the server by configuring UFW (Uncomplicated Firewall) to block incoming traffic by default, setting up Fail2Ban to prevent SSH brute-force attacks, and applying a secure SSH configuration that disables root login and password authentication. |
+| `django`      | Deploys the Django application stack using Docker Compose. It sets up the required users, directories, and configuration files for the web, worker, Caddy, and Litestream services.                                                                        |
+| `maintenance` | Used for running ongoing maintenance tasks on the server.                                                                                                                                                                                                  |
 
-## Deployment
+## Usage
 
-The _django_ role contains an example deployment scenario. Modify it to fit your needs.
+A `justfile` is included to provide simple commands for running the playbook and performing common tasks.
+
+- **Run the full playbook:**
+  This will execute all roles except for `maintenance`.
+
+  ```sh
+  just
+  ```
+
+- **Run a specific part of the playbook:**
+  You can run a specific role by using its tag.
+
+  ```sh
+  # Run only the security role
+  just security
+
+  # Run only the Django application deployment
+  just django
+  ```
+
+- **Available Commands:**
+  - `just packages`: Update and install system packages.
+  - `just basics`: Apply basic server configuration.
+  - `just security`: Apply security hardening configurations.
+  - `just django`: Deploy or update the Django application stack.
+  - `just maintenance`: Run maintenance tasks.
+  - `just reboot`: Reboot the server.
+
+### Secrets Management
+
+Sensitive data like API keys and passwords should be stored in `group_vars/all.yml` and `roles/django/files/appconfig.env`. These files are encrypted using Ansible Vault.
+
+- **To encrypt the files after editing:**
+
+  ```sh
+  just encrypt
+  ```
+
+- **To decrypt the files for editing:**
+  ```sh
+  just decrypt
+  ```

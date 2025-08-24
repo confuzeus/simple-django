@@ -1,4 +1,0 @@
----
-- name: Execute certificates script
-  ansible.builtin.command:
-    cmd: /root/certificates.sh
