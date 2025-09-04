@@ -23,6 +23,7 @@ read email
 find . \
     -type f \
     -not -path '*/venv/*' \
+    -not -path '*/.venv/*' \
     -not -path '*/node_modules/*' \
     -not -path '*/__pycache__/*' \
     -not -path '*/fonts/*' \
