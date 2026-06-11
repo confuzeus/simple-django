@@ -3,6 +3,7 @@ admin_username: me
 admin_password_hash: $6$NSzHCfYrGXFWKPBO$oCS1qUrtimsTPnrSbLK4LzQPpWLfv/qvSsG7.PIpbiUi3ZlTQVb2sgL/AlVzy5Dy2O1RCpfTYYiuhMSHvK5/r.
 admin_user_groups:
   - sudo
+  - uncloud
 
 smtp_host: smtp.myhost.com
 smtp_port: 587
