@@ -22,28 +22,30 @@ Before you begin, ensure you have the following software installed on your local
 - Ansible
 - [Just](https://github.com/casey/just) - a command runner
 
+Be sure to also install [Uncloud](https://uncloud.run) and then initialize your server with `uc machine init root@<your-server-ip>`.
+
 ### Setup Instructions
 
-1.  **Install Ansible Collections:**
-    This project requires several Ansible collections. You can install them using the provided `just` command:
+1. **Install Ansible Collections:**
+   This project requires several Ansible collections. You can install them using the provided `just` command:
 
-    ```sh
-    just collections
-    ```
+   ```sh
+   just collections
+   ```
 
-2.  **Configure Inventory:**
-    Edit the `hosts` file to include the hostname or IP address of the server you wish to provision.
+2. **Configure Inventory:**
+   Edit the `hosts` file to include the hostname or IP address of the server you wish to provision.
 
-3.  **Configure Variables:**
-    All server-specific and sensitive variables are managed in `group_vars/all.yml`. This file is encrypted using Ansible Vault. To configure your variables:
+3. **Configure Variables:**
+   All server-specific and sensitive variables are managed in `group_vars/all.yml`. This file is encrypted using Ansible Vault. To configure your variables:
 
-    - Decrypt the file: `just decrypt`
-    - Edit `group_vars/all.yml` to set your hostname, admin user, SMTP credentials, Backblaze keys, etc.
-    - Re-encrypt the file: `just encrypt`
+   - Decrypt the file: `just decrypt`
+   - Edit `group_vars/all.yml` to set your hostname, admin user, SMTP credentials, Backblaze keys, etc.
+   - Re-encrypt the file: `just encrypt`
 
-4.  **Provide Passwords:**
-    - **Vault Password:** Create a file named `.vault` in the project root and place your Ansible Vault password in it.
-    - **Sudo Password:** Create a file named `.become` in the project root and place the sudo password for the remote user in it.
+4. **Provide Passwords:**
+   - **Vault Password:** Create a file named `.vault` in the project root and place your Ansible Vault password in it.
+   - **Sudo Password:** Create a file named `.become` in the project root and place the sudo password for the remote user in it.
 
 ## Ansible Roles
 
@@ -97,6 +99,7 @@ Sensitive data like API keys and passwords should be stored in `group_vars/all.y
   ```
 
 - **To decrypt the files for editing:**
+
   ```sh
   just decrypt
   ```
