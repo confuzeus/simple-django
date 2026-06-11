@@ -39,3 +39,11 @@
 
 @mailhog:
     docker run -p "127.0.0.1:1025:1025" -p "127.0.0.1:8025:8025" mailhog/mailhog
+
+@deploy:
+    pnpm run build
+    uc deploy \
+    --build-arg app_uid=700 \
+    --build-arg app_gid=700 \
+    --build-arg app_username=simple_django \
+    --build-arg app_groupname=simple_django

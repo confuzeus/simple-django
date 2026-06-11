@@ -1,0 +1,46 @@
+name: simple_django_app
+
+services:
+  web:
+    build: .
+    command: "./gunicorn-docker-cmd"
+    env_file: appconfig.prod.env
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /var/simple_django
+        target: /data
+    x-ports:
+      - "app.example.com:8000/https"
+    x-machines:
+      - "simple_django"
+    x-pre_deploy:
+      command: ./pre-deploy.sh
+
+  worker:
+    build: .
+    command: python manage.py run_huey
+    env_file: appconfig.prod.env
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /var/simple_django
+        target: /data
+    x-machines:
+      - "simple_django"
+
+  litestream:
+    image: litestream/litestream:latest
+    command: replicate
+    env_file: appconfig.prod.env
+    restart: unless-stopped
+    user: "700:700"
+    volumes:
+      - type: bind
+        source: /var/simple_django
+        target: /data
+      - type: bind
+        source: /etc/simple_django/litestream.yml
+        target: /etc/litestream.yml
+    x-machines:
+      - "simple_django"

@@ -50,6 +50,7 @@ COPY --from=build /app/venv/ /app/venv/
 COPY . /app
 
 RUN chmod +x /app/gunicorn-docker-cmd
+RUN chmod +x /app/pre-deploy.sh
 
 WORKDIR /app
 
