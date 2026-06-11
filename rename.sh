@@ -20,6 +20,10 @@ echo "What's your email?"
 
 read email
 
+echo "Project slug (Only text and underscore. Example: simple_django)
+
+read project_slug
+
 find . \
     -type f \
     -not -path '*/venv/*' \
@@ -35,4 +39,5 @@ find . \
     -exec sed -i "s/Josh Michael Karamuth/$name/g" {} \;\
     -exec sed -i "s/Simple Django/$project_name/g" {} \;\
     -exec sed -i "s/example.com/$domain_name/g" {} \;\
-    -exec sed -i "s/admin@$domain_name/$email/g" {} \;
+    -exec sed -i "s/admin@$domain_name/$email/g" {} \;\
+    -exec sed -i "s/simple_django/$project_slug/g" {} \;
