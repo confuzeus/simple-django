@@ -1,17 +1,10 @@
 # Ansible Playbook for Ubuntu Web Application Server
 
-This project contains an Ansible playbook to automate the provisioning and configuration of a secure Ubuntu server designed to host a Django web application. It leverages a containerized approach with Docker and uses Caddy as a reverse proxy with automatic HTTPS.
+This project contains an Ansible playbook to automate the provisioning and configuration of a secure Ubuntu server designed to host a Django web application. It leverages a containerized approach with Docker.
 
 ## Overview
 
 The playbook is designed to be idempotent and modular. It automates everything from initial server hardening and package installation to the deployment of a full application stack. The goal is to create a repeatable, secure, and production-ready environment with minimal manual intervention.
-
-The core application stack deployed by this playbook includes:
-
-- **Django Application**: Running in a Docker container via Gunicorn.
-- **Huey Worker**: A background task queue worker running in a separate container.
-- **Caddy**: A modern web server that acts as a reverse proxy and automatically provisions and renews SSL/TLS certificates.
-- **Litestream**: Provides real-time, continuous backups of the application's SQLite database to a Backblaze B2 bucket for disaster recovery.
 
 ## Getting Started
 
@@ -56,7 +49,7 @@ This playbook is organized into several roles, each responsible for a specific a
 | `packages` | Ensures all necessary system packages (like `ufw`, `fail2ban`, `msmtp`) are installed and that the system is fully up-to-date.                                                                                                                             |
 | `basics`   | Handles fundamental server setup, including setting the hostname, creating an admin user with sudo privileges, and configuring SSH key access. It also configures a daily systemd timer to email administrators about pending package updates.             |
 | `security` | Hardens the server by configuring UFW (Uncomplicated Firewall) to block incoming traffic by default, setting up Fail2Ban to prevent SSH brute-force attacks, and applying a secure SSH configuration that disables root login and password authentication. |
-| `django`   | Deploys the Django application stack using Docker Compose. It sets up the required users, directories, and configuration files for the web, worker, Caddy, and Litestream services.                                                                        |
+| `django`   | Deploys the Django application stack using Docker Compose. It sets up the required users, directories, and configuration files.                                                                                                                            |
 
 ## Usage
 
@@ -85,8 +78,6 @@ A `justfile` is included to provide simple commands for running the playbook and
   - `just basics`: Apply basic server configuration.
   - `just security`: Apply security hardening configurations.
   - `just django`: Deploy or update the Django application stack.
-  - `just maintenance`: Run maintenance tasks.
-  - `just reboot`: Reboot the server.
 
 ### Secrets Management
 

@@ -18,3 +18,6 @@ firewall_open_ports:
   - 443
 
 app_domain_name: app.example.com
+
+backblaze_key_id: abcd
+backblaze_app_key: efgh

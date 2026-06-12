@@ -1,27 +1,4 @@
 ---
-- name: Ensure docker is setup
-  block:
-    - name: Setup docker apt key
-      ansible.builtin.apt_key:
-        url: "https://download.docker.com/linux/ubuntu/gpg"
-        keyring: /etc/apt/trusted.gpg.d/docker.gpg
-        state: present
-
-    - name: Setup docker repository
-      ansible.builtin.apt_repository:
-        repo: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
-
-    - name: Ensure docker packages are present
-      ansible.builtin.apt:
-        name:
-          - docker-ce
-          - docker-ce-cli
-          - containerd.io
-          - docker-buildx-plugin
-          - docker-compose-plugin
-        state: present
-        update_cache: true
-
 - name: Ensure config directory exists
   ansible.builtin.file:
     path: /etc/simple_django
@@ -29,30 +6,6 @@
     owner: "{{ admin_username }}"
     group: "{{ admin_username }}"
     mode: "u=rwx,g=rwx,o=rx"
-
-- name: Ensure caddy config directory exists
-  ansible.builtin.file:
-    path: /etc/simple_django/caddy
-    state: directory
-    owner: "root"
-    group: "root"
-    mode: "u=rwx,g=rwx,o=rx"
-
-- name: Copy appconfig
-  ansible.builtin.copy:
-    src: appconfig.env
-    dest: /etc/simple_django/appconfig.env
-    owner: "{{ admin_username }}"
-    group: "{{ admin_username }}"
-    mode: "u=rw,g=rw,o=r"
-
-- name: Template out Caddyfile
-  ansible.builtin.template:
-    src: Caddyfile
-    dest: /etc/simple_django/caddy/Caddyfile
-    owner: "root"
-    group: "root"
-    mode: "u=r,g=r,o="
 
 - name: Ensure app user is setup
   block:
@@ -71,18 +24,6 @@
         uid: 700
         create_home: false
 
-- name: Ensure caddy data directory is present
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: directory
-    owner: "root"
-    group: "root"
-    mode: "u=rwx,g=rwx,o=rx"
-  loop:
-    - /var/caddy
-    - /var/caddy/data
-    - /var/caddy/config
-
 - name: Ensure data directory is present
   ansible.builtin.file:
     path: /var/simple_django
@@ -91,8 +32,16 @@
     state: directory
     mode: "u=rwx,g=rwx,o="
 
-- name: Copy docker-compose
+- name: Template out litestream config
+  ansible.builtin.template:
+    src: litestream.yml.j2
+    dest: /etc/clarohq/litestream.yml
+    owner: clarohq
+    group: clarohq
+    mode: "u=r,g=r,o=r"
+
+- name: Copy db restore script
   ansible.builtin.copy:
-    src: compose.yml
-    dest: /root/compose.yml
-    mode: "u=r,g=r,o="
+    src: restore-db.sh
+    dest: /root/restore-db.sh
+    mode: "u=rx,g=,o="

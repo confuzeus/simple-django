@@ -1,3 +1,0 @@
-{{ app_domain_name }}
-
-reverse_proxy web:8000
