@@ -30,10 +30,10 @@
         owner: "{{ admin_username }}"
         group: "{{ admin_username }}"
 
-- name: Copy sudoers file
-  ansible.builtin.copy:
-    src: sudoers
-    dest: /etc/sudoers.d/custom
+- name: Template sudoers file
+  ansible.builtin.template:
+    src: admin_sudoer
+    dest: /etc/sudoers.d/admin
     owner: root
     mode: "u=r,g=r,o=r"
 
