@@ -9,5 +9,5 @@
       tags: basics
     - role: security
       tags: security
-    - role: letsencrypt
-      tags: letsencrypt
+    - role: django
+      tags: django

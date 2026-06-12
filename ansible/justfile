@@ -3,28 +3,30 @@ export ANSIBLE_INVENTORY := "hosts"
 export ANSIBLE_BECOME_PASSWORD_FILE := ".become"
 
 @default:
-  ansible-playbook playbook.yml
+    ansible-playbook playbook.yml
 
 @packages:
-  ansible-playbook playbook.yml --tags packages
+    ansible-playbook playbook.yml --tags packages
 
 @basics:
-  ansible-playbook playbook.yml --tags basics
+    ansible-playbook playbook.yml --tags basics
 
 @security:
-  ansible-playbook playbook.yml --tags security
+    ansible-playbook playbook.yml --tags security
+
+@django:
+    ansible-playbook playbook.yml --tags django
 
 @collections:
-  ansible-galaxy collection install \
-  community.general \
-  community.crypto \
-  community.docker
+    ansible-galaxy collection install \
+    community.general \
+    community.crypto \
+    community.docker
 
 @encrypt:
-  ansible-vault encrypt group_vars/all.yml
-  ansible-vault encrypt roles/django/files/appconfig.env
+    ansible-vault encrypt group_vars/all.yml
+    ansible-vault encrypt roles/django/files/appconfig.env
 
 @decrypt:
-  ansible-vault decrypt roles/django/files/appconfig.env
-  ansible-vault decrypt roles/django/files/appconfig.env
-
+    ansible-vault decrypt roles/django/files/appconfig.env
+    ansible-vault decrypt roles/django/files/appconfig.env
