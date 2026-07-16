@@ -54,6 +54,8 @@ Your project is now ready for you to ship features.
 
 ### Deployment
 
+You can use the provided Ansible playbook to provision your server.
+
 Deployment is handled by [Uncloud](https://uncloud.run). Run the `just deploy` command to deploy your project.
 
 Your server must have been initialized by Uncloud already.
