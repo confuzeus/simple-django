@@ -22,11 +22,11 @@ DEBUG = env.bool("DJANGO_DEBUG", False)
 
 TEST = env.bool("DJANGO_TEST", False)
 
-PROJECT_NAME = "Simple Django"
+PROJECT_NAME = env.str("DJANGO_PROJECT_NAME", "Simple Django")
 
 DOMAIN_NAME = env.str("DJANGO_DOMAIN_NAME", "example.com")
 
-PORT_NUMBER = env.int("DJANGO_SITE_PORT_NUMBER")
+PORT_NUMBER = env.int("DJANGO_SITE_PORT_NUMBER", 8000)
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -347,12 +347,12 @@ if not DEBUG:
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.2/ref/settings/#email-backend
 DEFAULT_FROM_EMAIL = env.str(
-    "DJANGO_DEFAULT_FROM_EMAIL", "Simple Django <admin@example.com>"
+    "DJANGO_DEFAULT_FROM_EMAIL", f"{PROJECT_NAME} <admin@example.com>"
 )
 
 SERVER_EMAIL = env.str("DJANGO_SERVER_EMAIL", DEFAULT_FROM_EMAIL)
 
-EMAIL_SUBJECT_PREFIX = env.str("DJANGO_EMAIL_SUBJECT_PREFIX", "[Simple Django]")
+EMAIL_SUBJECT_PREFIX = env.str("DJANGO_EMAIL_SUBJECT_PREFIX", f"[{PROJECT_NAME}]")
 
 if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -381,7 +381,7 @@ EMAIL_TIMEOUT = 5
 ADMIN_URL = env.str("DJANGO_ADMIN_URL")
 
 # https://docs.djangoproject.com/en/3.2/ref/settings/#admins
-ADMINS = [("""Josh Karamuth""", "admin@example.com")]
+ADMINS = [(env.str("DJANGO_ADMIN_NAME", "Admin"), env.str("DJANGO_ADMIN_EMAIL", "admin@example.com"))]
 # https://docs.djangoproject.com/en/3.2/ref/settings/#managers
 MANAGERS = ADMINS
 

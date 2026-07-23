@@ -6,8 +6,3 @@ class CoreConfig(AppConfig):
     name = "src.core"
     verbose_name = _("Core")
 
-    def ready(self):
-        try:
-            from .signals import accounts  # noqa F401
-        except ImportError:
-            pass

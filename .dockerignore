@@ -1,6 +1,6 @@
 *
 !static
-!simple_django
+!src
 !templates
 !manage.py
 !pyproject.toml
